@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import TextSection from '../../../component/TextSection/TextSection';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import logo from '../../../img/logo.jpg';
+import { ServerApi } from '../../../ServerApi';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const boxStyle = {
@@ -21,7 +23,7 @@ const Login = () => {
         backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`
     }
 
-     const menuBarStyle = {
+    const menuBarStyle = {
         // padding: '0rem 3rem',
         height: '6rem',
         color: '#2b2b2b',
@@ -64,14 +66,31 @@ const Login = () => {
         }]
 
 
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
-    const [errMsg, setErrMsg] = useState()
+    const [userDetail, setUserDetail] = useState({
+        username: "",
+        password: ""
+    });
+
+    const navigation = useNavigate();
+    const [errMsg, setErrMsg] = useState();
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    const handleLogin = () => {
+        ServerApi(`/auth/login`, 'POST', null, userDetail)
+            .then(res => res.json())
+            .then(res => {
+                if (res.access_token) {
+                    sessionStorage.setItem("loginInfo", JSON.stringify(res));
+                    navigation('/dashboard')
+                }
+                else setErrMsg(res.message)
+            })
+    }
+
     return (
         <div style={boxStyle}>
             <Container>
@@ -119,7 +138,9 @@ const Login = () => {
                             variant="outlined"
                             color="success"
                             type="text"
-                            onChange={(e) => setUserName(e.target.value)}
+                            onChange={(e) => setUserDetail((prev) => ({
+                                ...prev, username: e.target.value
+                            }))}
                             placeholder="Enter your username"
                             slotProps={{
                                 input: {
@@ -141,7 +162,9 @@ const Login = () => {
                             type={showPassword ? 'text' : 'password'}
                             fullWidth
                             color="success"
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => setUserDetail((prev) => ({
+                                ...prev, password: e.target.value
+                            }))}
                             placeholder="Enter your password"
 
                             endAdornment={
@@ -164,7 +187,7 @@ const Login = () => {
                         justifyContent: "flex-end",
                         alignItems: "center"
                     }}>
-                        <Button variant='none' style={btnStyle}>Login</Button>
+                        <Button variant='none' style={btnStyle} onClick={(e) => handleLogin()}>Login</Button>
                     </Container>
                 </Grid>
 

@@ -8,29 +8,37 @@ import { ListItemIcon, ListItemText } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const options = [
-    {
-        title: 'Profile',
-        icon: <AccountCircleIcon color='info'/>,     
-        url: '',
-    },
-    {
-        title: 'Logout',  
-        icon: <LogoutIcon />,
-        url: '/great-wall',
-    }
-];
-
 const BtnProfile = () => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const options = [
+        {  
+            title: 'Profile',
+            fun: () => {
+                setAnchorEl(null);
+                navigate(`/profile`);
+            },
+            icon: <AccountCircleIcon color='info' />,
+            // url: '/profile',
+        },
+        {
+            title: 'Logout',
+            icon: <LogoutIcon />,
+            fun: () => {
+                setAnchorEl(null);
+                sessionStorage.removeItem('loginInfo');
+                navigate(`/great-wall`);
+            },
+            // url: '/great-wall',
+        }
+    ];
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = (option) => {
         setAnchorEl(null);
-        navigate(option.url)
     };
 
     return (
@@ -50,10 +58,9 @@ const BtnProfile = () => {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-
             >
-                {options.map((option) => (
-                    <MenuItem key={option} onClick={(e) => handleClose(option)}>
+                {options.map((option,index) => (
+                    <MenuItem key={index} onClick={(e) => option.fun()}>
                         <ListItemIcon>
                             {option.icon}
                         </ListItemIcon>
