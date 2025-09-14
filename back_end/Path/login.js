@@ -9,7 +9,7 @@ const user = {
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    console.log(req.body)
+    // console.log(req.body)
 
     if (user.userCode === username && user.passCode === password) {
         const token = jwt.sign({

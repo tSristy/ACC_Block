@@ -3,7 +3,7 @@ const mySql = require("mysql2");
 const config =  mySql.createConnection({
         user: "root",
         password: "",
-        database: "great_wall_blocks",
+        database: "aac_block_greatwall",
         multipleStatements: true,
     })
     

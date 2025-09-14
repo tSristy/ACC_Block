@@ -12,7 +12,7 @@ const authCheck = (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: 'Invalid User' });
         }
-        console.log(details) 
+        req.code = details.code; 
         next(); 
     });
 

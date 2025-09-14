@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import TextSection from '../../../component/TextSection/TextSection';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import logo from '../../../img/logo.jpg';
-import { ServerApi } from '../../../ServerApi';
+import { ServerApi } from '../../../Route/ServerApi';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {

@@ -21,6 +21,11 @@ config.connect((err) => {
 });
 
 const loginRouter = require('./Path/login');
+const authCheck = require('./Service/authCheck');
 app.use("/auth",loginRouter);
+
+app.get("/auth-check",authCheck,(req,res)=>{
+  res.status(200).json({auth:true});
+})
 
 app.listen(2000)
