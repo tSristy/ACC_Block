@@ -7,7 +7,6 @@ import { CircularProgress, Box } from '@mui/material';
 const ProtectedRoute = ({ children }) => {
     const { auth, loading } = useContext(AuthContext);
     const navigate = useNavigate();
-
     useEffect(() => {
         if (!loading && !auth) {
             navigate('/great-wall');

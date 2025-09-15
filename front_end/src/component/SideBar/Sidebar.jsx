@@ -12,10 +12,11 @@ import {
 } from "@mui/material";
 import { Menu as MenuIcon, Home, Info, ShoppingCart, Article } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
-import logo from '../../img/logo.jpg';
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -24,16 +25,16 @@ const Sidebar = () => {
     };
 
     const menuItems = [
-        { text: "Dashboard", icon: <Home sx={{ color: 'white' }} fontSize="small" /> },
-        { text: "Banners & Sliders", icon: <ShoppingCart sx={{ color: 'white' }} fontSize="small" /> },
-        { text: "Page Settings", icon: <Info sx={{ color: 'white' }} fontSize="small" /> },
-        { text: "Blogs & Articles", icon: <Article sx={{ color: 'white' }} fontSize="small" /> },
+        { text: "Dashboard", url: '/dashboard', icon: <Home sx={{ color: 'white' }} fontSize="small" /> },
+        { text: "Banners & Sliders", url: '/banners-slides', icon: <ShoppingCart sx={{ color: 'white' }} fontSize="small" /> },
+        { text: "Page Settings", url: '/pages-settings', icon: <Info sx={{ color: 'white' }} fontSize="small" /> },
+        { text: "Blogs & Articles", url: '/blogs-articles', icon: <Article sx={{ color: 'white' }} fontSize="small" /> },
     ];
 
     const drawer = (
         <List>
             {menuItems.map((item) => (
-                <ListItem sx={{ py: 1, px: 2 }} button key={item.text}>
+                <ListItem sx={{ py: 1, px: 2, width: '230px' }} button="true" key={item.text} onClick={(e)=>{navigate(item.url)}}>
                     <ListItemIcon>
                         <Avatar sx={{ bgcolor: '#0000003f' }}>
                             {item.icon}
@@ -41,7 +42,7 @@ const Sidebar = () => {
                     </ListItemIcon>
                     <ListItemText primary={item.text} slotProps={{
                         primary: {
-                            fontSize: '.75rem', 
+                            fontSize: '.75rem',
                             color: 'white',
                             textTransform: 'uppercase'
                         }
@@ -61,7 +62,7 @@ const Sidebar = () => {
                         aria-label="menu"
                         onClick={toggleDrawer}
                     >
-                        <MenuIcon sx={{ color: 'white'}}/>
+                        <MenuIcon sx={{ color: 'white' }} />
                     </IconButton>
                 </Box>
             )}

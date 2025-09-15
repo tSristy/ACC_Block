@@ -5,21 +5,20 @@ import Sidebar from "../../component/SideBar/Sidebar";
 
 const AdminLayout = () => {
     return (
-        <div style={{
+        <Stack direction="row" sx={{
             height: '100vh',
-            backgroundColor: '#ffffffff'
+            backgroundColor: '#ffffffff',
+            overflow: 'clip'
         }}>
-             <Stack direction="row">
-            <Sidebar/>
-            <Stack direction="column" sx={{ flexGrow: 1, overflow: "auto" }}>
+            <Sidebar />
+            <Stack direction="column" sx={{ flexGrow: 1, overflow: "hidden" }}>
                 <AdminHeader />
-                <Stack sx={{ flexGrow: 1, p: 5 }}>
+                <Stack sx={{ flexGrow: 1, p: 5, height: '89vh', overflow: "auto" }}>
                     <Outlet />
                 </Stack>
                 {/* <Footer /> */}
             </Stack>
         </Stack>
-        </div>
     );
 };
 

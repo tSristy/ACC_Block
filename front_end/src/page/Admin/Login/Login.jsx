@@ -1,11 +1,12 @@
 import { AccountCircle, Visibility, VisibilityOff } from '@mui/icons-material';
 import { Button, Container, Grid, IconButton, InputAdornment, OutlinedInput, Stack, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TextSection from '../../../component/TextSection/TextSection';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import logo from '../../../img/logo.jpg';
 import { ServerApi } from '../../../Route/ServerApi';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../Route/AuthContext';
 
 const Login = () => {
     const boxStyle = {
@@ -72,6 +73,7 @@ const Login = () => {
     });
 
     const navigation = useNavigate();
+    const { loginFun } = useContext(AuthContext)
     const [errMsg, setErrMsg] = useState();
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -84,7 +86,7 @@ const Login = () => {
             .then(res => res.json())
             .then(res => {
                 if (res.access_token) {
-                    sessionStorage.setItem("loginInfo", JSON.stringify(res));
+                   loginFun(res)
                     navigation('/dashboard')
                 }
                 else setErrMsg(res.message)

@@ -17,6 +17,7 @@ import AdminLayout from '../page/Layout/AdminLayout';
 import { ServerApi } from './ServerApi';
 import { useEffect, useState } from 'react';
 import ProtectedRoute from './ProtectedRoute';
+import ImgSettings from '../page/Admin/ImgSettings/ImgSettings';
 
 const RouterConfig = () => {
   return (
@@ -34,6 +35,22 @@ const RouterConfig = () => {
 
       <Route element={<AdminLayout />}>
         <Route path='/dashboard' element={
+          <ProtectedRoute>
+            <DashBoard />
+          </ProtectedRoute>
+        } />
+        <Route path='/banners-slides' element={
+          <ProtectedRoute>
+            <ImgSettings />
+          </ProtectedRoute>
+        } />
+
+        <Route path='/pages-settings' element={
+          <ProtectedRoute>
+            <DashBoard />
+          </ProtectedRoute>
+        } />
+        <Route path='/blogs-articles' element={
           <ProtectedRoute>
             <DashBoard />
           </ProtectedRoute>
