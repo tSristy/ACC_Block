@@ -18,8 +18,8 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 const Content = () => {
-    
-        const { user } = useContext(AuthContext);
+
+    const { user } = useContext(AuthContext);
     const contentList = [
         { id: 1, label: 'Projects', code: '1010' },
         { id: 2, label: 'News & Articles', code: '1020' },
@@ -37,21 +37,27 @@ const Content = () => {
     })
 
 
-    const [file, setFile] = useState([]);
-    const [previews, setPreviews] = useState([]);
+    const [file, setFile] = useState();
+    const [previews, setPreviews] = useState();
     const [displayMsg, setDisplayMsg] = useState({
         open: false,
         msg: null
     });
 
-   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFile(file);
-      setPreviews(URL.createObjectURL(file));
-    }
-  };
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFile(file);
+            setPreviews(URL.createObjectURL(file));
+        }
+    };
 
+    const handleValueChange = (e) => {
+        setDataInfo(prev=>({
+            ...prev,
+            [e.target.name]: e.target.value
+        }))
+    }
 
     const handleUpload = async () => {
         if (file.length === 0)
@@ -61,17 +67,14 @@ const Content = () => {
             });
 
         const formData = new FormData();
-        file.forEach((file, index) => {
-            formData.append('page_name', dataInfo.page_name);
-            formData.append('content_name', dataInfo.content_type);
-            formData.append('position', 1);
-            formData.append('images', file);
-            formData.append('title', dataInfo.title);
-            formData.append('initial_text', dataInfo.initial_text);
-            formData.append('detail_text', dataInfo.detail_text);
-            formData.append('redirect_url', dataInfo.redirect_url);
-        });
-
+        formData.append('page_name', dataInfo.page_name);
+        formData.append('content_type', dataInfo.content_type);
+        formData.append('position', 1);
+        formData.append('images', file);
+        formData.append('title', dataInfo.title);
+        formData.append('initial_text', dataInfo.initial_text);
+        formData.append('detail_text', dataInfo.detail_text);
+        formData.append('redirect_url', dataInfo.redirect_url);
 
         ServerApi(`/img/content-upload`, 'POST', user.access_token, formData, true)
             .then(res => res.json())
@@ -82,11 +85,15 @@ const Content = () => {
 
     return (
         <Grid container spacing={2}>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 5 }}>
                 <Box>
                     <h6>Create New Slider</h6>
-
-
+                    {
+                        displayMsg.open ?
+                            <Alert severity="warning">
+                                {displayMsg.msg}
+                            </Alert> : null
+                    }
                     <Container sx={{ p: 2 }}>
                         <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Content Type</InputLabel>
 
@@ -99,31 +106,47 @@ const Content = () => {
                                     return { ...previousState, content_type: value?.label }
                                 })
                             }}
-                            renderInput={(params) => <TextField color='success' {...params} placeholder='search content type' />}
+                            renderInput={(params) => <TextField color='success' {...params} placeholder='Search content type' />}
                         />
 
+                        <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Content writing</InputLabel>
 
+                        <TextField sx={{ pb: 2 }} color='success' size='small'
+                            fullWidth label="Content Title" name="title"
+                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Name' />
 
-                        <TextField multiline color='success' sx={{ pb: 2 }} fullWidth size="small" onChange={(e) => {
+                        <TextField sx={{ pb: 2 }} color='success' size='small'
+                            fullWidth label="Highlights" multiline rows={3} name="initial_text"
+                            variant="outlined" onChange={(e) => handleValueChange(e)}  placeholder='Highlight of the content' />
 
-                        }} placeholder='Describe your thoughts' />
+                        <TextField sx={{ pb: 2 }} color='success' name="detail_text"
+                            multiline fullWidth label="Description" size='small'
+                            rows={6}
+                            variant="outlined" onChange={(e) => handleValueChange(e)}  placeholder='Describe your thoughts' />
 
-                        {previews && (
-                            <img
-                                src={previews}
-                                alt={`preview`}
-                                width="200"
-                                height="200"
-                                style={{ border: '1px solid #ccc', borderRadius: '4px', objectFit: "cover" }}
-                            />
-                        )}
-                        <Stack>
+<TextField sx={{ pb: 2 }} color='success' size='small' name="redirect_url"	
+                            fullWidth label="Re-direct URL"
+                            variant="outlined" onChange={(e) => handleValueChange(e)}  placeholder='Provide official urls like news' />
+
+                        <Stack sx={{
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            {previews && (
+                                <img
+                                    src={previews}
+                                    alt={`preview`}
+                                    width="345px"
+                                    height={dataInfo.content_type === "Projects" ? "200px" : "240px"}
+                                    style={{ border: '1px solid #ccc', borderRadius: '4px', objectFit: "cover" }}
+                                />
+                            )}
                             <Button color='success' variant="outlined"
                                 component="label"
                                 role={undefined}
                                 tabIndex={-1}
                                 startIcon={<CloudUploadIcon />}
-                                sx={{ mb: 2 }}
+                                sx={{ my: 2, width: '100%' }}
                             >
                                 Choose Images
                                 <VisuallyHiddenInput
@@ -132,17 +155,27 @@ const Content = () => {
                                 />
                             </Button>
                             <Button onClick={handleUpload} color='success' variant='contained'
-                                sx={{ mb: 2 }}>Upload</Button>
+                                sx={{ mb: 2, width: '100%' }}>Upload</Button>
                         </Stack>
                     </Container>
                 </Box>
             </Grid>
 
-            <Grid size={{ xs: 12, md: 6 }}>
-                <Box>
+            <Grid size={{ xs: 12, md: 7 }}>
+                <Container>
                     <h6>Media</h6>
+                    <Box sx={{
+                        p: 2,
+                        display: 'flex',
+                        overflowX: 'auto',
+                        whiteSpace: 'nowrap',
+                        width: '100%',
+                        height: '200px',
+                        border: '2px dashed #e2e1e1ff'
+                    }}>
 
-                </Box>
+                    </Box>
+                </Container>
             </Grid>
         </Grid>
     );
