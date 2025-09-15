@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./Service/config');
-
+const path = require('path');
 
 //using dependancy 
 const app = express()
@@ -33,6 +33,6 @@ const imgsRouter = require('./Path/imgSettings');
 app.use('/img',authCheck, imgsRouter);
 
 // Serve uploaded images (optional)
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/Images', express.static(path.join(__dirname, 'Images')));
 
 app.listen(2000)

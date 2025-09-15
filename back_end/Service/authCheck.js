@@ -1,4 +1,4 @@
-const config = require('./config');
+
 const jwt = require('jsonwebtoken');
 
 const authCheck = (req, res, next) => {

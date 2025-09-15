@@ -18,6 +18,7 @@ import { ServerApi } from './ServerApi';
 import { useEffect, useState } from 'react';
 import ProtectedRoute from './ProtectedRoute';
 import ImgSettings from '../page/Admin/ImgSettings/ImgSettings';
+import Content from '../page/Admin/Content/Content';
 
 const RouterConfig = () => {
   return (
@@ -52,7 +53,7 @@ const RouterConfig = () => {
         } />
         <Route path='/blogs-articles' element={
           <ProtectedRoute>
-            <DashBoard />
+            <Content />
           </ProtectedRoute>
         } />
       </Route>

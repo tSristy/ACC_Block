@@ -1,5 +1,5 @@
-import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Dialog, DialogTitle, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Stack, styled, TextField, Typography } from '@mui/material';
-import { useContext, useState } from 'react';
+import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Stack, styled, TextField, Typography } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { ServerApi } from '../../../Route/ServerApi';
 import { AuthContext } from '../../../Route/AuthContext';
@@ -40,7 +40,7 @@ const ImgSettings = () => {
         msg: null
     });
     const [imgData, setImgData] = useState({
-        title: "Slide",
+        type: "Slide",
         pageCode: "",
         position: "",
     })
@@ -70,16 +70,16 @@ const ImgSettings = () => {
         })
     };
 
-   const handlePosition = (e, index) => {
-  const positionNum = parseInt(e.target.value); // Convert from 1-based
+    const handlePosition = (e, index) => {
+        const positionNum = parseInt(e.target.value); // Convert from 1-based
 
-   const tempArr = file.slice(0,file.length);
+        const tempArr = file.slice(0, file.length);
         const tempVar = tempArr.slice(index, 1)[0];
 
         tempArr.splice(positionNum, 0, tempVar);
-        
-  setNewArr(tempArr); // update state
-};
+
+        setNewArr(tempArr); // update state
+    };
 
 
     const handleUpload = async () => {
@@ -91,8 +91,8 @@ const ImgSettings = () => {
 
         const formData = new FormData();
         file.forEach((file, index) => {
-            formData.append('title', imgData.title);
-            formData.append('pageCode', imgData.pageCode);
+            formData.append('type', imgData.type);
+            formData.append('pageName', imgData.label);
             formData.append('position', index + 1)
             formData.append('images', file);
         });
@@ -101,28 +101,35 @@ const ImgSettings = () => {
         ServerApi(`/img/upload`, 'POST', user.access_token, formData, true)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                setImgLists(res)
             })
     }
 
 
     const [imgLists, setImgLists] = useState([{
-        id: 1, img: ''
+        id: 1, img_url: '', img_name: ""
     }])
+
+    useEffect(() => {
+        ServerApi(`/img/lists`, 'GET', user.access_token)
+            .then(res => res.json())
+            .then(res => {
+                setImgLists(res.data)
+            })
+    })
 
 
     return (
         <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 6 }}>
-                {
-                    displayMsg.open ?
-                        <Alert severity="warning">
-                            {displayMsg.msg}
-                        </Alert> : null
-                }
-                <Button onClick={handleFileChange}>d</Button>
                 <Box>
                     <h6>Create New Slider</h6>
+                    {
+                        displayMsg.open ?
+                            <Alert severity="warning">
+                                {displayMsg.msg}
+                            </Alert> : null
+                    }
 
                     <Container sx={{ p: 2 }}>
                         <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Page Name</InputLabel>
@@ -134,7 +141,7 @@ const ImgSettings = () => {
                             getOptionLabel={(option) => option.label || null}
                             onChange={(e, value) => {
                                 setImgData(previousState => {
-                                    return { ...previousState, pageCode: value?.code }
+                                    return { ...previousState, pageCode: value?.label }
                                 })
                             }}
                             renderInput={(params) => <TextField color='success' {...params} placeholder='search page' />}
@@ -155,7 +162,7 @@ const ImgSettings = () => {
                         <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Image Number</InputLabel>
 
 
-                        <TextField disabled={imgData.title === 'Slide' ? false : true} color='success' sx={{ pb: 2 }} fullWidth size="small" value={imgNum} onChange={(e) => {
+                        <TextField disabled={imgData.type === 'Slide' ? false : true} color='success' sx={{ pb: 2 }} fullWidth size="small" value={imgNum} onChange={(e) => {
                             if (e.target.value < 6) {
                                 setImgNum(e.target.value)
                             } else setDisplayMsg({
@@ -174,52 +181,54 @@ const ImgSettings = () => {
                                         key={index}
                                         src={src}
                                         alt={`preview-${index}`}
-                                        width={imgData.title === "Banner" ? "100%" : "150"}
+                                        width={imgData.type === "Banner" ? "100%" : "150"}
                                         height="150"
                                         style={{ border: '1px solid #ccc', borderRadius: '4px', objectFit: "cover" }}
                                     />
                                 ))}
 
                                 {modalOpen && (
-                                    <Modal open={modalOpen} onClose={(e)=>setModalOpen(false)} >
-                                     <Box
-    sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      bgcolor: 'background.paper',
-      p: 4,
-      maxHeight: '80vh',
-      overflowY: 'auto',
-    }}
-  >
-                                        {
-                                            newArr.map((photo, index) => (
-                                                <Card sx={{ display: 'flex' }} key={index}>
-                                                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                                        <CardContent sx={{ flex: '1 0 auto' }}>
-                                                            <Typography component="div" sx={{ fontSize: '18px' }}>
-                                                                Change Image Position
-                                                            </Typography>
-                                                            <TextField id="standard-basic" type="number"
-                                                                slotProps={{ htmlInput: { min: 1, max: file.length } }} value={index} variant="standard" onChange={(e) => handlePosition(e, index)} />
-                                                        </CardContent>
-                                                        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                                                            <IconButton aria-label="delete">
-                                                                <DeleteIcon />
-                                                            </IconButton>
+                                    <Modal open={modalOpen} onClose={(e) => setModalOpen(false)} >
+                                        <Box
+                                            sx={{
+                                                position: 'absolute',
+                                                top: '50%',
+                                                left: '50%',
+                                                transform: 'translate(-50%, -50%)',
+                                                bgcolor: 'background.paper',
+                                                p: 4,
+                                                maxHeight: '80vh',
+                                                overflowY: 'auto',
+                                            }}
+                                        >
+                                            {
+                                                newArr.map((photo, index) => (
+                                                    <Card sx={{ display: 'flex' }} key={index}>
+                                                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <CardContent sx={{ flex: '1 0 auto' }}>
+                                                                <Typography component="div" sx={{ fontSize: '18px' }}>
+                                                                    Change Image Position
+                                                                </Typography>
+                                                                <TextField id="standard-basic" type="number"
+                                                                    slotProps={{ htmlInput: { min: 1, max: file.length } }} value={index} variant="standard" onChange={(e) => handlePosition(e, index)} />
+                                                            </CardContent>
+                                                            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+                                                                <IconButton aria-label="delete">
+                                                                    <DeleteIcon />
+                                                                </IconButton>
+                                                            </Box>
                                                         </Box>
-                                                    </Box>
-                                                    <CardMedia
-                                                        component="img"
-                                                        sx={{ height:151,width: 151, 
-                                                            objectFit: 'cover', p: 2 }}
-                                                        image={previews[index]}
-                                                    />
-                                                </Card>
-                                            ))
-                                        }
+                                                        <CardMedia
+                                                            component="img"
+                                                            sx={{
+                                                                height: 151, width: 151,
+                                                                objectFit: 'cover', p: 2
+                                                            }}
+                                                            image={previews[index]}
+                                                        />
+                                                    </Card>
+                                                ))
+                                            }
                                         </Box>
                                     </Modal>
                                 )}
@@ -231,6 +240,7 @@ const ImgSettings = () => {
                                 role={undefined}
                                 tabIndex={-1}
                                 startIcon={<CloudUploadIcon />}
+                                sx={{ mb: 2 }}
                             >
                                 Choose Images
                                 <VisuallyHiddenInput
@@ -238,25 +248,29 @@ const ImgSettings = () => {
                                     multiple accept="image/*" onChange={handleFileChange}
                                 />
                             </Button>
-
+                            <Button onClick={handleUpload} color='success' variant='contained'
+                                sx={{ mb: 2 }}>Upload</Button>
                         </Stack>
                     </Container>
                 </Box>
             </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-                <ImageList variant="masonry" cols={3} gap={8}>
-                    {imgLists.map((item) => (
-                        <ImageListItem key={item.id}>
-                            <img
-                                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                src={`${item.img}?w=248&fit=crop&auto=format`}
-                                alt={item.title}
-                                loading="lazy"
-                            />
-                        </ImageListItem>
-                    ))}
-                </ImageList>
+                <Box>
+                    <h6>Existing Images</h6>
+                    <ImageList variant="quilted" cols={3} gap={8} sx={{ p: 1, border: '2px dashed #e2e1e1ff' }}>
+                        {imgLists.map((item) => (
+                            <ImageListItem key={item.id}>
+                                <img
+                                    srcSet={`${item.img_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                    src={`${item.img_url}?w=248&fit=crop&auto=format`}
+                                    alt={item.img_name}
+                                    loading="lazy"
+                                />
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
+                </Box>
             </Grid>
         </Grid>
     );
