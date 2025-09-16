@@ -41,21 +41,21 @@ const ImgSettings = () => {
     });
     const [imgData, setImgData] = useState({
         type: "Slide",
-        pageCode: "",
+        pageName: "",
         position: "",
     })
 
 
     const [file, setFile] = useState([]);
     const [previews, setPreviews] = useState([]);
-    const [modalOpen, setModalOpen] = useState(false);
 
-    const [newArr, setNewArr] = useState([])
+    // const [modalOpen, setModalOpen] = useState(false);
+    // const [newArr, setNewArr] = useState([])
+
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
         if (selectedFiles.length === imgNum || selectedFiles.length < 6) {
             setFile(selectedFiles);
-            setNewArr(selectedFiles);
             const previewPromises = selectedFiles.map(file => {
                 return new Promise((resolve) => {
                     const reader = new FileReader();
@@ -70,18 +70,17 @@ const ImgSettings = () => {
         })
     };
 
-    const handlePosition = (e, index) => {
-        const positionNum = parseInt(e.target.value); // Convert from 1-based
+    // const handlePosition = (e, index) => {
+    //     const positionNum = parseInt(e.target.value); // Convert from 1-based
 
-        const tempArr = file.slice(0, file.length);
-        const tempVar = tempArr.slice(index, 1)[0];
+    //     const tempArr = file.slice(0, file.length);
+    //     const tempVar = tempArr.slice(index, 1)[0];
 
-        tempArr.splice(positionNum, 0, tempVar);
+    //     tempArr.splice(positionNum, 0, tempVar);
 
-        setNewArr(tempArr); // update state
-    };
-
-
+    //     setNewArr(tempArr); // update state
+    // };
+    
     const handleUpload = async () => {
         if (file.length === 0)
             return setDisplayMsg({
@@ -92,16 +91,17 @@ const ImgSettings = () => {
         const formData = new FormData();
         file.forEach((file, index) => {
             formData.append('type', imgData.type);
-            formData.append('pageName', imgData.label);
+            formData.append('pageName', imgData.pageName);
             formData.append('position', index + 1)
             formData.append('images', file);
         });
 
-
         ServerApi(`/img/upload`, 'POST', user.access_token, formData, true)
             .then(res => res.json())
             .then(res => {
-                setImgLists(res)
+                if(res.ok){
+                
+                }
             })
     }
 
@@ -116,7 +116,7 @@ const ImgSettings = () => {
             .then(res => {
                 setImgLists(res.data)
             })
-    })
+    },[user])
 
 
     return (
@@ -141,7 +141,7 @@ const ImgSettings = () => {
                             getOptionLabel={(option) => option.label || null}
                             onChange={(e, value) => {
                                 setImgData(previousState => {
-                                    return { ...previousState, pageCode: value?.label }
+                                    return { ...previousState, pageName: value?.label }
                                 })
                             }}
                             renderInput={(params) => <TextField color='success' {...params} placeholder='search page' />}
@@ -153,7 +153,7 @@ const ImgSettings = () => {
                             getOptionLabel={(option) => option.label || null}
                             onChange={(e, value) => {
                                 setImgData(previousState => {
-                                    return { ...previousState, title: value?.label }
+                                    return { ...previousState, type: value?.label }
                                 })
                             }}
                             renderInput={(params) => <TextField color='success' {...params} label="Image Type" />}
@@ -177,7 +177,7 @@ const ImgSettings = () => {
                                 opacity: '.8', padding: '5px', border: '2px dashed #e2e1e1ff'
                             }}>
                                 {previews.map((src, index) => (
-                                    <img onClick={(e) => setModalOpen(true)}
+                                    <img
                                         key={index}
                                         src={src}
                                         alt={`preview-${index}`}
@@ -187,7 +187,7 @@ const ImgSettings = () => {
                                     />
                                 ))}
 
-                                {modalOpen && (
+                                {/* {modalOpen && (
                                     <Modal open={modalOpen} onClose={(e) => setModalOpen(false)} >
                                         <Box
                                             sx={{
@@ -231,7 +231,7 @@ const ImgSettings = () => {
                                             }
                                         </Box>
                                     </Modal>
-                                )}
+                                )} */}
                             </div>
                         )}
                         <Stack>
@@ -259,7 +259,7 @@ const ImgSettings = () => {
                 <Box>
                     <h6>Existing Images</h6>
                     <ImageList variant="quilted" cols={3} gap={8} sx={{ p: 1, border: '2px dashed #e2e1e1ff' }}>
-                        {imgLists.map((item) => (
+                        {imgLists.length > 0 && imgLists.map((item) => (
                             <ImageListItem key={item.id}>
                                 <img
                                     srcSet={`${item.img_url}?w=248&fit=crop&auto=format&dpr=2 2x`}

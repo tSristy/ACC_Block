@@ -1,10 +1,8 @@
 export const appCardList = [
-"Residential Buildings",
-"Commercial Complexes",
-"Hospitals",
-"Hotels & Resorts",
-"Factories & Warehouses",
-"Educational Institutions",
-"Restaurants",
-"Power Plants",
+    { title: "Residential Buildings" },
+    { title: "Commercial Buildings" },
+    { title: "Hospitals & Educational Institutes" },
+    { title: "Factories & Warehouses" },
+    { title: "Interior & Partition Walls" },
+    { title: "Perimeter & Exterior Wall" },
 ]

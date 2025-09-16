@@ -27,7 +27,7 @@ const Sidebar = () => {
     const menuItems = [
         { text: "Dashboard", url: '/dashboard', icon: <Home sx={{ color: 'white' }} fontSize="small" /> },
         { text: "Banners & Sliders", url: '/banners-slides', icon: <ShoppingCart sx={{ color: 'white' }} fontSize="small" /> },
-        { text: "Page Settings", url: '/pages-settings', icon: <Info sx={{ color: 'white' }} fontSize="small" /> },
+        // { text: "Page Settings", url: '/pages-settings', icon: <Info sx={{ color: 'white' }} fontSize="small" /> },
         { text: "Blogs & Articles", url: '/blogs-articles', icon: <Article sx={{ color: 'white' }} fontSize="small" /> },
     ];
 

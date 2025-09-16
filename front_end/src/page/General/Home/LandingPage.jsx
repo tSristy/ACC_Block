@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import HomeCard from '../../../component/CardBox/HomeCard';
-import { Container, Grid, Stack } from '@mui/material';
+import { Container, Grid, ImageList, ImageListItem, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Banner from '../../../component/Banner/Banner';
 import bannerImg from '../../../img/homepage.png';
 import imgPanel from '../../../img/Layer23.png'
@@ -15,57 +15,85 @@ import CallAction from '../../../component/COA/CallAction';
 import ClientReview from '../../../component/Review/ClientReview';
 import { homeCardList } from '../../../component/CardBox/Data/homeCardList';
 import { skillBrickCardList, skillPanelCardList } from '../../../component/CardBox/Data/skillCardList';
+import Carousel from '../../../component/Carousel/Carousel';
+import { ServerApi } from '../../../Route/ServerApi';
+import { bannerText, imgLists, technicalSpecs } from './HomePageData';
+import { appCardList } from '../../../component/CardBox/Data/appCardList';
 
 const LandingPage = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+    const [bannerList, setBannerList] = useState([]);
+    useEffect(() => {
+        const body = { pageName: 'Home' };
+        ServerApi(`/banner/list`, 'POST', null, body)
+            .then(res => res.json())
+            .then(res => {
+                setBannerList(res.data);
+            })
+    }, []);
+
     return (
         <div>
             {/* banner & card  */}
             <div style={{
+                border: '2px solid red',
                 position: 'relative',
-                height: '870px',
+                // height: '870px',
             }}>
 
-                <Banner bannerHeight="700px" text={{
-                    firstTitle: "Build Smarter, Live Better", bigTitle: "AAC Blocks & Panels", descriptionTitle: `Stronger, Faster & Greener Construction with Great Wall`
-                }} img={bannerImg} btnDetails={{ btnTitle: "Get a Quote", url: '/contact-us', color: 'false' }} />
+                <Carousel details={{}}>
+                    {
+                        bannerList.map((banner, index) => (
+                            <Banner key={index} bannerHeight="700px" text={{
+                                firstTitle: "The Great Wall", bigTitle: bannerText[index].bigTitle, descriptionTitle: bannerText[index].descriptionTitle
+                            }} img={banner.img_url} btnDetails={{ btnTitle: "Get a Quote", url: '/contact-us', color: 'false' }} />
+                        ))
+                    }
+                </Carousel>
 
-                <div style={{
-                    position: 'absolute',
-                    top: 650,
-                    left: 0,
-                    right: 0,
-                    zIndex: 1
-                }}>
+                {isSmallScreen ? null : <>
+                    <div style={{
+                        position: 'absolute',
+                        top: 650,
+                        left: 0,
+                        right: 0,
+                        zIndex: 1
+                    }}>
 
-                    <Container style={{ height: "100%", position: 'relative', zIndex: 2 }}>
-                        <Grid container sx={{
-                            justifyContent: "space-evenly",
-                            alignItems: "center",
-                        }} spacing={1}>
-                            {
-                                homeCardList.map((cardDetails, index) => (
-                                    <Grid size={4}><HomeCard index={cardDetails.icon} title={cardDetails.title}
-                                        textDescription={cardDetails.textDescription} /></Grid>
-                                ))
-                            }
-                        </Grid>
-                    </Container>
-                </div>
+                        <Container style={{ height: "100%", position: 'relative', zIndex: 2 }}>
+                            <Grid container sx={{
+                                height: '100%',
+                                justifyContent: "space-evenly",
+                                alignItems: "scratch",
+                            }} spacing={1}>
+                                {
+                                    homeCardList.map((cardDetails, index) => (
+                                        <Grid key={index} size={4}><HomeCard index={cardDetails.icon} title={cardDetails.title}
+                                            textDescription={cardDetails.textDescription} /></Grid>
+                                    ))
+                                }
+                            </Grid>
+                        </Container>
+                    </div>
+                    <Container sx={{ mb: 15 }}></Container>
+                </>}
             </div>
 
+
             {/* about  */}
-            <Container sx={{ py: 10 }}>
+            <Container sx={{ py: 10, border: '2px solid red' }}>
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
+                        py: 5,
                         height: '100%',
-                        justifyContent: "space-between",
+                        justifyContent: isSmallScreen ? "center" : "space-between" ,
                         alignItems: "center",
                     }}>
-                    <Grid size={7}>
+                    <Grid size={{ xs: 12, md: 7 }}>
                         <TextSection givenAlign="center" textData={{
-                            supportTitle: 'about us', headerTitle: 'we are the great wall', textDescription: `At Great Wall, we bring innovation to construction with Autoclave Aerated Concrete (AAC) blocks - a modern alternative to traditional bricks.Our blocks are lightweight, eco-friendly, and highly efficient, designed to make building faster, cost-effective, and sustainable.
-                            From homes to high-rises, we provide the materials and expertise to help you build with confidence.
+                            supportTitle: 'about us', headerTitle: 'we are the great wall', textDescription: `Great Wall AAC Block is the smart solution for modern construction. Tested by BUET and manufactured with cutting-edge technology, our blocks deliver durability, thermal insulation, and eco-friendliness while reducing overall project costs. With proven strength, lightweight efficiency, and sustainability, Great Wall AAC Blocks represent the future of building in Bangladesh
                             ` }} />
                         <Stack direction="row" sx={{
                             py: 3, justifyContent: "center",
@@ -75,11 +103,11 @@ const LandingPage = () => {
                             <BtnUrlChange btnDetails={{ btnTitle: 'learn more', url: '/about-us', color: true }} />
                         </Stack>
                     </Grid>
-                    <Grid size={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                         <div>
                             <img src={imgPanel} style={{
                                 height: '460px',
-                                width: '340px'
+                                width: isSmallScreen ? '100%' : '340px'
                             }} alt="logo" />
                         </div>
                     </Grid>
@@ -89,9 +117,11 @@ const LandingPage = () => {
 
             {/* Why acc? */}
             <Container maxWidth="auto" sx={{
-                mt: 10,
+                border: '2px solid red',
+                // mt:10,
+                py: 10,
                 color: 'white',
-                height: '170px',
+                // height: '170px',
                 backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`
             }}>
                 <TextSection blackBg={true} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
@@ -100,9 +130,10 @@ const LandingPage = () => {
             {/* Product features */}
             <div
                 style={{
+                    border: '2px solid red',
                     backgroundImage: `url(${img})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundPosition: isSmallScreen ? 'repeat' : 'center',
                     // height: '620px',                    
                 }}>
                 <div style={{
@@ -112,11 +143,11 @@ const LandingPage = () => {
                     color: 'white'
                 }}>
                     <Container sx={{
-                        py: 10,
+                        pb: 15,
                         height: '100%'
                     }}>
                         <Grid container spacing={2}
-                            direction="row"
+                            direction={ isSmallScreen ? "column" : "row"}
                             sx={{
                                 height: '100%',
                                 justifyContent: "space-between",
@@ -125,7 +156,7 @@ const LandingPage = () => {
                         >
                             {
                                 skillBrickCardList.map((row, index) => (
-                                    <Grid size={4} key={index}>
+                                    <Grid size={{ xs: 12, md: 4 }} key={index}>
                                         <SkillCard iconLogo={row.icon} title={row.title} textDescription={row.textDescription} />
                                     </Grid>
                                 ))
@@ -135,60 +166,63 @@ const LandingPage = () => {
                 </div>
             </div>
 
+
+            {/* Table Specification */}
+            <Container sx={{ py: 10, border: '2px solid red' }}>
+                <TextSection givenAlign='center' textData={{ supportTitle: 'Specifications' }} />
+                <TableContainer component={Paper} sx={{ maxWidth: isSmallScreen ? '100%' : '70vw', mx: 'auto', mt: 10, mb: 5 }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell sx={{ pl: 10, backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`, color: 'white' }}><Typography variant='h6'>Parameter</Typography></TableCell>
+                                <TableCell sx={{ pr: 10, textAlign: 'right', backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`, color: 'white' }}><Typography variant='h6'>Values</Typography></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {technicalSpecs.map((row, index) => (
+                                <TableRow key={index}>
+                                    <TableCell sx={{ textTransform: 'uppercase', fontSize: '14px', pl: 10 }}>{row.parameter}</TableCell>
+                                    <TableCell sx={{ textTransform: 'uppercase', fontSize: '14px', textAlign: 'right', pr: 10 }}>{row.value}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Container>
+
+
             {/* Product description */}
-            <Container sx={{ py: 10 }}>
+            <Container sx={{ py: 10, border: '2px solid red' }}>
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
                         height: '100%',
                         justifyContent: "space-between",
-                        alignItems: "stretch",
+                        alignItems: "center",
                     }}>
-                    <Grid size={12}>
-                        <TextSection givenAlign='center' textData={{ supportTitle: 'our products', headerTitle: 'AAC BLOCKS', textDescription: `Great Wall Panels are a high-performance, steel-reinforced AAC solution for modern construction` }} />
+                    <Grid size={12} sx={{ pb: 5 }}>
+                        <TextSection givenAlign='center' textData={{ supportTitle: 'our products', headerTitle: 'AAC BLOCKS', }} />
 
-                    </Grid>
-                    <Grid size={6}>
-                        <Stack direction="column" spacing={3} sx={{
-                            height: '100%',
-                            justifyContent: "center",
-                            alignItems: "center"
-                        }}>
-                            <img src={imgProduct1} style={{
-                                height: '100%',
-                                width: '450px'
-                            }} alt="logo" />
-                            <div style={{ fontSize: '1.125rem', fontWeight: 500 }}>
-                                600 x 200 x 120 mm
-                            </div>
-                        </Stack>
-                    </Grid>
-                    <Grid size={6}>
-                        <Stack direction="column" spacing={3} sx={{
-                            justifyContent: "center",
-                            alignItems: "center"
-                        }}>
-
-                            <img src={imgProduct1} style={{
-                                height: '200px',
-                                width: '350px'
-                            }} alt="logo" />
-                            <div style={{ fontSize: '1.125rem', fontWeight: 500 }}>
-                                600 x 200 x 110 mm
-                            </div>
-                            <img src={imgProduct1} style={{
-                                height: '200px',
-                                width: '350px'
-                            }} alt="logo" />
-                            <div style={{ fontSize: '1.125rem', fontWeight: 500 }}>
-                                600 x 200 x 100 mm
-                            </div>
-
-                        </Stack>
                     </Grid>
                     <Grid size={12}>
+                        <ImageList variant="masonry" cols={ isSmallScreen ? 1 : 3} gap={8}>
+                            {imgLists.length > 0 && imgLists.map((item, index) => (
+                                <ImageListItem key={index} sx={{ p: 1, border: '2px dashed #187b3d' }}>
+                                    <img
+                                        srcSet={`${item.img_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                        src={`${item.img_url}?w=248&fit=crop&auto=format`}
+                                        alt={item.img_name}
+                                        loading="lazy"
+                                    />
+                                </ImageListItem>
+                            ))}
+                        </ImageList>
+                    </Grid>
+                    <Grid size={12} sx={{
+                        pt: 5, pb: 5,
+                    }}>
                         <Stack direction="row" sx={{
-                            py: 3, justifyContent: "center",
+                            justifyContent: "center",
                             alignItems: "center"
                         }}>
 
@@ -211,31 +245,32 @@ const LandingPage = () => {
                     backgroundColor: 'rgba(17, 17, 17, 0.7)',
                     color: 'white'
                 }}>
-                    <Container sx={{ py: 10 }}>
+                    <Container sx={{ py: 10, border: '2px solid red' }}>
                         <TextSection blackBg={true} textData={{ supportTitle: 'where to use', headerTitle: 'Application' }} />
                     </Container>
 
-                    <Container>
+                    <Container sx={{ pb: 15, border: '2px solid red' }}>
                         <Stack direction="row" spacing={2}
                             sx={{
-                                justifyContent: "space-around",
+                                justifyContent: isSmallScreen ? "center" : "space-around",
                                 alignItems: "center",
                             }}>
-                            <AppCard cardTitle='industry' />
-                            <AppCard cardTitle='industry' />
-                            <AppCard cardTitle='industry' />
-                            <AppCard cardTitle='industry' />
+                            <Carousel details={{ itemNo: 4 }}>
+                                {appCardList.map((item, index) => (
+                                    <AppCard cardTitle={item.title} />
+                                ))}
+                            </Carousel>
                         </Stack>
                     </Container>
                 </div>
             </div>
             <div style={{
-                height: '250px',
+                height: '330px',
                 position: 'relative',
             }} />
 
             {/* Product description */}
-            <Container sx={{ pt: 20, pb: 10 }}>
+            <Container sx={{ py: 15, border: '2px solid red' }}>
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
@@ -243,20 +278,20 @@ const LandingPage = () => {
                         justifyContent: "space-between",
                         alignItems: "center",
                     }}>
-                    <Grid size={7}>
+                    <Grid size={{ xs: 12, md: 7 }}>
                         <Stack direction="column" spacing={2} sx={{
                             justifyContent: "center",
                             alignItems: "flex-start",
                         }}>
-                            <TextSection givenAlign='flex-start' textData={{ supportTitle: 'our products', headerTitle: 'Great Wall AAC Panels', textDescription: 'Great Wall Panels are a high-performance, steel-reinforced AAC solution for modern construction. Designed for speed, strength, and sustainability, these panels combine lightweight durability with superior insulation and fire safety.Ideal for residential, commercial, and industrial projects, our panels are easy to install, reusable, and eco-friendly — giving you clean, dry construction with minimal waste.' }} />
+                            <TextSection givenAlign='flex-start' textData={{ supportTitle: 'our products', headerTitle: 'Great Wall AAC Panels', textDescription: 'Great Wall AAC Panels are innovative, steel-reinforced, tongue-and-groove designed panels that deliver unmatched speed, strength, and insulation for modern buildings. Ideal for both residential and commercial projects, they simplify construction, save costs, and create more usable space with thinner yet stronger walls' }} />
                             <BtnUrlChange btnDetails={{ btnTitle: 'learn more', url: '/aac-panels', color: true }} />
                         </Stack>
-                    </Grid> 
-                    <Grid size={5}>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 5 }}>
                         <div>
                             <img src={imgProduct1} style={{
                                 height: '400px',
-                                width: '450px'
+                                width: isSmallScreen ? '100%' : '450px'
                             }} alt="logo" />
                         </div>
                     </Grid>
@@ -265,53 +300,60 @@ const LandingPage = () => {
 
 
             {/* Product features Panel*/}
-            <div>
-                <Container sx={{ py: 10 }}>
-                    <TextSection textData={{ supportTitle: 'Product Features', headerTitle: 'Why Great Wall AAC Panels' }} />
-                    <Grid container spacing={2}
-                        direction="row"
-                        sx={{
-                            mt: 10,
-                            height: '100%',
-                            justifyContent: "space-between",
-                            alignItems: "stretch",
-                        }}
-                    >
-                        {
-                            skillPanelCardList.map((row, index) => (
-                                <Grid size={6} key={index}>
-                                    <SkillCard card="panel" iconLogo={row.icon} title={row.title} textDescription={row.textDescription} />
-                                </Grid>
-                            ))
-                        }
-                    </Grid>
-                </Container>
-                {/* </div> */}
-            </div>
+            <Container sx={{ py: 10, border: '2px solid red' }}>
+                <TextSection textData={{ supportTitle: 'Product Features', headerTitle: 'Why Great Wall AAC Panels' }} />
+                <Grid container spacing={2}
+                    direction="row"
+                    sx={{
+                        mb: 5,
+                        mt: 10,
+                        height: '100%',
+                        justifyContent: "space-between",
+                        alignItems: "stretch",
+                    }}
+                >
+                    {
+                        skillPanelCardList.map((row, index) => (
+                            <Grid size={{ xs: 12, md: 6 }} key={index}>
+                                <SkillCard card="panel" iconLogo={row.icon} title={row.title} textDescription={row.textDescription} />
+                            </Grid>
+                        ))
+                    }
+                </Grid>
+            </Container>
+            {/* </div> */}
+
 
             {/* projects */}
-            <Container sx={{ py: 10 }}>
+            <Container sx={{ py: 10, border: '2px solid red' }}>
                 <TextSection givenAlign='center' blackBg={false} textData={{ supportTitle: 'our work', headerTitle: 'Mega Projects' }} />
 
-                <Stack
+                <Grid container spacing={4}
                     direction="row"
-                    spacing={5}
                     sx={{
-                        pt: 7,
+                        pt: 10,
                         justifyContent: "center",
                         alignItems: "center",
                     }}
                 >
+                    <Grid size={{ xs: 12, md: 4 }}>
                     <ProjectCard />
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 4 }}>
                     <ProjectCard />
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 4 }}>
                     <ProjectCard />
-                </Stack>
+                    </Grid>
+                </Grid>
             </Container>
 
             {/* client */}
-            <Container sx={{ py: 10 }}>
+            <Container sx={{ py: 10, border: '2px solid red' }}>
                 <TextSection givenAlign='center' blackBg={false} textData={{ supportTitle: 'Our Clients', headerTitle: 'Testimonials' }} />
-                <ClientReview />
+                <Container sx={{ py: 5 }}>
+                    <ClientReview />
+                </Container>
             </Container>
 
             <CallAction />

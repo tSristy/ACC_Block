@@ -9,7 +9,7 @@ const BtnFooter = ({ btnDetails }) => {
     }
     return (
         <Button style={btnStyle} variant="none" startIcon={btnIcon}>
-            {btnTitle ? btnTitle : null}
+                {btnTitle ? btnTitle : null}
         </Button>
     );
 };

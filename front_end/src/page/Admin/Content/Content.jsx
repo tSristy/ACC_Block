@@ -162,7 +162,7 @@ const Content = () => {
             </Grid>
 
             <Grid size={{ xs: 12, md: 7 }}>
-                <Container>
+                <Container sx={{ pb:2}}>
                     <h6>Media</h6>
                     <Box sx={{
                         p: 2,
@@ -170,7 +170,38 @@ const Content = () => {
                         overflowX: 'auto',
                         whiteSpace: 'nowrap',
                         width: '100%',
-                        height: '200px',
+                        height: '170px',
+                        border: '2px dashed #e2e1e1ff'
+                    }}>
+
+                    </Box>
+                </Container>
+
+
+                <Container sx={{ pb:2}}>
+                    <h6>Projects</h6>
+                    <Box sx={{
+                        p: 2,
+                        display: 'flex',
+                        overflowX: 'auto',
+                        whiteSpace: 'nowrap',
+                        width: '100%',
+                        height: '170px',
+                        border: '2px dashed #e2e1e1ff'
+                    }}>
+
+                    </Box>
+                </Container>
+
+                <Container sx={{ pb:2}}>
+                    <h6>Review</h6>
+                    <Box sx={{
+                        p: 2,
+                        display: 'flex',
+                        overflowX: 'auto',
+                        whiteSpace: 'nowrap',
+                        width: '100%',
+                        height: '170px',
                         border: '2px dashed #e2e1e1ff'
                     }}>
 

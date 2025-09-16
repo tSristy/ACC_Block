@@ -19,12 +19,12 @@ const BtnProfile = () => {
                 setAnchorEl(null);
                 navigate(`/profile`);
             },
-            icon: <AccountCircleIcon color='info' />,
+            icon: <AccountCircleIcon color='success' />,
             // url: '/profile',
         },
         {
             title: 'Logout',
-            icon: <LogoutIcon />,
+            icon: <LogoutIcon color='info'/>,
             fun: () => {
                 setAnchorEl(null);
                 sessionStorage.removeItem('loginInfo');
@@ -60,7 +60,8 @@ const BtnProfile = () => {
                 onClose={handleClose}
             >
                 {options.map((option,index) => (
-                    <MenuItem key={index} onClick={(e) => option.fun()}>
+                    <MenuItem key={index} onClick={(e) => option.fun()} 
+                sx={{ px: 5}}>
                         <ListItemIcon>
                             {option.icon}
                         </ListItemIcon>

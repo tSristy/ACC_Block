@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import ProtectedRoute from './ProtectedRoute';
 import ImgSettings from '../page/Admin/ImgSettings/ImgSettings';
 import Content from '../page/Admin/Content/Content';
+import Profile from '../page/Admin/Profile/Profile';
 
 const RouterConfig = () => {
   return (
@@ -40,20 +41,28 @@ const RouterConfig = () => {
             <DashBoard />
           </ProtectedRoute>
         } />
+
         <Route path='/banners-slides' element={
           <ProtectedRoute>
             <ImgSettings />
           </ProtectedRoute>
         } />
 
-        <Route path='/pages-settings' element={
+        {/* <Route path='/pages-settings' element={
           <ProtectedRoute>
             <DashBoard />
           </ProtectedRoute>
-        } />
+        } /> */}
+
         <Route path='/blogs-articles' element={
           <ProtectedRoute>
             <Content />
+          </ProtectedRoute>
+        } />
+
+        <Route path='/profile' element={
+          <ProtectedRoute>
+            <Profile />
           </ProtectedRoute>
         } />
       </Route>

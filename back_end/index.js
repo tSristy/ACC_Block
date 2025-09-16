@@ -21,18 +21,30 @@ config.connect((err) => {
   }
 });
 
-const loginRouter = require('./Path/login');
-app.use("/auth",loginRouter);
 
+// ADMIN LOGIN
+const loginRouter = require('./Path/login');
+app.use("/auth", loginRouter);
+
+//AUTH CHECK
 const authCheck = require('./Service/authCheck');
-app.get("/auth-check",authCheck,(req,res)=>{
-  res.status(200).json({auth:true});
+app.get("/auth-check", authCheck, (req, res) => {
+  res.status(200).json({ auth: true });
 })
 
-const imgsRouter = require('./Path/imgSettings');
-app.use('/img',authCheck, imgsRouter);
+//USER INFO
+const userRouter = require('./Path/userDetails');
+app.use("/user", authCheck, userRouter);
 
-// Serve uploaded images (optional)
+//DATA UPLOAD
+const imgsRouter = require('./Path/imgSettings');
+app.use('/img', authCheck, imgsRouter);
+
+
+//GENERAL
 app.use('/Images', express.static(path.join(__dirname, 'Images')));
+
+const bannerRouter = require('./GeneralPath/BannerPath');
+app.use('/banner', bannerRouter);
 
 app.listen(2000)

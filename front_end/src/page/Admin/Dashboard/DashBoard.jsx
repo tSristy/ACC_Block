@@ -1,15 +1,16 @@
-import { Container, Grid, ListItemIcon, ListItemText, MenuItem, MenuList, Paper } from '@mui/material';
+import { Grid, ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 import DashboardCard from '../../../component/CardBox/DashboardCard';
-import ImageIcon from '@mui/icons-material/Image';
 import FeedIcon from '@mui/icons-material/Feed';
-import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import ImageIcon from '@mui/icons-material/Image';
+import { useNavigate } from 'react-router-dom';
+import { quickAccessList } from './data';
 
 const DashBoard = () => {
+    const navigate = useNavigate();
     return (
         <div>
-            <Grid container spacing={2} sx={{ alignItems: "stretch"}}>
+            <Grid container spacing={2} sx={{ alignItems: "stretch" }}>
                 <Grid size={12} sx={{
                     p: 3,
                     bgcolor: 'white',
@@ -32,39 +33,25 @@ const DashBoard = () => {
                     </Grid>
                 </Grid>
                 <Grid size={3} sx={{
-                    // py: 5,
                     bgcolor: 'white',
                     borderRadius: '8px',
                     border: 'solid 1px #ebebebff'
                 }}>
                     <MenuList>
-                        <MenuItem>
-                            <ListItemIcon>
-                                <SpaceDashboardIcon color='success' />
-                            </ListItemIcon>
-                            <ListItemText>
-                                Dashboard
-                            </ListItemText>
-                        </MenuItem>
-                       <MenuItem >
-                            <ListItemIcon>
-                                <CameraAltIcon color='success' />
-                            </ListItemIcon>
-                            <ListItemText>
-                                Banner Management
-                            </ListItemText>
-                        </MenuItem>
-                       <MenuItem >
-                            <ListItemIcon>
-                                <FeedIcon color='success' />
-                            </ListItemIcon>
-                            <ListItemText>
-                                Blog Management
-                            </ListItemText>
-                        </MenuItem>
+                        {quickAccessList.map((list, index) => (
+                            <MenuItem key={index} onClick={(e) => navigate(list.url)}>
+                                <ListItemIcon>
+                                    {list.icon}
+                                </ListItemIcon>
+                                <ListItemText>
+                                    {list.title}
+                                </ListItemText>
+                            </MenuItem>
+                        ))
+                        }
                     </MenuList>
                 </Grid>
-                <Grid size={9}  sx={{
+                <Grid size={9} sx={{
                     p: 3,
                     bgcolor: 'white',
                     borderRadius: '8px',

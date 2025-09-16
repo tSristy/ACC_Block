@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const BtnUrlChange = ({btnDetails}) => {
     const { btnTitle, url, color} = btnDetails;
-    console.log(url)
     const navigate = useNavigate();
     const btnStyle={
         height: '50px',

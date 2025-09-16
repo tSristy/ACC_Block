@@ -1,4 +1,4 @@
-import { Grid, Stack } from '@mui/material';
+import { Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
 import quotationImg from '../../img/qute.png';
 import beta1 from '../../img/beta1.png';
 import beta2 from '../../img/beta2.png';
@@ -6,8 +6,11 @@ import beta3 from '../../img/beta3.png';
 import { useEffect, useState } from 'react';
 
 const ClientReview = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const imgStyle = {
-    height: '350px',
+    height: isSmallScreen ? '150px' : '350px',
     width: '100%',
     objectFit: 'fill',
     transition: 'opacity 1s ease-in-out', // smooth fade
@@ -34,10 +37,15 @@ const ClientReview = () => {
 
   return (
     <Grid container spacing={2} sx={{ pt: 7 }}>
-      <Grid size={2} className="border">
-        <img src={rotated[0]} alt="Client" style={imgStyle} />
-      </Grid>
-      <Grid size={8}>
+
+      {isSmallScreen ? null :
+        <Grid size={2} className="border">
+          <img src={rotated[0]} alt="Client" style={imgStyle} />
+        </Grid>
+      }
+
+
+      <Grid size={{ xs: 12, md: 8 }}>
         <Stack
           direction="row"
           spacing={4}
@@ -63,9 +71,13 @@ const ClientReview = () => {
           </div>
         </Stack>
       </Grid>
-      <Grid size={2}>
-        <img src={rotated[2]} alt="Client" style={imgStyle} />
-      </Grid>
+
+
+      {isSmallScreen ? null :
+        <Grid size={2}>
+          <img src={rotated[2]} alt="Client" style={imgStyle} />
+        </Grid>
+      }
     </Grid>
   );
 };

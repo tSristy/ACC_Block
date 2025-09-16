@@ -11,22 +11,25 @@ import AutoModeIcon from '@mui/icons-material/AutoMode';
 import BuildIcon from '@mui/icons-material/Build';
 
 export const skillBrickCardList = [
-    { icon: <ScaleIcon /> , title: "Lightweight", textDescription: "1/3rd the weight of clay bricks, reducing structural load"},
-    { icon: <RoofingIcon />,title: "Faster Construction", textDescription: "4X quicker to install, saving time and labor costs"},
-    { icon: <DeviceThermostatIcon />,title: "Thermal Insulation", textDescription: "Reduces AC & electricity bills by 15–20%"},
-    { icon: <LocalFireDepartmentIcon />,title: "Fire Resistance", textDescription: "Withstands fire for up to 6 hours without harmful fumes"},
-    { icon: <HearingIcon />,title: "Sound Insulation", textDescription: "Blocks over 40 dB of noise for a quieter environment"},
-    { icon: <ParkIcon />,title: "Eco-Friendly", textDescription: "Made from natural materials with minimal environmental impact"},
+    { icon: <ScaleIcon />, title: "Lightweight Efficiency", textDescription: "Up to 1/3rd the weight of traditional bricks, reducing structural load" },
+    { icon: <DeviceThermostatIcon />, title: "Superior Thermal Insulation ", textDescription: "Air pockets save up to 25% electricity on cooling" },
+    { icon: <LocalFireDepartmentIcon />, title: "Fire & Sound Resistant ", textDescription: "Withstands fire up to 6 hours and reduces noise over 40dB" },
+    { icon: <RoofingIcon />, title: "Faster & Cost-Effective Construction", textDescription: "Bigger, precise blocks mean less mortar, labor, and time" },
+    { icon: <ParkIcon />, title: "Eco-Friendly", textDescription: "Made from sand and cement with minimal waste and no fertile soil usage" },
+    { icon: <ScaleIcon />, title: "Durable & Termite-Free", textDescription: "Built to last with resistance against pests and long-term damage" },
+
 ]
 
 export const skillPanelCardList = [
-    { icon: <BuildIcon /> , title: "Steel Reinforced", textDescription: "Corrosion-protected for long-lasting strength"},
-    { icon: <HandymanIcon />,title: "4X Faster Installation", textDescription: "Saves time, labor, and project cost"},
-    { icon: <ScaleIcon />,title: "Lightweight & Strong", textDescription: "Minimizes structural load without compromising durability"},
-    { icon: <DeviceThermostatIcon />,title: "Thermal & Acoustic Insulation", textDescription: "Comfortable, quiet, and energy-efficient spaces"},
-    { icon: <LocalFireDepartmentIcon />,title: "Fire Resistance", textDescription: "4-hour fire rating for enhanced safety"},
-    { icon: <AutoModeIcon />,title: "No Coping/Bond Beam", textDescription: "Stability up to 6m wall height without extra structure"},
-    { icon: <AddRoadIcon />,title: "Slim Walls, More Space", textDescription: "Increased carpet area for your interiors"},
-    { icon: <HardwareIcon />,title: "Simple Installation", textDescription: "Only basic tools needed"},
+    { icon: <HandymanIcon />, title: "4X Faster Installation", textDescription: "Saves time, labor, and cost" },
+    { icon: <BuildIcon />, title: "Steel Reinforced", textDescription: "Corrosion-protected steel inside ensures durability" },
+    { icon: <DeviceThermostatIcon />, title: "Thermal & Acoustic Insulation", textDescription: "Keeps interiors cooler and quieter" },
+    { icon: <HardwareIcon />, title: "Reusable & Eco-Friendly", textDescription: "Sustainable design with minimal waste" },
+    { icon: <AddRoadIcon />, title: "Slim Walls, More Space", textDescription: "Increases carpet area for better utilization" },
+    { icon: <LocalFireDepartmentIcon />, title: "Fire Resistance & Safe", textDescription: "Provides 4–6 hours fire resistance for added security" },
+    
+    // { icon: <ScaleIcon />, title: "Lightweight & Strong", textDescription: "Minimizes structural load without compromising durability" },
+    // { icon: <AutoModeIcon />, title: "No Coping/Bond Beam", textDescription: "Stability up to 6m wall height without extra structure" },
+    // { icon: <HardwareIcon />, title: "Simple Installation", textDescription: "Only basic tools needed" },
 ]
 

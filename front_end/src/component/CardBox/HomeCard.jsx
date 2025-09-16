@@ -3,7 +3,7 @@ import bgImg from '../../img/banner2.png';
 
 const HomeCard = ({ index, title, textDescription }) => {
     const boxStyle = {
-        // height: '150px',
+        height: '170px',
         // backgroundImage: `url(${bgImg})`,
         // backgroundSize: 'cover',
         // backgroundPosition: 'center',
