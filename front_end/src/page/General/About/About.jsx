@@ -28,13 +28,15 @@ const About = () => {
         ServerApi(`/banner/list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
-                setBannerList(res.data);
+                if (res.data.length > 0) {
+                    setBannerList(res.data);
+                } else return null;
             })
     }, []);
 
     return (
         <div>
+
             <Carousel details={{}}>
                 {
                     bannerList.map((banner, index) => (
@@ -76,10 +78,11 @@ const About = () => {
             </Container>
 
             {/* mission vision */}
-            <Container maxWidth="auto" sx={{ mt: 7, 
+            <Container maxWidth="auto" sx={{
+                mt: 7,
                 // backgroundColor: '#f7f7f7' ,
-                 backgroundImage: `linear-gradient(180deg, #ffffff, #66cc33)`,
-                }}>
+                backgroundImage: `linear-gradient(180deg, #ffffff, #66cc33)`,
+            }}>
                 <Container sx={{ py: 10 }}>
                     <Grid spacing={4} container
                         direction="row"
@@ -93,16 +96,16 @@ const About = () => {
                             goalData.map((item, index) => (
                                 <Grid size={{ xs: 12, md: 6 }} key={index}>
                                     <Box sx={{
-                                        p:4, 
+                                        p: 4,
                                         bgcolor: '#fffffffa',
                                         borderRadius: '8px',
                                         height: '230px',
                                         // textTransform: 'uppercase'
                                     }}>
 
-                                    <TextSection givenAlign='center' textData={{
-                                        supportTitle: item.title, textDescription: item.description
-                                    }} />
+                                        <TextSection givenAlign='center' textData={{
+                                            supportTitle: item.title, textDescription: item.description
+                                        }} />
                                     </Box>
                                 </Grid>
                             ))
@@ -181,22 +184,22 @@ const About = () => {
 
 
             {/* factory  */}
-            <Container maxWidth="auto" sx={{ py:10}}>
+            <Container maxWidth="auto" sx={{ py: 10 }}>
                 <TextSection givenAlign="center" textData={{ supportTitle: 'our factory', headerTitle: 'Visit our ground' }} blackBg={false} />
                 <Container sx={{ mt: 5 }}>
                     <Grid container spacing={4}>
                         {
-                           factoryImgList.reduce((acc, item, index) => {
-                                if ( index % (isSmallScreen ? factoryImgList.length : Math.floor(factoryImgList.length /2)) === 0) {
+                            factoryImgList.reduce((acc, item, index) => {
+                                if (index % (isSmallScreen ? factoryImgList.length : Math.floor(factoryImgList.length / 2)) === 0) {
                                     acc.push([]);
                                 }
                                 acc[acc.length - 1].push(
-                                    <img src={item.img_url} alt={item.img_name} height={isSmallScreen ? '300px' : '100%'} style={{ objectFit: 'fit'}}/>
+                                    <img src={item.img_url} alt={item.img_name} height={isSmallScreen ? '300px' : '100%'} style={{ objectFit: 'fit' }} />
                                 );
                                 return acc;
                             }, []).map((row, idx) => (
-                                <Grid  key={idx} size={{ xs: 12, md: 6 }}>
-                                    <Carousel details={{ }}>
+                                <Grid key={idx} size={{ xs: 12, md: 6 }}>
+                                    <Carousel details={{}}>
                                         {row}
                                     </Carousel>
                                 </Grid>

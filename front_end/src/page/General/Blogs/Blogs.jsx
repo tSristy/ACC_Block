@@ -2,19 +2,45 @@ import bannerImg from '../../../img/banner2.png'
 import BlogCard from '../../../component/CardBox/BlogCard';
 import Banner from '../../../component/Banner/Banner';
 import TextSection from '../../../component/TextSection/TextSection';
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, useMediaQuery, useTheme } from '@mui/material';
 import CallAction from '../../../component/COA/CallAction';
 import ClientReview from '../../../component/Review/ClientReview';
 import ProjectCard from '../../../component/CardBox/ProjectCard';
+import Carousel from '../../../component/Carousel/Carousel';
+import { useEffect, useState } from 'react';
+import { ServerApi } from '../../../Route/ServerApi';
 
 const Blogs = () => {
+      const theme = useTheme();
+        const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+    
+        const [bannerList, setBannerList] = useState([{
+            img_url: bannerImg,
+            img_name: 'about'
+        }]);
+    
+        useEffect(() => {
+            const body = { pageName: 'Blogs & Articles' };
+            ServerApi(`/banner/list`, 'POST', null, body)
+                .then(res => res.json())
+                .then(res => {
+                   if(res.data.length > 0) {
+                        setBannerList(res.data);
+                    } else return null;
+                })
+        }, []);
+
     return (
         <div >
-            <Banner
-                img={bannerImg}
-                bannerHeight='22rem'
-                text={{ firstTitle: 'Blogs', bigTitle: null, descriptionTitle: null }}
-            />
+            <Carousel details={{}}>
+                {
+                    bannerList.map((banner, index) => (
+                        <Banner key={index}
+                            bannerHeight='22rem' img={banner.img_url} alt={banner.img_name}
+                            text={{ firstTitle: 'Blogs', bigTitle: null, descriptionTitle: 'Building the future of construction in Bangladesh with innovative, eco-friendly AAC solutions' }}
+                        />
+                    ))}
+            </Carousel>
 
             <div style={{
                 backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`

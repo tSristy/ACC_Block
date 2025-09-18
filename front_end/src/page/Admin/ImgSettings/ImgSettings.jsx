@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Stack, styled, TextField, Typography } from '@mui/material';
+import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { ServerApi } from '../../../Route/ServerApi';
@@ -80,7 +80,17 @@ const ImgSettings = () => {
 
     //     setNewArr(tempArr); // update state
     // };
-    
+
+    const [openAlert, setOpenAlert] = useState(false);
+    const [msgText, setMsgText] = useState({});
+    const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenAlert(false);
+    };
+
+
     const handleUpload = async () => {
         if (file.length === 0)
             return setDisplayMsg({
@@ -97,10 +107,22 @@ const ImgSettings = () => {
         });
 
         ServerApi(`/img/upload`, 'POST', user.access_token, formData, true)
-            .then(res => res.json())
+            // .then(res => res.json())
             .then(res => {
-                if(res.ok){
-                
+                if (res.ok) {
+                    setOpenAlert(true);
+                    setMsgText({ status: true, msg: "Your action has been successfully executed" });
+                    setImgData({
+                        type: "Slide",
+                        pageName: "",
+                        position: "",
+                    });
+                    setFile([]);
+                    setPreviews([]);
+                }
+                else {
+                    setOpenAlert(true);
+                    setMsgText({ status: false, msg: "Something is wrong. Please try again again" })
                 }
             })
     }
@@ -111,16 +133,32 @@ const ImgSettings = () => {
     }])
 
     useEffect(() => {
-        ServerApi(`/img/lists`, 'GET', user.access_token)
+        ServerApi(`/img/banner-list`, 'GET', user.access_token)
             .then(res => res.json())
             .then(res => {
-                setImgLists(res.data)
+                if(res){
+                    setImgLists(res.data)
+                } else return null;
             })
-    },[user])
+    }, [user,file])
 
 
     return (
         <Grid container spacing={2}>
+            <Snackbar
+                open={openAlert}
+                autoHideDuration={3000}
+                onClose={handleAlertClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            >
+                <Alert
+                    onClose={handleAlertClose}
+                    severity={msgText.status ? "success" : "error"}
+                    variant="outlined"
+                    sx={{ width: '100%' }}
+                >{msgText.msg}</Alert>
+            </Snackbar>
+
             <Grid size={{ xs: 12, md: 6 }}>
                 <Box>
                     <h6>Create New Slider</h6>

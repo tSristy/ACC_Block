@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Stack, styled, TextField, Typography } from '@mui/material';
+import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { ServerApi } from '../../../Route/ServerApi';
@@ -20,6 +20,7 @@ const VisuallyHiddenInput = styled('input')({
 const Content = () => {
 
     const { user } = useContext(AuthContext);
+
     const contentList = [
         { id: 1, label: 'Projects', code: '1010' },
         { id: 2, label: 'News & Articles', code: '1020' },
@@ -27,7 +28,6 @@ const Content = () => {
     ]
 
     const [dataInfo, setDataInfo] = useState({
-        page_name: 'Blogs & Articles',
         content_type: "",
         title: "",
         initial_text: "",
@@ -53,11 +53,21 @@ const Content = () => {
     };
 
     const handleValueChange = (e) => {
-        setDataInfo(prev=>({
+        setDataInfo(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
     }
+
+    const [openAlert, setOpenAlert] = useState(false);
+    const [msgText, setMsgText] = useState({});
+    const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenAlert(false);
+    };
+
 
     const handleUpload = async () => {
         if (file.length === 0)
@@ -67,7 +77,6 @@ const Content = () => {
             });
 
         const formData = new FormData();
-        formData.append('page_name', dataInfo.page_name);
         formData.append('content_type', dataInfo.content_type);
         formData.append('position', 1);
         formData.append('images', file);
@@ -77,14 +86,63 @@ const Content = () => {
         formData.append('redirect_url', dataInfo.redirect_url);
 
         ServerApi(`/img/content-upload`, 'POST', user.access_token, formData, true)
-            .then(res => res.json())
+            // .then(res => res.json())
             .then(res => {
                 console.log(res)
+                if (res.ok) {
+                    setOpenAlert(true);
+                    setMsgText({ status: true, msg: "Your action has been successfully executed" });
+                    setDataInfo({
+                        content_type: "",
+                        title: "",
+                        initial_text: "",
+                        detail_text: "",
+                        redirect_url: "",
+                        position: 1
+                    });
+                    setFile();
+                    setPreviews();
+                }
+                else {
+                    setOpenAlert(true);
+                    setMsgText({ status: false, msg: "Something is wrong. Please try again again" })
+                }
             })
     }
 
+    const [mediaList, setMediaList] = useState([]);
+    const [projectList, setProjectList] = useState([]);
+    const [reviewList, setReviewList] = useState([]);
+
+    useEffect(() => {
+        ServerApi(`/img/content-list`, 'GET', user.access_token)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                if (res) {
+                    setMediaList(res.mediaList);
+                    setProjectList(res.projectList);
+                    setReviewList(res.reviewList);
+                } else return null;
+            })
+    }, [user, file])
+
     return (
         <Grid container spacing={2}>
+            <Snackbar
+                open={openAlert}
+                autoHideDuration={3000}
+                onClose={handleAlertClose}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            >
+                <Alert
+                    onClose={handleAlertClose}
+                    severity={msgText.status ? "success" : "error"}
+                    variant="outlined"
+                    sx={{ width: '100%' }}
+                >{msgText.msg}</Alert>
+            </Snackbar>
+
             <Grid size={{ xs: 12, md: 5 }}>
                 <Box>
                     <h6>Create New Slider</h6>
@@ -117,16 +175,16 @@ const Content = () => {
 
                         <TextField sx={{ pb: 2 }} color='success' size='small'
                             fullWidth label="Highlights" multiline rows={3} name="initial_text"
-                            variant="outlined" onChange={(e) => handleValueChange(e)}  placeholder='Highlight of the content' />
+                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Highlight of the content' />
 
                         <TextField sx={{ pb: 2 }} color='success' name="detail_text"
                             multiline fullWidth label="Description" size='small'
                             rows={6}
-                            variant="outlined" onChange={(e) => handleValueChange(e)}  placeholder='Describe your thoughts' />
+                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Describe your thoughts' />
 
-<TextField sx={{ pb: 2 }} color='success' size='small' name="redirect_url"	
+                        <TextField sx={{ pb: 2 }} color='success' size='small' name="redirect_url"
                             fullWidth label="Re-direct URL"
-                            variant="outlined" onChange={(e) => handleValueChange(e)}  placeholder='Provide official urls like news' />
+                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Provide official urls like news' />
 
                         <Stack sx={{
                             justifyContent: 'center',
@@ -162,49 +220,73 @@ const Content = () => {
             </Grid>
 
             <Grid size={{ xs: 12, md: 7 }}>
-                <Container sx={{ pb:2}}>
-                    <h6>Media</h6>
+                <Container sx={{ pb: 2 }}>
+                    <h6>Blogs & Articles</h6>
                     <Box sx={{
-                        p: 2,
+                        p: 1,
                         display: 'flex',
                         overflowX: 'auto',
                         whiteSpace: 'nowrap',
                         width: '100%',
                         height: '170px',
-                        border: '2px dashed #e2e1e1ff'
+                        border: '2px dashed #bebebeff'
                     }}>
-
+                        {mediaList?.length > 0 && mediaList.map((item,index)=>(
+                            <Box sx={{ m: 2, bgcolor: 'white' }} key={index}>
+                                <img width='150px' height='150px'
+                                    src={item.image_url}
+                                    alt={item.title}
+                                    loading="lazy"
+                                />
+                            </Box>)
+                        )}
                     </Box>
                 </Container>
 
 
-                <Container sx={{ pb:2}}>
+                <Container sx={{ pb: 2 }}>
                     <h6>Projects</h6>
                     <Box sx={{
-                        p: 2,
+                        p: 1,
                         display: 'flex',
                         overflowX: 'auto',
                         whiteSpace: 'nowrap',
                         width: '100%',
                         height: '170px',
-                        border: '2px dashed #e2e1e1ff'
+                        border: '2px dashed #bebebeff'
                     }}>
-
+                        {projectList?.length > 0 && projectList.map((item,index)=>(
+                            <Box sx={{ m: 2, bgcolor: 'white' }} key={index}>
+                                <img width='150px' height='150px'
+                                    src={item.image_url}
+                                    alt={item.title}
+                                    loading="lazy"
+                                />
+                            </Box>)
+                        )}
                     </Box>
                 </Container>
 
-                <Container sx={{ pb:2}}>
+                <Container sx={{ pb: 2 }}>
                     <h6>Review</h6>
                     <Box sx={{
-                        p: 2,
+                        p: 1,
                         display: 'flex',
                         overflowX: 'auto',
                         whiteSpace: 'nowrap',
                         width: '100%',
                         height: '170px',
-                        border: '2px dashed #e2e1e1ff'
+                        border: '2px dashed #bebebeff'
                     }}>
-
+                        {reviewList?.length > 0 && reviewList.map((item,index)=>(
+                            <Box sx={{ m: 2, bgcolor: 'white' }} key={index}>
+                                <img width='150px' height='150px'
+                                    src={item.image_url}
+                                    alt={item.title}
+                                    loading="lazy"
+                                />
+                            </Box>)
+                        )}
                     </Box>
                 </Container>
             </Grid>

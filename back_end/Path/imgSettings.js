@@ -74,17 +74,16 @@ router.post('/content-upload', upload.single('images'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No files uploaded.');
   }
-  const { page_name, content_type, title, initial_text, detail_text, redirect_url, position } = req.body;
+  const { content_type, title, initial_text, detail_text, redirect_url, position } = req.body;
   const date = new Date()
   const pathName = `http://localhost:2000/Images/${req.file.filename}`;
 
-  const queryString = `INSERT INTO project_blogs_article (
-    page_name, content_type, title, image_url, initial_text, detail_text, redirect_url,start_date, position
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-  const values = [page_name, content_type, title, pathName, initial_text, detail_text, redirect_url, date, position];
+  const queryString = `INSERT INTO project_blogs_article (content_type, title, image_url, initial_text, detail_text, redirect_url,start_date, position) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+  const values = [content_type, title, pathName, initial_text, detail_text, redirect_url, date, position];
 
   config.query(queryString, values, (error, results) => {
     if (error) {
+      console.error(error)
       return res.status(500).send('Database insert failed');
     }
     res.status(200).json({ data: results.affectedRows });
@@ -93,15 +92,48 @@ router.post('/content-upload', upload.single('images'), (req, res) => {
 })
 
 
-router.get('/lists', (req, res) => {
-  config.query(`Select * from website_banners`, (error, results) => {
+router.get('/banner-list', (req, res) => {
+  config.query(`SELECT * FROM website_banners ORDER BY id DESC`, (error, results) => {
     if (error) {
       console.error(error);
       return res.status(500);
     }
     res.status(200).json({ data: results });
   });
+})
 
+router.get('/content-list', (req, res) => {
+  config.query(`SELECT * FROM project_blogs_article WHERE content_type='Projects' ORDER BY id DESC;SELECT * FROM project_blogs_article WHERE content_type='News & Articles' ORDER BY id DESC;SELECT * FROM project_blogs_article WHERE content_type='review' ORDER BY id DESC`, (error, results) => {
+    if (error) {
+      console.error(error);
+      return res.status(500);
+    }
+    res.status(200).json({
+      projectList: results[0],
+      mediaList: results[1],
+      reviewList: results[2]
+    });
+  });
+})
+
+
+router.get('/info', (req, res) => {
+  const date = new Date();
+  config.query(`SELECT COUNT(id) AS banner_no FROM website_banners WHERE is_active = 1;
+    SELECT COUNT(id) AS content_no FROM project_blogs_article WHERE is_active = 1;
+        SELECT created_at(CONVERT), page_name FROM website_banners ORDER BY id DESC LIMIT 1;SELECT created_at, content_type FROM project_blogs_article ORDER BY id DESC LIMIT 1`, (error, results) => {
+    if (error) {
+      console.error(error);
+      return res.status(500);
+    }
+    // console.log(results)
+    res.status(200).json({
+      bannerNo: results[0][0].banner_no || 1,
+      contentNo: results[1][0].content_no || 1,
+      lastBannerUpdate: results[2][0]?.created_at || date,
+      lastBlogUpdate: results[3][0]?.created_at || date
+    });
+  });
 })
 
 

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const config = require('../Service/config');
 
-
 router.post('/list', async (req, res) => {
     const { pageName } = req.body;
     config.query(`SELECT * FROM website_banners WHERE img_show = 'Y' AND page_name = '${pageName}' ORDER BY position ASC`, (error, results) => {

@@ -5,8 +5,34 @@ import FeedIcon from '@mui/icons-material/Feed';
 import ImageIcon from '@mui/icons-material/Image';
 import { useNavigate } from 'react-router-dom';
 import { quickAccessList } from './data';
+import { useContext, useEffect, useState } from 'react';
+import { ServerApi } from '../../../Route/ServerApi';
+import { AuthContext } from '../../../Route/AuthContext';
 
 const DashBoard = () => {
+    const { user } = useContext(AuthContext);
+    const [displayData, setDisplayData] = useState({
+        contentNo: 2,
+        bannerNo: 4,
+        lastBlogUpdate: 'today',
+        lastBannerUpdate: 'today'
+    })
+    useEffect(() => {
+        ServerApi(`/img/info`, 'GET', user.access_token)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                if (res) {
+                    setDisplayData({
+                        blogNo: res.contentNo,
+                        bannerNo: res.bannerNo,
+                        lastBlogUpdate: res.lastBlogUpdate,
+                        lastBannerUpdate: res.lastBannerUpdate
+                    })
+                } else return null;
+            })
+    }, [user])
+
     const navigate = useNavigate();
     return (
         <div>
@@ -25,10 +51,10 @@ const DashBoard = () => {
                             <DashboardCard icon={<CategoryIcon color='primary' />} title="Products" textDescription="2" />
                         </Grid>
                         <Grid size={3}>
-                            <DashboardCard icon={<FeedIcon color='success' />} title="Blog Posts" textDescription="3" />
+                            <DashboardCard icon={<FeedIcon color='success' />} title="Blog Posts" textDescription={displayData.contentNo || 0} />
                         </Grid>
                         <Grid size={3}>
-                            <DashboardCard icon={<ImageIcon color='error' />} title="Banners" textDescription="4" />
+                            <DashboardCard icon={<ImageIcon color='error' />} title="Banners" textDescription={displayData.bannerNo} />
                         </Grid>
                     </Grid>
                 </Grid>
@@ -59,8 +85,8 @@ const DashBoard = () => {
                 }}>
                     <div>
                         <h6>Recent Updates</h6>
-                        <p>Last blog update: 20-02-2020</p>
-                        <p>Last banner change: 20-02-2020</p>
+                        <p>Last blog update: {displayData.lastBlogUpdate}</p>
+                        <p>Last banner change: {displayData.lastBannerUpdate}</p>
                     </div>
                 </Grid>
             </Grid>

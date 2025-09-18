@@ -1,16 +1,14 @@
-import { Button } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const BtnFooter = ({ btnDetails }) => {
-    const { btnIcon, btnTitle } = btnDetails;
-    const btnStyle = {
-        width: 'auto',
-        padding: 0,
-        textTransform: 'none',
-    }
+    const { btnIcon, btnUrl } = btnDetails;
+    const navigate = useNavigate();
+
     return (
-        <Button style={btnStyle} variant="none" startIcon={btnIcon}>
-                {btnTitle ? btnTitle : null}
-        </Button>
+        <IconButton onClick={(e)=>navigate(btnUrl)}>
+            {btnIcon}
+        </IconButton>
     );
 };
 

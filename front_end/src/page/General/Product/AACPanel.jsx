@@ -24,21 +24,23 @@ const AACPanel = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [bannerList, setBannerList] = useState([{
         img_url: img,
-        img_name: 'about'
+        img_name: 'acc_panel'
     }]);
 
     useEffect(() => {
-        const body = { pageName: 'Home' };
+        const body = { pageName: 'ACC Panels' };
         ServerApi(`/banner/list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
-                setBannerList(res.data);
+                if (res.data.length > 0) {
+                    setBannerList(res.data);
+                } else return null;
             })
     }, []);
 
     return (
         <div >
+
             {/* BANNER HEAD */}
             <Box sx={{ position: 'relative' }}>
                 <Carousel details={{}}>

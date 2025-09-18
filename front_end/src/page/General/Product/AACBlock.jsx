@@ -22,16 +22,17 @@ const AACBlock = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [bannerList, setBannerList] = useState([{
         img_url: img,
-        img_name: 'about'
+        img_name: 'acc_block'
     }]);
 
     useEffect(() => {
-        const body = { pageName: 'Home' };
+        const body = { pageName: 'ACC Blocks' };
         ServerApi(`/banner/list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
-                setBannerList(res.data);
+                if (res.data.length > 0) {
+                    setBannerList(res.data);
+                } else return null;
             })
     }, []);
 
@@ -338,14 +339,14 @@ const AACBlock = () => {
 
                             </AccordionDetails>
                             <AccordionActions>
-                                <Button color='success'  onClick={(e) => {
-  const link = document.createElement('a');
-  link.href = '/files/myfile.pdf';
-  link.download = 'Installation_Guide.pdf';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}}>Download</Button>
+                                <Button color='success' onClick={(e) => {
+                                    const link = document.createElement('a');
+                                    link.href = '/files/myfile.pdf';
+                                    link.download = 'Installation_Guide.pdf';
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                }}>Download</Button>
                             </AccordionActions>
                         </Accordion>
                     </Grid>
