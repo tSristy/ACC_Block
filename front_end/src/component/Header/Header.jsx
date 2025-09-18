@@ -113,7 +113,8 @@ const Header = () => {
                                 <Stack direction="row" spacing={0}>
                                     {menuList.map((row, index) => (
 
-                                        <Box button sx={{
+                                        <Box key={index} sx={{
+                                            cursor: 'pointer',
                                             p: 4, fontWeight: '600',
                                             textTransform: 'uppercase',
                                             color: '#2b2b2b',

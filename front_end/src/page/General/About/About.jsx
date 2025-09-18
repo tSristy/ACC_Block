@@ -1,56 +1,73 @@
 import bannerImg from '../../../img/banner3.png';
 import Banner from '../../../component/Banner/Banner';
-import { Container, Grid, Stack } from '@mui/material';
+import { Box, Container, Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
 import TextSection from '../../../component/TextSection/TextSection';
 import imgPanel from '../../../img/Layer43.png'
 import AboutCard from '../../../component/CardBox/AboutCard';
-import PublicIcon from '@mui/icons-material/Public';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import beta from '../../../img/beta.png';
-import MyCarousel from '../../../component/Carousel/MyCarousel';
 import CallAction from '../../../component/COA/CallAction';
+import { useEffect, useState } from 'react';
+import { ServerApi } from '../../../Route/ServerApi';
+import Carousel from '../../../component/Carousel/Carousel';
+import { factoryImgList, goalData, qualityList } from './AboutPageData';
 
 const About = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+    const [bannerList, setBannerList] = useState([{
+        img_url: bannerImg,
+        img_name: 'about'
+    }]);
+
+    useEffect(() => {
+        const body = { pageName: 'About' };
+        ServerApi(`/banner/list`, 'POST', null, body)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                setBannerList(res.data);
+            })
+    }, []);
+
     return (
         <div>
-            <Banner
-                img={bannerImg}
-                bannerHeight='25rem'
-                text={{ firstTitle: 'Company Profile', bigTitle: null, descriptionTitle: null }}
-            // btnDetails={{ btnTitle: 'get a quote', url: null, color: false }}
-            />
+            <Carousel details={{}}>
+                {
+                    bannerList.map((banner, index) => (
+                        <Banner key={index}
+                            bannerHeight='25rem' img={banner.img_url} alt={banner.img_name}
+                            text={{ firstTitle: 'Company Profile', bigTitle: null, descriptionTitle: 'Building the future of construction in Bangladesh with innovative, eco-friendly AAC solutions' }}
+                        />
+                    ))}
+            </Carousel>
+
 
             {/* about  */}
-            <Container sx={{ py: 10}}>
+            <Container sx={{ py: 10 }}>
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
+                        mt: 5,
                         height: '100%',
                         justifyContent: "space-between",
                         alignItems: "center",
                     }}>
 
-                    <Grid size={7}>
-
+                    <Grid size={{ xs: 12, md: 7 }}>
                         <TextSection textData={{
-                            supportTitle: 'about us', headerTitle: 'we are the great wall', textDescription: `LContrary to popular belief, Lorem Ipsum is not simply random
- text. It has roots in a piece of classical Latin literature from 
-45 BC, making it over 2000 years old. 
-
-Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
- looked up one of the more obscure Latin words, consectetur,
-
-Contrary to popular belief, Lorem Ipsum is not simply random
- text. It has roots in a piece of classical Latin literature from 
-45 BC, making it over 2000 years old. ` }} />
+                            supportTitle: 'about us', headerTitle: 'About Great Wall AAC Block & Panels', textDescription: `Great Wall Ceramic Industries Ltd. has expanded its legacy of excellence into sustainable building solutions with AAC Blocks and Panels. Engineered with advanced technology and tested for superior performance, Great Wall AAC products bring together strength, speed, and sustainability. From residential to commercial projects, our solutions redefine construction with lighter, greener, and more efficient alternatives to traditional bricks and concrete`
+                        }} />
                     </Grid>
-                    <Grid size={4}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                         <div>
                             <img src={imgPanel} style={{
                                 height: '460px',
-                                width: '340px'
+                                width: isSmallScreen ? '100%' : '340px',
+                                objectFit: 'fit'
                             }} alt="logo" />
                         </div>
                     </Grid>
@@ -59,8 +76,11 @@ Contrary to popular belief, Lorem Ipsum is not simply random
             </Container>
 
             {/* mission vision */}
-            <Container maxWidth="auto" sx={{ mt: 7, backgroundColor: '#f7f7f7' }}>
-                <Container sx={{ py: 10}}>
+            <Container maxWidth="auto" sx={{ mt: 7, 
+                // backgroundColor: '#f7f7f7' ,
+                 backgroundImage: `linear-gradient(180deg, #ffffff, #66cc33)`,
+                }}>
+                <Container sx={{ py: 10 }}>
                     <Grid spacing={4} container
                         direction="row"
                         sx={{
@@ -69,19 +89,24 @@ Contrary to popular belief, Lorem Ipsum is not simply random
                             alignItems: "center",
                         }}>
 
-                        <Grid size={6}>
+                        {
+                            goalData.map((item, index) => (
+                                <Grid size={{ xs: 12, md: 6 }} key={index}>
+                                    <Box sx={{
+                                        p:4, 
+                                        bgcolor: '#fffffffa',
+                                        borderRadius: '8px',
+                                        height: '230px',
+                                        // textTransform: 'uppercase'
+                                    }}>
 
-                            <TextSection givenAlign='center' textData={{
-                                supportTitle: 'our vision', textDescription: `LContrary to popular belief, Lorem Ipsum is not simply random
- text. It has roots in a piece of classical Latin literature from 
-45 BC, making it over 2000 years old.` }} />
-                        </Grid>
-                        <Grid size={6}>
-                            <TextSection givenAlign='center' textData={{
-                                supportTitle: 'our mission', textDescription: `LContrary to popular belief, Lorem Ipsum is not simply random
- text. It has roots in a piece of classical Latin literature from 
-45 BC, making it over 2000 years old.` }} />
-                        </Grid>
+                                    <TextSection givenAlign='center' textData={{
+                                        supportTitle: item.title, textDescription: item.description
+                                    }} />
+                                    </Box>
+                                </Grid>
+                            ))
+                        }
                     </Grid>
                 </Container>
             </Container>
@@ -89,38 +114,33 @@ Contrary to popular belief, Lorem Ipsum is not simply random
 
             {/* Meet the team */}
             <Container maxWidth="auto" style={{
-                position: 'relative',
-                height: '1000px'
+                position: 'relative'
             }}>
                 <div style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
-                    height: '700px',
+                    height: isSmallScreen ? "100%" : '700px',
                     width: '100%',
-                    backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`,
+                    backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`,
                     zIndex: 1
                 }} />
 
 
-                <Container sx={{ py: 7, color: 'white', position: 'relative', zIndex: 2 }}>
+                <Container sx={{ pb: 10, color: 'white', position: 'relative', zIndex: 2 }}>
                     <Grid container spacing={2}>
-                        <Grid size={3}>
-                            <AboutCard iconLogo={<PublicIcon sx={{ fontSize: '45px' }} />} textTitle="All Around Bangladesh" textDescription="Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, Contrary to " />
-                        </Grid>  <Grid size={3}>
-                            <AboutCard iconLogo={<PublicIcon sx={{ fontSize: '45px' }} />} textTitle="All Around Bangladesh" textDescription="Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, Contrary to " />
-                        </Grid>  <Grid size={3}>
-                            <AboutCard iconLogo={<PublicIcon sx={{ fontSize: '45px' }} />} textTitle="All Around Bangladesh" textDescription="Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, Contrary to " />
-                        </Grid>  <Grid size={3}>
-                            <AboutCard iconLogo={<PublicIcon sx={{ fontSize: '45px' }} />} textTitle="All Around Bangladesh" textDescription="Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, Contrary to " />
-                        </Grid>
+                        {qualityList.map((item, index) => (
+                            <Grid key={index} size={{ xs: 6, md: 3 }}>
+                                <AboutCard iconLogo={item.icon} textTitle={item.title} textDescription={item.description} />
+                            </Grid>
+                        ))}
                     </Grid>
                 </Container>
 
-                <Container sx={{ py: 7, bgcolor: 'white', position: 'relative', zIndex: 2 }}>
+                <Container sx={{ py: 10, bgcolor: 'white', position: 'relative', zIndex: 2 }}>
                     <TextSection textData={{ supportTitle: 'Who made it', headerTitle: 'Meet the team', }} blackBg={false} />
                     <Grid container spacing={2} sx={{ pt: 7 }}>
-                        <Grid size={4}>
+                        <Grid size={{ xs: 12, md: 4 }}>
                             <img src={beta} alt='team' style={{ width: '100%', height: '400px', objectFit: 'fill' }}
                             />
                             <div>
@@ -132,7 +152,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random
                             </div>
                         </Grid>
 
-                        <Grid size={4}>
+                        <Grid size={{ xs: 12, md: 4 }}>
                             <img src={beta} alt='team' style={{ width: '100%', height: '400px', objectFit: 'fill' }}
                             />
                             <div>
@@ -144,7 +164,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random
                             </div>
                         </Grid>
 
-                        <Grid size={4}>
+                        <Grid size={{ xs: 12, md: 4 }}>
                             <img src={beta} alt='team' style={{ width: '100%', height: '400px', objectFit: 'fill' }}
                             />
                             <div>
@@ -156,17 +176,33 @@ Contrary to popular belief, Lorem Ipsum is not simply random
                             </div>
                         </Grid>
                     </Grid>
-
-
                 </Container>
             </Container>
 
 
             {/* factory  */}
-            <Container maxWidth="auto">
-                <Container sx={{ py: 10}}>
-                    <TextSection givenAlign="center" textData={{ supportTitle: 'our factory', headerTitle: 'Visit our ground' }} blackBg={false} />
-                    <MyCarousel />
+            <Container maxWidth="auto" sx={{ py:10}}>
+                <TextSection givenAlign="center" textData={{ supportTitle: 'our factory', headerTitle: 'Visit our ground' }} blackBg={false} />
+                <Container sx={{ mt: 5 }}>
+                    <Grid container spacing={4}>
+                        {
+                           factoryImgList.reduce((acc, item, index) => {
+                                if ( index % (isSmallScreen ? factoryImgList.length : Math.floor(factoryImgList.length /2)) === 0) {
+                                    acc.push([]);
+                                }
+                                acc[acc.length - 1].push(
+                                    <img src={item.img_url} alt={item.img_name} height={isSmallScreen ? '300px' : '100%'} style={{ objectFit: 'fit'}}/>
+                                );
+                                return acc;
+                            }, []).map((row, idx) => (
+                                <Grid  key={idx} size={{ xs: 12, md: 6 }}>
+                                    <Carousel details={{ }}>
+                                        {row}
+                                    </Carousel>
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
                 </Container>
             </Container>
 

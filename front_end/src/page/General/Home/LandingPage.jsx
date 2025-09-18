@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HomeCard from '../../../component/CardBox/HomeCard';
-import { Container, Grid, ImageList, ImageListItem, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Container, Divider, Grid, ImageList, ImageListItem, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Banner from '../../../component/Banner/Banner';
 import bannerImg from '../../../img/homepage.png';
 import imgPanel from '../../../img/Layer23.png'
@@ -47,7 +47,7 @@ const LandingPage = () => {
                         bannerList.map((banner, index) => (
                             <Banner key={index} bannerHeight="700px" text={{
                                 firstTitle: "The Great Wall", bigTitle: bannerText[index].bigTitle, descriptionTitle: bannerText[index].descriptionTitle
-                            }} img={banner.img_url} btnDetails={{ btnTitle: "Get a Quote", url: '/contact-us', color: 'false' }} />
+                            }} img={banner.img_url} alt={banner.img_name} btnDetails={{ btnTitle: "Get a Quote", url: '/contact-us', color: 'false' }} />
                         ))
                     }
                 </Carousel>
@@ -88,7 +88,7 @@ const LandingPage = () => {
                     sx={{
                         py: 5,
                         height: '100%',
-                        justifyContent: isSmallScreen ? "center" : "space-between" ,
+                        justifyContent: isSmallScreen ? "center" : "space-between",
                         alignItems: "center",
                     }}>
                     <Grid size={{ xs: 12, md: 7 }}>
@@ -147,7 +147,7 @@ const LandingPage = () => {
                         height: '100%'
                     }}>
                         <Grid container spacing={2}
-                            direction={ isSmallScreen ? "column" : "row"}
+                            direction={isSmallScreen ? "column" : "row"}
                             sx={{
                                 height: '100%',
                                 justifyContent: "space-between",
@@ -169,25 +169,67 @@ const LandingPage = () => {
 
             {/* Table Specification */}
             <Container sx={{ py: 10, border: '2px solid red' }}>
-                <TextSection givenAlign='center' textData={{ supportTitle: 'Specifications' }} />
-                <TableContainer component={Paper} sx={{ maxWidth: isSmallScreen ? '100%' : '70vw', mx: 'auto', mt: 10, mb: 5 }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ pl: 10, backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`, color: 'white' }}><Typography variant='h6'>Parameter</Typography></TableCell>
-                                <TableCell sx={{ pr: 10, textAlign: 'right', backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`, color: 'white' }}><Typography variant='h6'>Values</Typography></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {technicalSpecs.map((row, index) => (
-                                <TableRow key={index}>
-                                    <TableCell sx={{ textTransform: 'uppercase', fontSize: '14px', pl: 10 }}>{row.parameter}</TableCell>
-                                    <TableCell sx={{ textTransform: 'uppercase', fontSize: '14px', textAlign: 'right', pr: 10 }}>{row.value}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Technical Specification' }} />
+                <Grid container spacing={4} sx={{ py: 5 }}>
+                    <Grid size={{ xs: 12, md: 6 }}>
+                        {technicalSpecs.map((row, index) =>
+                            index < 3 ? (
+                                <Box key={index} sx={{
+                                    position: 'relative', m: 2, p: 4,
+                                    borderRadius: '8px',
+                                    // bgcolor: '#187b3d', 
+                                    backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`,
+                                    color: 'white',
+                                    // boxShadow: '1px 1px 5px black' 
+                                }}>
+                                    <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 25 }}>
+                                        <Typography variant='h6'>0{index + 1}</Typography>
+                                    </Avatar>
+                                    <Stack
+                                        direction="row"
+                                        divider={<Divider orientation="vertical" flexItem />}
+                                        spacing={2}
+                                        sx={{ px: 4 }}
+                                    >
+                                        <Box sx={{ width: '50%' }}>
+                                            <Typography variant='h5'>{row.parameter}</Typography>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Typography variant='h6'>{row.value}</Typography>
+                                        </Box>
+                                    </Stack>
+                                </Box>) : null)}
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 6 }}>
+                        {technicalSpecs.map((row, index) =>
+                            index > 2 ? (
+                                <Box key={index} sx={{
+                                    position: 'relative', m: 2, p: 4,
+                                    borderRadius: '8px',
+                                    // bgcolor: '#187b3d', 
+                                    backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`,
+                                    color: 'white',
+                                    // boxShadow: '1px 1px 5px black' 
+                                }}>
+                                    <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 25 }}>
+                                        <Typography variant='h6'>0{index + 1}</Typography>
+                                    </Avatar>
+                                    <Stack
+                                        direction="row"
+                                        divider={<Divider orientation="vertical" flexItem />}
+                                        spacing={2}
+                                        sx={{ px: 4 }}
+                                    >
+                                        <Box sx={{ width: '50%' }}>
+                                            <Typography variant='h5'>{row.parameter}</Typography>
+                                        </Box>
+                                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Typography variant='h6'>{row.value}</Typography>
+                                        </Box>
+                                    </Stack>
+                                </Box>) : null)}
+                    </Grid>
+                </Grid>
             </Container>
 
 
@@ -205,7 +247,7 @@ const LandingPage = () => {
 
                     </Grid>
                     <Grid size={12}>
-                        <ImageList variant="masonry" cols={ isSmallScreen ? 1 : 3} gap={8}>
+                        <ImageList variant="masonry" cols={isSmallScreen ? 1 : 3} gap={8}>
                             {imgLists.length > 0 && imgLists.map((item, index) => (
                                 <ImageListItem key={index} sx={{ p: 1, border: '2px dashed #187b3d' }}>
                                     <img
@@ -337,13 +379,13 @@ const LandingPage = () => {
                     }}
                 >
                     <Grid size={{ xs: 12, md: 4 }}>
-                    <ProjectCard />
+                        <ProjectCard />
                     </Grid>
                     <Grid size={{ xs: 12, md: 4 }}>
-                    <ProjectCard />
+                        <ProjectCard />
                     </Grid>
                     <Grid size={{ xs: 12, md: 4 }}>
-                    <ProjectCard />
+                        <ProjectCard />
                     </Grid>
                 </Grid>
             </Container>

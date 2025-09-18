@@ -29,8 +29,8 @@ const TextSection = ({ givenAlign, textData, blackBg }) => {
             <div style={{
                 fontSize: '1rem',
                 fontWeight: '400',
-                textAlign: givenAlign === 'flex-end' ? 'right':'justify',
-                marginTop: textDescription ? '2rem' : null,
+                textAlign: givenAlign === 'flex-end' ? 'right' : 'justify',
+                // marginTop: textDescription ? '2rem' : null,
                 color: blackBg ? 'white' : '#5e5e5eff'
             }}>{textDescription ? textDescription : null}</div>
         </Stack>

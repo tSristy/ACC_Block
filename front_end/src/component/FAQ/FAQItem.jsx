@@ -1,59 +1,26 @@
-import { useState } from 'react';
-import './styleFAQ.css';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { faqQuestions } from './FAQ';
 
 const FAQItem = () => {
-    const [faqs, setFaqs] = useState([
-        {
-            question: "How many programmers does it take to screw a lightbulb?",
-            answer:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra lorem eu dolor rhoncus, at scelerisque ligula gravida. Sed porta id mi sit amet convallis. Etiam iaatis quam.",
-            open: true
-        },
-        {
-            question: "Who is the most awesome person?",
-            answer: "You! The viewer!",
-            open: false
-        },
-        {
-            question:
-                "How many questions does it take to makes a succesful FAQ Page?",
-            answer: "This many!",
-            open: false
-        }
-    ]);
-
-
-    const toggleFAQ = index => {
-        setFaqs(
-            faqs.map((faq, i) => {
-                if (i === index) {
-                    faq.open = !faq.open;
-                } else {
-                    faq.open = false;
-                }
-
-                return faq;
-            })
-        );
-    };
-
-    const FAQ = ({ faq, index, toggleFAQ }) => {
-        return (
-            <div
-                className={"faq " + (faq.open ? "open" : "")}
-                key={index}
-                onClick={() => toggleFAQ(index)}
-            >
-                <div className="faq-question">{faq.question}</div>
-                <div className="faq-answer">{faq.answer}</div>
-            </div>
-        );
-    };
-
     return (
-        <div className="faqs">
-            {faqs.map((faq, index) => (
-                <FAQ faq={faq} index={index} key={index} toggleFAQ={toggleFAQ} />
+        <div>
+            {faqQuestions.map((item, index) => (
+                <Accordion key={index} defaultExpanded={index === faqQuestions.length - 1 ? true : false}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon color='success'/>}
+                        aria-controls="panel1-content"
+                        id="panel1-header"
+                    >
+                        <Typography component="span">{item.question}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        {item.answer}
+                    </AccordionDetails>
+                </Accordion>
             ))}
         </div>
     );

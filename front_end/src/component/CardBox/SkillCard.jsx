@@ -20,14 +20,14 @@ const SkillCard = ({ card, iconLogo, title, textDescription }) => {
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
-                <Grid size={2}>
+                <Grid size={{ xs: 2 }}>
                     <div>
                         <Avatar sx={{ bgcolor: ' #187b3d' }}>
                            { iconLogo }
                         </Avatar>
                     </div>
                 </Grid>
-                <Grid size={8}>
+                <Grid size={{ xs: 8 }}>
                     <Stack
                         direction="column"
                         sx={{

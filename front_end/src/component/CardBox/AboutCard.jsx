@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React from 'react';
 
 const AboutCard = ({iconLogo, textTitle, textDescription}) => {
@@ -11,10 +11,10 @@ const AboutCard = ({iconLogo, textTitle, textDescription}) => {
                 alignItems: "center",
             }}
         >
-            <div> {iconLogo ? iconLogo : null }
-                </div>
-            <div style={{ fontSize: '1.5rem', textAlign: 'center'}}>{textTitle}</div>
-            <div style={{ fontSize: '1rem', textAlign: 'center'}}>{textDescription}</div>
+            <Box> {iconLogo ? iconLogo : null }
+            </Box>
+            <Box sx={{ fontSize: '1.25rem', fontWeight: 500, textAlign: 'center'}}>{textTitle}</Box>
+            <Box sx={{pt:1, fontSize: '1rem', textAlign: 'center'}}>{textDescription}</Box>
         </Stack>
     );
 };

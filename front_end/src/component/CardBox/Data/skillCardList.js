@@ -20,13 +20,14 @@ export const skillBrickCardList = [
 
 ]
 
+
 export const skillPanelCardList = [
     { icon: <HandymanIcon />, title: "4X Faster Installation", textDescription: "Saves time, labor, and cost" },
     { icon: <BuildIcon />, title: "Steel Reinforced", textDescription: "Corrosion-protected steel inside ensures durability" },
     { icon: <DeviceThermostatIcon />, title: "Thermal & Acoustic Insulation", textDescription: "Keeps interiors cooler and quieter" },
     { icon: <HardwareIcon />, title: "Reusable & Eco-Friendly", textDescription: "Sustainable design with minimal waste" },
     { icon: <AddRoadIcon />, title: "Slim Walls, More Space", textDescription: "Increases carpet area for better utilization" },
-    { icon: <LocalFireDepartmentIcon />, title: "Fire Resistance & Safe", textDescription: "Provides 4–6 hours fire resistance for added security" },
+    { icon: <LocalFireDepartmentIcon />, title: "Fire Resistance & Safe", textDescription: "Provides 4-6 hours fire resistance for added security" },
     
     // { icon: <ScaleIcon />, title: "Lightweight & Strong", textDescription: "Minimizes structural load without compromising durability" },
     // { icon: <AutoModeIcon />, title: "No Coping/Bond Beam", textDescription: "Stability up to 6m wall height without extra structure" },

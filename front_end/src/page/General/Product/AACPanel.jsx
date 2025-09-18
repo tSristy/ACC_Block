@@ -1,4 +1,4 @@
-import { Container, Grid, Stack } from '@mui/material';
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Avatar, Box, Button, Container, Divider, Grid, List, ListItem, ListItemText, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import img from '../../../img/banner2.png';
 import imgPanel from '../../../img/productPanel.png';
 import imgBrick from '../../../img/productBrick.png';
@@ -9,61 +9,106 @@ import { Table } from 'react-bootstrap';
 import AppCard from '../../../component/CardBox/AppCard';
 import BtnUrlChange from '../../../component/Button/BtnUrlChange';
 import FAQItem from '../../../component/FAQ/FAQItem';
-import { skillPanelCardList } from '../../../component/CardBox/Data/skillCardList';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useEffect, useState } from 'react';
+import { ServerApi } from '../../../Route/ServerApi';
+import Carousel from '../../../component/Carousel/Carousel';
+import Banner from '../../../component/Banner/Banner';
+import { appCardList } from '../../../component/CardBox/Data/appCardList';
+import { panelComparisonList, panelQuality, panelSkillList, panelSpecification } from './productData';
+import AboutCard from '../../../component/CardBox/AboutCard';
+
 const AACPanel = () => {
-    const bannerStyle = {
-        height: '510px',
-        width: 'auto',
-        backgroundImage: `url(${img})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        padding: 0
-    }
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+    const [bannerList, setBannerList] = useState([{
+        img_url: img,
+        img_name: 'about'
+    }]);
+
+    useEffect(() => {
+        const body = { pageName: 'Home' };
+        ServerApi(`/banner/list`, 'POST', null, body)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                setBannerList(res.data);
+            })
+    }, []);
+
     return (
         <div >
             {/* BANNER HEAD */}
-            <Container maxWidth="auto" style={bannerStyle}>
-                <Stack direction="column"
-                    style={{
+            <Box sx={{ position: 'relative' }}>
+                <Carousel details={{}}>
+                    {
+                        bannerList.map((banner, index) => (
+                            <Banner key={index}
+                                bannerHeight='32rem' img={banner.img_url} alt={banner.img_name}
+                                text={{}}
+                            />
+                        ))}
+                </Carousel>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: isSmallScreen ? '100%' : '70vw',
                         height: '100%',
-                        backgroundColor: 'rgba(43, 43, 43, 0.6)',
-                    }}>
-                    <div style={{ position: 'relative', height: '100vh' }}>
-                        <div
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '70%',
-                                height: '100%',
-                                backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                                zIndex: 1,
-                            }}
-                        />
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        zIndex: 1,
+                        p: isSmallScreen ? 0 : 13,
+                    }}
+                >
+                    <TextSection textData={{ supportTitle: 'Revolutionizing Construction with', headerTitle: 'Great Wall AAC Panels', textDescription: "Lightweight, steel-reinforced, and 4X faster installation for smarter building." }} blackBg={true} />
+                </Box>
+            </Box>
 
-                        <Container style={{ height: "100%", position: 'relative', zIndex: 2 }}>
-                            <Grid container style={{
-                                height: '100%'
-                            }}>
-                                <Grid size={7} >
-                                    <TextSection textData={{ supportTitle: 'our product', headerTitle: 'AAC Panel', textDescription: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) " }} blackBg={true} />
-                                </Grid>
-                            </Grid>
-                        </Container>
-                    </div>
-                </Stack>
+
+            {/* Product description */}
+            <Container sx={{ py: 10 }}>
+                <Grid spacing={4} container
+                    direction="row"
+                    sx={{
+                        py: 5,
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                    }}>
+
+                    <Grid size={{ xs: 12, md: 7 }}>
+                        <TextSection givenAlign='' textData={{ supportTitle: 'our products', headerTitle: 'GREAT WALL AAC PANELS', textDescription: 'A short paragraph introducing AAC Panels as an innovative, steel-reinforced building solution designed for fast, clean, and durable construction. Highlight their benefits in residential, commercial, and industrial projects, plus eco-friendly nature' }} />
+                    </Grid>
+                    <Grid size={{ sx: 12, md: 5 }}>
+                        <img src={imgPanel} style={{
+                            objectFit: 'cover',
+                            height: '400px',
+                            width: '100%'
+                        }} alt="aac-Blocks" />
+                    </Grid>
+                </Grid>
             </Container>
 
             {/* Why acc? */}
-            <Container maxWidth="auto" style={{
+            <Container maxWidth="auto" sx={{
+                py: 10,
                 color: 'white',
-                height: '170px',
                 backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`
             }}>
                 <TextSection blackBg={true} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
+
+                <Grid container spacing={2} sx={{ pt: 10 }}>
+                    {panelQuality.map((item, index) => (
+                        <Grid key={index} size={{ xs: 6, md: 3 }}>
+                            <AboutCard iconLogo={item.icon} textTitle={item.title} />
+                        </Grid>
+                    ))}
+                </Grid>
             </Container>
 
-             {/* Product features */}
+
+            {/* Product features */}
             <div
                 style={{
                     backgroundImage: `url(${img})`,
@@ -83,14 +128,15 @@ const AACPanel = () => {
                         <Grid container spacing={2}
                             direction="row"
                             sx={{
+                                py: 5,
                                 height: '100%',
                                 justifyContent: "space-between",
                                 alignItems: "stretch",
                             }}
                         >
                             {
-                                skillPanelCardList.map((row, index) => (
-                                    <Grid size={3} key={index}>
+                                panelSkillList.map((row, index) => (
+                                    <Grid size={{ xs: 12, md: 4 }} key={index}>
                                         <SkillCard iconLogo={row.icon} title={row.title} textDescription={row.textDescription} />
                                     </Grid>
                                 ))
@@ -100,130 +146,196 @@ const AACPanel = () => {
                 </div>
             </div>
 
-            {/* Product description */}
-            <Container sx={{ py: 10}}>
-                <Grid spacing={4} container
-                    direction="row"
-                    sx={{
-                        height: '100%',
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                    }}>
-
-                    <Grid size={6}>
-
-                        <TextSection givenAlign='center' textData={{ supportTitle: 'our products', headerTitle: 'Great Wall AAC Panels', textDescription: 'Great Wall Panels are a high-performance, steel-reinforced AAC solution for modern construction. Designed for speed, strength, and sustainability, these panels combine lightweight durability with superior insulation and fire safety.Ideal for residential, commercial, and industrial projects, our panels are easy to install, reusable, and eco-friendly — giving you clean, dry construction with minimal waste.' }} />
+            {/* Product details */}
+            <Container sx={{ py: 10 }}>
+                <Grid container spacing={2}>
+                    <Grid size={{ md: 12 }} sx={{ py: 5 }}>
+                        <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Technical Specification' }} />
                     </Grid>
-                    <Grid size={6}>
-                        <div>
+                    <Grid size={{ xs: 12, md: 6 }}>
+                        <Box sx={{ p: 2, m: 2, border: 'dashed 2px #187b3d' }}>
                             <img src={imgPanel} style={{
+                                objectFit: 'cover',
                                 height: '400px',
-                                width: '450px'
-                            }} alt="logo" />
-                        </div>
+                                width: '100%'
+                            }} alt="brick" />
+                            <img src={imgPanel} style={{
+                                objectFit: 'cover',
+                                height: '400px',
+                                width: '100%'
+                            }} alt="brick" />
+                        </Box>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 6 }}>
+                        {panelSpecification.map((row, index) => (
+                            <Box key={index} sx={{
+                                position: 'relative', m: 2, p: 4,
+                                borderRadius: '8px',
+                                // bgcolor: '#187b3d', 
+                                backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`,
+                                color: 'white',
+                                // boxShadow: '1px 1px 5px black' 
+                            }}>
+                                <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 25 }}>
+                                    <Typography variant='h6'>0{index + 1}</Typography>
+                                </Avatar>
+                                <Stack
+                                    direction="row"
+                                    divider={<Divider orientation="vertical" flexItem />}
+                                    spacing={2}
+                                    sx={{ px: 4 }}
+                                >
+                                    <Box sx={{ width: '50%' }}>
+                                        <Typography variant='h5'>{row.parameter}</Typography>
+                                    </Box>
+                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Typography variant='h6'>{row.value}</Typography>
+                                    </Box>
+                                </Stack>
+                            </Box>))}
                     </Grid>
                 </Grid>
             </Container>
 
-            {/* Product details */}
-            <Container sx={{ py: 10}}>
-                <Stack
-                    direction="row"
-                    sx={{
-                        height: '100%',
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}>
-                    <div>
-                        <img src={imgBrick} style={{
-                            height: '400px',
-                            width: '450px'
-                        }} alt="brick" />
-                    </div>
-
-                    <div style={{ width: '100%' }}>
-                        <img src={imgTable} style={{
-                            height: '400px',
-                            width: '100%'
-                        }} alt="logo" />
-                    </div>
-                </Stack>
-            </Container>
-
             {/* Compare table */}
-            <Container maxWidth="auto" style={{ backgroundColor: '#f7f7f7' }}>
-                <Container sx={{ py: 10}}>
-                    <Table striped borderless>
-                        <thead>
-                            <tr>
-                                <th style={{ backgroundColor: '#f7f7f7', fontWeight: 600, fontSize: '1.5rem' }}>Key</th>
-                                <th style={{ backgroundColor: '#f7f7f7', fontWeight: 600, fontSize: '1.5rem' }}>AAC Panel</th>
-                                <th style={{ backgroundColor: '#f7f7f7', fontWeight: 600, fontSize: '1.5rem' }}>Traditional Panel</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>john</td>
-                                <td>Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </Table>
+            <Container maxWidth="auto" sx={{ py: 10, backgroundColor: '#167b3d' }}>
+                <Grid container>
+                    <Grid size={{ md: 12 }} sx={{ py: 5 }}>
+                        <TextSection blackBg='true' givenAlign='center' textData={{ supportTitle: 'Make decision', headerTitle: 'Compare yourself' }} />
+                    </Grid>
 
-                </Container>
+                    {panelComparisonList.map((item, index) => (
+                        <Grid size={{ sm: 12, md: 3 }} sx={{ py: 5 }}>
+
+                            <Box sx={{ p: 2, m: 1, backgroundColor: '#00000093', color: 'white', borderRadius: '8px' }}>
+                                <Typography variant='h5'>0{index + 1}</Typography>
+                                <Typography variant='h6'>{item.Name}</Typography>
+                                <Divider sx={{ my: 2, bgcolor: 'white' }} />
+                                {Object.entries(item).map(([key, value], idx) =>
+                                    idx > 1 ? (
+                                        <Box sx={{ mb: 2 }}>
+                                            <Box sx={{ p: 2, color: 'black', bgcolor: '#66cc33', textTransform: 'uppercase' }}>
+                                                <Typography sx={{ fontSize: '14px', textAlign: 'center' }} >{key}</Typography>
+                                            </Box>
+                                            <Box sx={{ p: 2, bgcolor: '#e7e7e7ff', color: '#2b2b2b' }}>
+                                                <Typography sx={{ fontSize: "18px", fontWeight: 600, textAlign: 'center' }}>{value}</Typography>
+                                            </Box>
+                                        </Box>
+
+                                    ) : null)}
+                            </Box>
+                        </Grid>
+                    ))}
+                </Grid>
             </Container>
+
 
             {/* Application */}
-            <Container maxWidth="auto"
+            <div
                 style={{
                     backgroundImage: `url(${img})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     height: '470px',
-                    padding: 0
                 }}>
                 <div style={{
                     height: '100%',
                     backgroundColor: 'rgba(17, 17, 17, 0.7)',
                     color: 'white'
                 }}>
-                    <Container sx={{ py: 10}}>
+                    <Container sx={{ py: 10 }}>
                         <TextSection blackBg={true} textData={{ supportTitle: 'where to use', headerTitle: 'Application' }} />
                     </Container>
 
                     <Container>
                         <Stack direction="row" spacing={2}
                             sx={{
-                                justifyContent: "space-around",
+                                justifyContent: isSmallScreen ? "center" : "space-around",
                                 alignItems: "center",
                             }}>
-                            <AppCard cardTitle='industry' />
-                            <AppCard cardTitle='industry' />
-                            <AppCard cardTitle='industry' />
-                            <AppCard cardTitle='industry' />
+                            <Carousel details={{ itemNo: 4 }}>
+                                {appCardList.map((item, index) => (
+                                    <AppCard cardTitle={item.title} />
+                                ))}
+                            </Carousel>
                         </Stack>
                     </Container>
                 </div>
+            </div>
+            <div style={{
+                height: '200px',
+                position: 'relative',
+            }} />
+
+
+            {/* Installation */}
+            <Container sx={{ py: 10 }}>
+                <Grid container>
+                    <Grid size={{ md: 12 }} sx={{ py: 5 }}>
+                        <Accordion >
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon color='success' />}
+                                aria-controls="panel3-content"
+                                id="panel3-header"
+                            >
+                                <TextSection textData={{ supportTitle: 'Step by Step', headerTitle: 'Installation Guidelines' }} />
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <List>
+                                    <ListItem>
+                                        <ListItemText primary="Step 1: Check sizes, quantities, and condition of panels before installation." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 2: Clean and mark wall alignment using chalk tape." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 3: Insert a foam sheet between the floor and the bottom of the panel." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 4: Mix thin-bed mortar and apply to the structural column." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 5: Lift the panel with a hand lift, push it against the column, and align." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 6: Apply bed mortar to the side of each panel and attach the next one." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 7: Fasten panels to the floor using steel angles and dash fasteners." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 8: Measure and cut the last panel to fit any gap." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 9: Fill panel joints with thin-bed mortar and smooth with sandpaper." />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Step 10: Finish with skim coat (interior) or AAC plastering mortar (exterior)." />
+                                    </ListItem>
+                                </List>
+
+                            </AccordionDetails>
+                            <AccordionActions>
+                                <Button color='success' onClick={(e) => {
+                                    const link = document.createElement('a');
+                                    link.href = '/files/myfile.pdf';
+                                    link.download = 'Installation_Guide.pdf';
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                }}>Download</Button>
+                            </AccordionActions>
+                        </Accordion>
+                    </Grid>
+                </Grid>
             </Container>
 
             {/* FAQ */}
             <div maxWidth="auto" style={{
-                marginTop: '250px',
                 position: 'relative',
-                height: '80vh'
             }}>
                 <div style={{
-                    width: '50%',
+                    width: isSmallScreen ? '100%' : '50%',
                     position: 'absolute',
                     height: '100%',
                     left: 0,
@@ -232,26 +344,26 @@ const AACPanel = () => {
                     zIndex: 1,
                 }} />
 
-                <Container style={{ height: '100%', position: 'relative', zIndex: 2 }}>
+                <Container style={{ position: 'relative', zIndex: 2 }}>
                     <Grid spacing={4}
                         container
                         direction="row"
                         sx={{
-                            py: 7,
+                            py: 10,
                             justifyContent: "space-between",
                             alignItems: "center",
                         }}
                     >
-                        <Grid size={5}>
-                            <TextSection blackBg={true} textData={{ headerTitle: "FAQ Questions", textDescription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.' }} />
+                        <Grid size={{ xs: 12, md: 5 }}>
+                            <TextSection blackBg={true} textData={{ headerTitle: "FAQ Questions", textDescription: 'Build faster, stronger, and smarter with Great Wall AAC Panels - Contact us today' }} />
                             <div style={{ marginTop: '40px' }}>
 
-                                <BtnUrlChange btnDetails={{ btnTitle: 'contact us', url: '/contact-us', color: false }} />
+                                <BtnUrlChange btnDetails={{ btnTitle: 'Get a Quote', url: '/contact-us', color: false }} />
                             </div>
                         </Grid>
 
-                        <Grid size={5}>
-                             <FAQItem/>
+                        <Grid size={{ xs: 12, md: 5 }}>
+                            <FAQItem />
                         </Grid>
                     </Grid>
                 </Container>

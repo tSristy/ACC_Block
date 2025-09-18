@@ -14,7 +14,7 @@ const Banner = ({ bannerHeight, text, img, btnDetails }) => {
     return (
         <Container maxWidth="auto" style={bannerStyle}>
             <Stack direction="column"
-                style={{
+                sx={{
                     width: '100%',
                     height: '100%',
                     backgroundColor: 'rgba(43, 43, 43, 0.6)',
