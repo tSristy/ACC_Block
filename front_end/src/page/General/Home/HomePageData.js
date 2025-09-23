@@ -1,8 +1,8 @@
-import product1 from '../../../img/S_a.png';
-import product2 from '../../../img/S_b.png';
-import product3 from '../../../img/S_c.png';
-import product4 from '../../../img/S_d.png';
-import product5 from '../../../img/S_e.png';
+import product1 from '../../../img/AAC_blocks/Size-1.png';
+import product2 from '../../../img/AAC_blocks/Size-2.png';
+import product3 from '../../../img/AAC_blocks/Size-3.png';
+import product4 from '../../../img/AAC_blocks/S_b.png';
+import product5 from '../../../img/AAC_blocks/S_c.png';
 
 export const bannerText = [
     {
@@ -13,11 +13,13 @@ export const bannerText = [
         bigTitle: `AAC Blocks`,
         descriptionTitle: `Lightweight, durable, and energy-efficient blocks that save cost, time, and energy`
     },
-    // {
-    //     bigTitle: `AAC Panels`,
-    //     descriptionTitle: `Innovative, steel-reinforced panels for faster, stronger, and smarter construction`
-    // }
+    {
+        bigTitle: `AAC Panels`,
+        descriptionTitle: `Innovative, steel-reinforced panels for faster, stronger, and smarter construction`
+    }
 ]
+
+
 export const imgLists = [
     {
         img_name: '600mmX200mmX100mm',

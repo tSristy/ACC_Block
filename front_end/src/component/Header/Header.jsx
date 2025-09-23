@@ -41,10 +41,10 @@ const Header = () => {
             title: 'Product',
             url: '/aac-blocks' || '/aac-panels',
         },
-        {
-            title: 'Blogs & Articles',
-            url: '/blogs',
-        },
+        // {
+        //     title: 'Blogs & Articles',
+        //     url: '/blogs',
+        // },
         {
             title: 'Contact us',
             url: '/contact-us',

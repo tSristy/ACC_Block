@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import HomeCard from '../../../component/CardBox/HomeCard';
-import { Avatar, Box, Container, Divider, Grid, ImageList, ImageListItem, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Container, Divider, Grid, ImageList, ImageListItem, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Banner from '../../../component/Banner/Banner';
-import bannerImg from '../../../img/homepage.png';
-import imgPanel from '../../../img/Layer23.png'
+import imgPanel from '../../../img/Products/Our-Product-D.png'
 import TextSection from '../../../component/TextSection/TextSection';
 import BtnUrlChange from '../../../component/Button/BtnUrlChange';
-import img from '../../../img/banner2.png';
 import SkillCard from '../../../component/CardBox/SkillCard';
 import ProjectCard from '../../../component/CardBox/ProjectCard';
-import imgProduct1 from '../../../img/productBrick.png';
 import AppCard from '../../../component/CardBox/AppCard';
 import CallAction from '../../../component/COA/CallAction';
 import ClientReview from '../../../component/Review/ClientReview';
@@ -19,17 +16,38 @@ import Carousel from '../../../component/Carousel/Carousel';
 import { ServerApi } from '../../../Route/ServerApi';
 import { bannerText, imgLists, technicalSpecs } from './HomePageData';
 import { appCardList } from '../../../component/CardBox/Data/appCardList';
+import bannerImg1 from '../../../img/HomePage/A.png';
+import bannerImg2 from '../../../img/HomePage/B.png';
+import bannerImg3 from '../../../img/HomePage/C.png';
+import appImg from '../../../img/Applications/WHERE-TO-USE-Application.png';
+import imgWhyChoose from '../../../img/WhyChoose/1400X1200.png';
+import aboutImg from '../../../img/About/About-Us.png'
 
 const LandingPage = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-    const [bannerList, setBannerList] = useState([]);
+    const [bannerList, setBannerList] = useState([
+        {
+            img_url: bannerImg1,
+            img_name: 'home'
+        },
+        {
+            img_url: bannerImg2,
+            img_name: 'home'
+        },
+        {
+            img_url: bannerImg3,
+            img_name: 'home'
+        }
+    ]);
     useEffect(() => {
         const body = { pageName: 'Home' };
-        ServerApi(`/banner/list`, 'POST', null, body)
+        ServerApi(`/display/banner-list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
-                setBannerList(res.data);
+                if (res.data.length > 0) {
+                    setBannerList(res.data);
+                } else return null;
             })
     }, []);
 
@@ -37,7 +55,6 @@ const LandingPage = () => {
         <div>
             {/* banner & card  */}
             <div style={{
-                border: '2px solid red',
                 position: 'relative',
                 // height: '870px',
             }}>
@@ -82,7 +99,7 @@ const LandingPage = () => {
 
 
             {/* about  */}
-            <Container sx={{ py: 10, border: '2px solid red' }}>
+            <Container sx={{ py: 10 }}>
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
@@ -105,7 +122,7 @@ const LandingPage = () => {
                     </Grid>
                     <Grid size={{ xs: 12, md: 4 }}>
                         <div>
-                            <img src={imgPanel} style={{
+                            <img src={aboutImg} style={{
                                 height: '460px',
                                 width: isSmallScreen ? '100%' : '340px'
                             }} alt="logo" />
@@ -117,12 +134,10 @@ const LandingPage = () => {
 
             {/* Why acc? */}
             <Container maxWidth="auto" sx={{
-                border: '2px solid red',
                 // mt:10,
                 py: 10,
                 color: 'white',
-                // height: '170px',
-                backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`
+                backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`
             }}>
                 <TextSection blackBg={true} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
             </Container>
@@ -130,8 +145,7 @@ const LandingPage = () => {
             {/* Product features */}
             <div
                 style={{
-                    border: '2px solid red',
-                    backgroundImage: `url(${img})`,
+                    backgroundImage: `url(${imgWhyChoose})`,
                     backgroundSize: 'cover',
                     backgroundPosition: isSmallScreen ? 'repeat' : 'center',
                     // height: '620px',                    
@@ -139,11 +153,11 @@ const LandingPage = () => {
                 <div style={{
                     height: '100%',
                     // backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                    backgroundColor: '#187b3cf1',
+                    backgroundColor: '#187b3cbb',
                     color: 'white'
                 }}>
                     <Container sx={{
-                        pb: 15,
+                        py: 15,
                         height: '100%'
                     }}>
                         <Grid container spacing={2}
@@ -168,9 +182,9 @@ const LandingPage = () => {
 
 
             {/* Table Specification */}
-            <Container sx={{ py: 10, border: '2px solid red' }}>
+            <Container sx={{ py: 10 }}>
                 <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Technical Specification' }} />
-                <Grid container spacing={4} sx={{ py: 5 }}>
+                <Grid container spacing={4} sx={{ pt: 5 }}>
                     <Grid size={{ xs: 12, md: 6 }}>
                         {technicalSpecs.map((row, index) =>
                             index < 3 ? (
@@ -234,7 +248,7 @@ const LandingPage = () => {
 
 
             {/* Product description */}
-            <Container sx={{ py: 10, border: '2px solid red' }}>
+            <Container sx={{ py: 5 }}>
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
@@ -277,7 +291,7 @@ const LandingPage = () => {
             {/* Application */}
             <div
                 style={{
-                    backgroundImage: `url(${img})`,
+                    backgroundImage: `url(${appImg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     height: '470px',
@@ -287,11 +301,11 @@ const LandingPage = () => {
                     backgroundColor: 'rgba(17, 17, 17, 0.7)',
                     color: 'white'
                 }}>
-                    <Container sx={{ py: 10, border: '2px solid red' }}>
+                    <Container sx={{ py: 10 }}>
                         <TextSection blackBg={true} textData={{ supportTitle: 'where to use', headerTitle: 'Application' }} />
                     </Container>
 
-                    <Container sx={{ pb: 15, border: '2px solid red' }}>
+                    <Container sx={{ pb: 15 }}>
                         <Stack direction="row" spacing={2}
                             sx={{
                                 justifyContent: isSmallScreen ? "center" : "space-around",
@@ -299,7 +313,8 @@ const LandingPage = () => {
                             }}>
                             <Carousel details={{ itemNo: 4 }}>
                                 {appCardList.map((item, index) => (
-                                    <AppCard cardTitle={item.title} />
+                                    <AppCard key={index}
+                                    title={item.title} imgUrl={item.imgUrl} />
                                 ))}
                             </Carousel>
                         </Stack>
@@ -312,7 +327,7 @@ const LandingPage = () => {
             }} />
 
             {/* Product description */}
-            <Container sx={{ py: 15, border: '2px solid red' }}>
+            <Container sx={{ py: 10 }}>
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
@@ -331,7 +346,7 @@ const LandingPage = () => {
                     </Grid>
                     <Grid size={{ xs: 12, md: 5 }}>
                         <div>
-                            <img src={imgProduct1} style={{
+                            <img src={imgPanel} style={{
                                 height: '400px',
                                 width: isSmallScreen ? '100%' : '450px'
                             }} alt="logo" />
@@ -342,13 +357,13 @@ const LandingPage = () => {
 
 
             {/* Product features Panel*/}
-            <Container sx={{ py: 10, border: '2px solid red' }}>
+            <Container sx={{ py: 10 }}>
                 <TextSection textData={{ supportTitle: 'Product Features', headerTitle: 'Why Great Wall AAC Panels' }} />
                 <Grid container spacing={2}
                     direction="row"
                     sx={{
                         mb: 5,
-                        mt: 10,
+                        mt: 5,
                         height: '100%',
                         justifyContent: "space-between",
                         alignItems: "stretch",
@@ -367,7 +382,7 @@ const LandingPage = () => {
 
 
             {/* projects */}
-            <Container sx={{ py: 10, border: '2px solid red' }}>
+            <Container sx={{ py: 5 }}>
                 <TextSection givenAlign='center' blackBg={false} textData={{ supportTitle: 'our work', headerTitle: 'Mega Projects' }} />
 
                 <Grid container spacing={4}
@@ -391,9 +406,9 @@ const LandingPage = () => {
             </Container>
 
             {/* client */}
-            <Container sx={{ py: 10, border: '2px solid red' }}>
+            <Container sx={{ py: 10 }}>
                 <TextSection givenAlign='center' blackBg={false} textData={{ supportTitle: 'Our Clients', headerTitle: 'Testimonials' }} />
-                <Container sx={{ py: 5 }}>
+                <Container sx={{ pb: 5 }}>
                     <ClientReview />
                 </Container>
             </Container>

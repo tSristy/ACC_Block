@@ -44,7 +44,7 @@ app.use('/img', authCheck, imgsRouter);
 //GENERAL
 app.use('/Images', express.static(path.join(__dirname, 'Images')));
 
-const bannerRouter = require('./GeneralPath/BannerPath');
-app.use('/banner', bannerRouter);
+const displayRoute = require('./GeneralPath/displayRoute');
+app.use('/display', displayRoute);
 
 app.listen(2000)

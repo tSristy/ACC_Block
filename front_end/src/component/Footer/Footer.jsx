@@ -1,5 +1,5 @@
 import { Container, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
-import BtnFooter from '../Button/BtnFooter';
+import BtnExternalUrl from '../Button/BtnExternalUrl';
 import { footerIcon } from './FooterData';
 
 const Footer = () => {
@@ -24,7 +24,7 @@ const Footer = () => {
                 <Container>
                     {
                         footerIcon.map((item, index) => (
-                            <BtnFooter key={index} btnDetails={{ btnIcon: item.icon, btnUrl: item.url }} />
+                            <BtnExternalUrl key={index} btnDetails={{ btnIcon: item.icon, btnUrl: item.url }} />
                         ))
                     }
                 </Container>

@@ -1,7 +1,10 @@
 import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Avatar, Box, Button, Container, Divider, Grid, List, ListItem, ListItemText, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import img from '../../../img/banner2.png';
-import imgBrick from '../../../img/S_a.png';
-import imgBrick2 from '../../../img/S_b.png';
+import bannerImg from '../../../img/Products/A.png';
+import blockImg from '../../../img/Products/Our-Product-C.png';
+import blockImg1 from '../../../img/AAC_blocks/Size-2.png';
+import blockImg2 from '../../../img/AAC_blocks/Size-1.png';
+import appImg from '../../../img/Applications/WHERE-TO-USE-Application.png';
+import imgWhyChoose from '../../../img/WhyChoose/1400X1200.png';
 import TextSection from '../../../component/TextSection/TextSection';
 import SkillCard from '../../../component/CardBox/SkillCard';
 import AppCard from '../../../component/CardBox/AppCard';
@@ -21,13 +24,13 @@ const AACBlock = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [bannerList, setBannerList] = useState([{
-        img_url: img,
+        img_url: bannerImg,
         img_name: 'acc_block'
     }]);
 
     useEffect(() => {
         const body = { pageName: 'ACC Blocks' };
-        ServerApi(`/banner/list`, 'POST', null, body)
+        ServerApi(`/display/banner-list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
                 if (res.data.length > 0) {
@@ -54,7 +57,7 @@ const AACBlock = () => {
                         position: 'absolute',
                         top: 0,
                         left: 0,
-                        width: isSmallScreen ? '100%' : '70vw',
+                        width: isSmallScreen ? '100%' : '65vw',
                         height: '100%',
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                         zIndex: 1,
@@ -80,7 +83,7 @@ const AACBlock = () => {
                         <TextSection givenAlign='' textData={{ supportTitle: 'our products', headerTitle: 'GREAT WALL AAC BLOCKS', textDescription: 'A short paragraph introducing AAC Blocks as a modern alternative to clay bricks and concrete, highlighting benefits like lightweight design, energy savings, and eco-friendliness' }} />
                     </Grid>
                     <Grid size={{ sx: 12, md: 5 }}>
-                        <img src={imgBrick} style={{
+                        <img src={blockImg} style={{
                             objectFit: 'cover',
                             height: '400px',
                             width: '100%'
@@ -110,7 +113,7 @@ const AACBlock = () => {
             {/* Product features */}
             <div
                 style={{
-                    backgroundImage: `url(${img})`,
+                    backgroundImage: `url(${imgWhyChoose})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     // height: '620px',                    
@@ -155,12 +158,12 @@ const AACBlock = () => {
                     </Grid>
                     <Grid size={{ xs: 12, md: 6 }}>
                         <Box sx={{ p: 2, m: 2, border: 'dashed 2px #187b3d' }}>
-                            <img src={imgBrick} style={{
+                            <img src={blockImg1} style={{
                                 objectFit: 'cover',
                                 height: '400px',
                                 width: '100%'
                             }} alt="brick" />
-                            <img src={imgBrick2} style={{
+                            <img src={blockImg2} style={{
                                 objectFit: 'cover',
                                 height: '400px',
                                 width: '100%'
@@ -257,9 +260,10 @@ const AACBlock = () => {
             </Container>
 
             {/* Application */}
+            {/* Application */}
             <div
                 style={{
-                    backgroundImage: `url(${img})`,
+                    backgroundImage: `url(${appImg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     height: '470px',
@@ -269,11 +273,11 @@ const AACBlock = () => {
                     backgroundColor: 'rgba(17, 17, 17, 0.7)',
                     color: 'white'
                 }}>
-                    <Container sx={{ py: 10, mt: 5 }}>
+                    <Container sx={{ py: 10 }}>
                         <TextSection blackBg={true} textData={{ supportTitle: 'where to use', headerTitle: 'Application' }} />
                     </Container>
 
-                    <Container>
+                    <Container sx={{ pb: 15 }}>
                         <Stack direction="row" spacing={2}
                             sx={{
                                 justifyContent: isSmallScreen ? "center" : "space-around",
@@ -281,7 +285,8 @@ const AACBlock = () => {
                             }}>
                             <Carousel details={{ itemNo: 4 }}>
                                 {appCardList.map((item, index) => (
-                                    <AppCard cardTitle={item.title} />
+                                    <AppCard key={index}
+                                    title={item.title} imgUrl={item.imgUrl} />
                                 ))}
                             </Carousel>
                         </Stack>

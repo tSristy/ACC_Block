@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material';
-import bgImg from '../../img/banner2.png';
 
 const HomeCard = ({ index, title, textDescription }) => {
     const boxStyle = {

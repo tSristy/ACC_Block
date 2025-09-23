@@ -1,18 +1,18 @@
-import bannerImg from '../../../img/banner3.png';
+import bannerImg from '../../../img/About/Company-profile.png';
 import Banner from '../../../component/Banner/Banner';
 import { Box, Container, Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
 import TextSection from '../../../component/TextSection/TextSection';
-import imgPanel from '../../../img/Layer43.png'
 import AboutCard from '../../../component/CardBox/AboutCard';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import beta from '../../../img/beta.png';
 import CallAction from '../../../component/COA/CallAction';
 import { useEffect, useState } from 'react';
 import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
-import { factoryImgList, goalData, qualityList } from './AboutPageData';
+import { factoryImgList, goalData, qualityList, teamList } from './AboutPageData';
+import aboutUsImg from '../../../img/About/About-Us.png';
+import BtnExternalUrl from '../../../component/Button/BtnExternalUrl';
 
 const About = () => {
     const theme = useTheme();
@@ -25,7 +25,7 @@ const About = () => {
 
     useEffect(() => {
         const body = { pageName: 'About' };
-        ServerApi(`/banner/list`, 'POST', null, body)
+        ServerApi(`/display/banner-list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
                 if (res.data.length > 0) {
@@ -66,7 +66,7 @@ const About = () => {
                     </Grid>
                     <Grid size={{ xs: 12, md: 4 }}>
                         <div>
-                            <img src={imgPanel} style={{
+                            <img src={aboutUsImg} style={{
                                 height: '460px',
                                 width: isSmallScreen ? '100%' : '340px',
                                 objectFit: 'fit'
@@ -140,44 +140,24 @@ const About = () => {
                     </Grid>
                 </Container>
 
-                <Container sx={{ py: 10, bgcolor: 'white', position: 'relative', zIndex: 2 }}>
+                <Container sx={{ pt: 10, bgcolor: 'white', position: 'relative', zIndex: 2 }}>
                     <TextSection textData={{ supportTitle: 'Who made it', headerTitle: 'Meet the team', }} blackBg={false} />
                     <Grid container spacing={2} sx={{ pt: 7 }}>
-                        <Grid size={{ xs: 12, md: 4 }}>
-                            <img src={beta} alt='team' style={{ width: '100%', height: '400px', objectFit: 'fill' }}
+                        
+                        { teamList.map((item,index)=>(
+                            <Grid size={{ xs: 12, md: 4 }} key={index}>
+                            <img src={item.img_url} alt={item.img_name} style={{ width: '100%', height: '400px', objectFit: 'fill' }}
                             />
                             <div>
                                 <Stack direction="row" spacing={3} sx={{ py: 3, justifyContent: 'center' }}>
-                                    <FacebookIcon fontSize="inherit" />
-                                    <LinkedInIcon fontSize="inherit" />
-                                    <YouTubeIcon fontSize="inherit" />
+                                    <BtnExternalUrl btnDetails={{ btnIcon: <FacebookIcon />, btnUrl: item.facebookUrl }}/>
+                                    <BtnExternalUrl btnDetails={{ btnIcon: <LinkedInIcon />, btnUrl: item.linkedInUrl }}/>
+                                    <BtnExternalUrl btnDetails={{ btnIcon: <YouTubeIcon />, btnUrl: item.youtubeUrl }}/>
                                 </Stack>
                             </div>
                         </Grid>
-
-                        <Grid size={{ xs: 12, md: 4 }}>
-                            <img src={beta} alt='team' style={{ width: '100%', height: '400px', objectFit: 'fill' }}
-                            />
-                            <div>
-                                <Stack direction="row" spacing={3} sx={{ py: 3, justifyContent: 'center' }}>
-                                    <FacebookIcon fontSize="inherit" />
-                                    <LinkedInIcon fontSize="inherit" />
-                                    <YouTubeIcon fontSize="inherit" />
-                                </Stack>
-                            </div>
-                        </Grid>
-
-                        <Grid size={{ xs: 12, md: 4 }}>
-                            <img src={beta} alt='team' style={{ width: '100%', height: '400px', objectFit: 'fill' }}
-                            />
-                            <div>
-                                <Stack direction="row" spacing={3} sx={{ py: 3, justifyContent: 'center' }}>
-                                    <FacebookIcon fontSize="inherit" />
-                                    <LinkedInIcon fontSize="inherit" />
-                                    <YouTubeIcon fontSize="inherit" />
-                                </Stack>
-                            </div>
-                        </Grid>
+                        )
+                    )}
                     </Grid>
                 </Container>
             </Container>

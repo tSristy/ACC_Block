@@ -1,11 +1,9 @@
-import appBg from '../../img/Layer26.png';
-
-const AppCard = ({ cardTitle }) => {
+const AppCard = ( props ) => {
     const boxStyle = {
         position: 'relative',
         width: '260px',
         height: '400px',
-        backgroundImage: `url(${appBg})`,
+        backgroundImage: `url(${props.imgUrl})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     }
@@ -22,7 +20,7 @@ const AppCard = ({ cardTitle }) => {
                 top: 270,
                 backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`,
                 textAlign: 'center',
-            }}>{cardTitle}</div>
+            }}>{props.title}</div>
         </div>
     );
 };

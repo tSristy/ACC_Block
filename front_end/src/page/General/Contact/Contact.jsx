@@ -1,8 +1,6 @@
-import bannerImg from '../../../img/banner1.jpg';
+import bannerImg from '../../../img/Contact/alt.jpg';
 import Banner from '../../../component/Banner/Banner';
-import logo from '../../../img/logo.jpg';
-import { Avatar, Box, Button, Container, Divider, FormControl, Grid, InputLabel, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Select, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
-import LocationPinIcon from '@mui/icons-material/LocationPin';
+import { Avatar, Box, Button, Container, FormControl, Grid, InputLabel, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
@@ -21,8 +19,8 @@ const Contact = () => {
     const handleSubjectChange = (event) => {
         setSubject(event.target.value);
     };
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+    // const theme = useTheme();
+    // const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [bannerList, setBannerList] = useState([{
         img_url: bannerImg,
         img_name: 'contact'
@@ -30,7 +28,7 @@ const Contact = () => {
 
     useEffect(() => {
         const body = { pageName: 'Contact' };
-        ServerApi(`/banner/list`, 'POST', null, body)
+        ServerApi(`/display/banner-list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
                 if (res.data.length > 0) {
@@ -47,7 +45,8 @@ const Contact = () => {
                         <Banner key={index} bannerHeight="25rem"
                             text={{
                                 firstTitle: 'Let’s Build Smarter Together', bigTitle: null, descriptionTitle: `Reach out to us for product inquiries, dealer partnerships, or technical support`
-                            }} img={banner.img_url} alt={banner.img_name} />
+                            }} img={banner.img_url} alt={banner.img_name || `Photo by <a href="https://unsplash.com/@huyphan2602?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Huy Phan</a> on <a href="https://unsplash.com/photos/areal-photo-of-city-under-cloudy-sky-B6XHk5MC0N0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      `} />
                     ))
                 }
             </Carousel>

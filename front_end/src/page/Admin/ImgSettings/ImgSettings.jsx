@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
+import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, CircularProgress, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { ServerApi } from '../../../Route/ServerApi';
@@ -48,38 +48,34 @@ const ImgSettings = () => {
 
     const [file, setFile] = useState([]);
     const [previews, setPreviews] = useState([]);
-
+    const [loading, setLoading] = useState(false);
     // const [modalOpen, setModalOpen] = useState(false);
-    // const [newArr, setNewArr] = useState([])
 
     const handleFileChange = (e) => {
+        setLoading(true)
         const selectedFiles = Array.from(e.target.files);
+
         if (selectedFiles.length === imgNum || selectedFiles.length < 6) {
             setFile(selectedFiles);
-            const previewPromises = selectedFiles.map(file => {
+
+            const previewPromises = selectedFiles.map((file,index) => {
                 return new Promise((resolve) => {
                     const reader = new FileReader();
                     reader.onloadend = () => resolve(reader.result);
                     reader.readAsDataURL(file);
                 });
             });
-            Promise.all(previewPromises).then(setPreviews);
+            Promise.all(previewPromises).then((previews)=>{
+                setPreviews(previews);
+                // setPosition(selectedFiles.map((_, index) => index+1));
+                setLoading(false);
+            });
         } else setDisplayMsg({
             open: true,
             msg: `Please select only ${imgNum} images`
         })
     };
-
-    // const handlePosition = (e, index) => {
-    //     const positionNum = parseInt(e.target.value); // Convert from 1-based
-
-    //     const tempArr = file.slice(0, file.length);
-    //     const tempVar = tempArr.slice(index, 1)[0];
-
-    //     tempArr.splice(positionNum, 0, tempVar);
-
-    //     setNewArr(tempArr); // update state
-    // };
+ 
 
     const [openAlert, setOpenAlert] = useState(false);
     const [msgText, setMsgText] = useState({});
@@ -209,13 +205,13 @@ const ImgSettings = () => {
                             })
                         }} placeholder='Max number is 5' />
 
-                        {previews.length > 0 && (
                             <div style={{
                                 height: "150px", display: 'flex', flexWrap: 'wrap', gap: '10px', overflow: "auto",
                                 opacity: '.8', padding: '5px', border: '2px dashed #e2e1e1ff'
                             }}>
-                                {previews.map((src, index) => (
-                                    <img
+                                {previews.length > 0 && previews.map((src, index) => (
+                                    <img 
+                                    // onClick={(e)=>{ setModalOpen(true);setNewArr(file); setNewPrev(previews)}}
                                         key={index}
                                         src={src}
                                         alt={`preview-${index}`}
@@ -224,6 +220,8 @@ const ImgSettings = () => {
                                         style={{ border: '1px solid #ccc', borderRadius: '4px', objectFit: "cover" }}
                                     />
                                 ))}
+
+                                { loading && ( <CircularProgress />)}
 
                                 {/* {modalOpen && (
                                     <Modal open={modalOpen} onClose={(e) => setModalOpen(false)} >
@@ -239,6 +237,7 @@ const ImgSettings = () => {
                                                 overflowY: 'auto',
                                             }}
                                         >
+                                        <Typography variant='h6' sx={{ p:2}}>Images Settings</Typography>
                                             {
                                                 newArr.map((photo, index) => (
                                                     <Card sx={{ display: 'flex' }} key={index}>
@@ -248,7 +247,10 @@ const ImgSettings = () => {
                                                                     Change Image Position
                                                                 </Typography>
                                                                 <TextField id="standard-basic" type="number"
-                                                                    slotProps={{ htmlInput: { min: 1, max: file.length } }} value={index} variant="standard" onChange={(e) => handlePosition(e, index)} />
+                                                                    // slotProps={{ htmlInput: { min: 1, max: file.length } }} 
+                                                                    value={position[index]} variant="standard"
+                                                                    onChange={(e) => handlePosition(e, index)} 
+                                                                    onClick={(e)=> setStorePositionVar(position[index])}/>
                                                             </CardContent>
                                                             <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                                                                 <IconButton aria-label="delete">
@@ -262,7 +264,7 @@ const ImgSettings = () => {
                                                                 height: 151, width: 151,
                                                                 objectFit: 'cover', p: 2
                                                             }}
-                                                            image={previews[index]}
+                                                            image={newPrev[index]}
                                                         />
                                                     </Card>
                                                 ))
@@ -270,8 +272,9 @@ const ImgSettings = () => {
                                         </Box>
                                     </Modal>
                                 )} */}
+
+
                             </div>
-                        )}
                         <Stack>
                             <Button color='success' variant="outlined"
                                 component="label"

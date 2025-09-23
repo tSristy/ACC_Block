@@ -1,8 +1,8 @@
 import { Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
-import quotationImg from '../../img/qute.png';
-import beta1 from '../../img/beta1.png';
-import beta2 from '../../img/beta2.png';
-import beta3 from '../../img/beta3.png';
+import quotationImg from '../../img/Blog/qute.png';
+import beta1 from '../../img/Blog/beta1.png';
+import beta2 from '../../img/Blog/beta2.png';
+import beta3 from '../../img/Blog/beta3.png';
 import { useEffect, useState } from 'react';
 
 const ClientReview = () => {

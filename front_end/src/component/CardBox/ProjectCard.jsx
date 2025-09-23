@@ -1,18 +1,15 @@
-import React from 'react';
-import projectImg from '../../img/Layer43.png';
+import projectImg from '../../img/Blog/Layer43.png';
 import { Avatar, Container, Stack } from '@mui/material';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 
-const ProjectCard = ({ title, textDescription = ` a Latin professor at Hampden-Sydney College in Virginia,
- looked up one of the more obscure Latin words, consectetur,
-` }) => {
+const ProjectCard = ({props}) => {
     return (
-        <div style={{ width: '100%', height: '350px' }}>
+        <div style={{ width: '100%', cursor: 'pointer' }}>
             <div style={{
                 position: 'relative',
                 height: '200px',
                 width: '100%',
-                backgroundImage: `url(${projectImg})`,
+                backgroundImage: `url(${props?.image_url || projectImg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center'
             }}>
@@ -37,15 +34,16 @@ const ProjectCard = ({ title, textDescription = ` a Latin professor at Hampden-S
                             fontSize: '1.125rem',
                             fontWeight: '500',
                             textTransform: 'uppercase',
-                        }}>{title ? title : 'Project Title'}</div>
+                        }}>Project Title</div>
 
 
                         <div style={{
                             fontSize: '1rem',
                             fontWeight: '400',
                             textAlign: 'justify',
-                            marginTop: textDescription ? '1.5rem' : null,
-                        }}>{textDescription ? textDescription : null}</div>
+                            marginTop: props ? '1.5rem' : null,
+                        }}> null</div>
+
                     </Stack>
                 </Container>
 

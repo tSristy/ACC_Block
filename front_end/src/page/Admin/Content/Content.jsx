@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
+import { Alert, Autocomplete, Box, Button, Card, CardContent, CardMedia, Container, Divider, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { ServerApi } from '../../../Route/ServerApi';
@@ -113,7 +113,11 @@ const Content = () => {
     const [mediaList, setMediaList] = useState([]);
     const [projectList, setProjectList] = useState([]);
     const [reviewList, setReviewList] = useState([]);
-
+    const [viewOpener, setViewOpener] = useState({
+        project: true,
+        news: false,
+        review: false
+    })
     useEffect(() => {
         ServerApi(`/img/content-list`, 'GET', user.access_token)
             .then(res => res.json())
@@ -128,7 +132,7 @@ const Content = () => {
     }, [user, file])
 
     return (
-        <Grid container spacing={2}>
+        <>
             <Snackbar
                 open={openAlert}
                 autoHideDuration={3000}
@@ -143,154 +147,167 @@ const Content = () => {
                 >{msgText.msg}</Alert>
             </Snackbar>
 
-            <Grid size={{ xs: 12, md: 5 }}>
-                <Box>
-                    <h6>Create New Slider</h6>
-                    {
-                        displayMsg.open ?
-                            <Alert severity="warning">
-                                {displayMsg.msg}
-                            </Alert> : null
-                    }
-                    <Container sx={{ p: 2 }}>
-                        <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Content Type</InputLabel>
 
-                        <Autocomplete sx={{ pb: 2 }} size='small'
-                            disablePortal
-                            options={contentList}
-                            getOptionLabel={(option) => option.label || null}
-                            onChange={(e, value) => {
-                                setDataInfo(previousState => {
-                                    return { ...previousState, content_type: value?.label }
-                                })
-                            }}
-                            renderInput={(params) => <TextField color='success' {...params} placeholder='Search content type' />}
-                        />
+            <Grid container spacing={2}>
+                <Grid size={{ xs: 12, md: 5 }}>
+                    <Box>
+                        <h6>Create New Slider</h6>
+                        {
+                            displayMsg.open ?
+                                <Alert severity="warning">
+                                    {displayMsg.msg}
+                                </Alert> : null
+                        }
+                        <Container sx={{ p: 2 }}>
+                            <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Content Type</InputLabel>
 
-                        <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Content writing</InputLabel>
+                            <Autocomplete sx={{ pb: 2 }} size='small'
+                                disablePortal
+                                options={contentList}
+                                getOptionLabel={(option) => option.label || null}
+                                onChange={(e, value) => {
+                                    setDataInfo(previousState => {
+                                        return { ...previousState, content_type: value?.label }
+                                    })
+                                }}
+                                renderInput={(params) => <TextField color='success' {...params} placeholder='Search content type' />}
+                            />
 
-                        <TextField sx={{ pb: 2 }} color='success' size='small'
-                            fullWidth label="Content Title" name="title"
-                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Name' />
+                            <InputLabel htmlFor="component-simple" sx={{ pb: 1, fontSize: "14px", fontWeight: "400" }}>Content writing</InputLabel>
 
-                        <TextField sx={{ pb: 2 }} color='success' size='small'
-                            fullWidth label="Highlights" multiline rows={3} name="initial_text"
-                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Highlight of the content' />
+                            <TextField sx={{ pb: 2 }} color='success' size='small'
+                                fullWidth label="Content Title" name="title" value={dataInfo.title}
+                                variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Name' />
 
-                        <TextField sx={{ pb: 2 }} color='success' name="detail_text"
-                            multiline fullWidth label="Description" size='small'
-                            rows={6}
-                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Describe your thoughts' />
+                            <TextField sx={{ pb: 2 }} color='success' size='small' value={dataInfo.initial_text}
+                                fullWidth label="Highlights" multiline rows={3} name="initial_text"
+                                variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Highlight of the content' />
 
-                        <TextField sx={{ pb: 2 }} color='success' size='small' name="redirect_url"
-                            fullWidth label="Re-direct URL"
-                            variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Provide official urls like news' />
+                            <TextField sx={{ pb: 2 }} color='success' name="detail_text" value={dataInfo.detail_text}
+                                multiline fullWidth label="Description" size='small'
+                                rows={6}
+                                variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Describe your thoughts' />
 
-                        <Stack sx={{
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            {previews && (
-                                <img
-                                    src={previews}
-                                    alt={`preview`}
-                                    width="345px"
-                                    height={dataInfo.content_type === "Projects" ? "200px" : "240px"}
-                                    style={{ border: '1px solid #ccc', borderRadius: '4px', objectFit: "cover" }}
-                                />
-                            )}
-                            <Button color='success' variant="outlined"
-                                component="label"
-                                role={undefined}
-                                tabIndex={-1}
-                                startIcon={<CloudUploadIcon />}
-                                sx={{ my: 2, width: '100%' }}
-                            >
-                                Choose Images
-                                <VisuallyHiddenInput
-                                    type="file"
-                                    multiple accept="image/*" onChange={handleFileChange}
-                                />
-                            </Button>
-                            <Button onClick={handleUpload} color='success' variant='contained'
-                                sx={{ mb: 2, width: '100%' }}>Upload</Button>
-                        </Stack>
-                    </Container>
-                </Box>
+                            <TextField sx={{ pb: 2 }} color='success' size='small' name="redirect_url"
+                                fullWidth label="Re-direct URL" value={dataInfo.redirect_url}
+                                variant="outlined" onChange={(e) => handleValueChange(e)} placeholder='Provide official urls like news' />
+
+                            <Stack sx={{
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                {previews && (
+                                    <img
+                                        src={previews}
+                                        alt={`preview`}
+                                        width="345px"
+                                        height={dataInfo.content_type === "Projects" ? "200px" : "240px"}
+                                        style={{ border: '1px solid #ccc', borderRadius: '4px', objectFit: "cover" }}
+                                    />
+                                )}
+                                <Button color='success' variant="outlined"
+                                    component="label"
+                                    role={undefined}
+                                    tabIndex={-1}
+                                    startIcon={<CloudUploadIcon />}
+                                    sx={{ my: 2, width: '100%' }}
+                                >
+                                    Choose Images
+                                    <VisuallyHiddenInput
+                                        type="file"
+                                        multiple accept="image/*" onChange={handleFileChange}
+                                    />
+                                </Button>
+                                <Button onClick={handleUpload} color='success' variant='contained'
+                                    sx={{ mb: 2, width: '100%' }}>Upload</Button>
+                            </Stack>
+                        </Container>
+                    </Box>
+                </Grid>
+
+
+                <Grid size={{ xs: 12, md: 7 }} sx={{ bgcolor: '#f3f3f3ff', borderRadius: '8px' }}>
+                    <Stack
+                        direction="row" sx={{ p: 2, borderRadius: '8px' }}
+                        divider={<Divider orientation="vertical" flexItem />}
+                        spacing={2}>
+                        <Typography variant='overline' onClick={(e) => {
+                            setViewOpener((prev) => ({
+                                news: false, project: true, review: false
+                            }))
+                        }}>Projects</Typography>
+                        <Typography variant='overline' onClick={(e) => {
+                            setViewOpener((prev) => ({
+                                news: true, project: false, review: false
+                            }))
+                        }}>News & Articles</Typography>
+                        <Typography variant='overline' onClick={(e) => {
+                            setViewOpener((prev) => ({
+                                news: false, project: false, review: true
+                            }))
+                        }}>Reviews</Typography>
+                    </Stack>
+                    {viewOpener.project && projectList?.length > 0 && projectList.map((item, index) => (
+                        <Box sx={{ m: 2, p: 2, bgcolor: 'white', border: 'dashed 2px #187b3d' }} key={index}>
+                            <Grid container>
+                                <Grid size={{ xs: 4 }}>
+                                    <img width='150px' height='150px'
+                                        src={item.image_url}
+                                        alt={item.title}
+                                        loading="lazy"
+                                    />
+                                </Grid>
+                                <Grid size={{ xs: 8 }}>
+                                    <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{item.title}</Typography>
+                                    <Typography>{item.initial_text}</Typography>
+                                    <Typography sx={{ p: 2 }}>{item.detail_text}</Typography>
+                                    <Typography>{item.redirect_url}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>)
+                    )}
+                    {viewOpener.review && reviewList?.length > 0 && reviewList.map((item, index) => (
+                        <Box sx={{ m: 2, p: 2, bgcolor: 'white', border: 'dashed 2px #187b3d' }} key={index}>
+                            <Grid container>
+                                <Grid size={{ xs: 4 }}>
+                                    <img width='150px' height='150px'
+                                        src={item.image_url}
+                                        alt={item.title}
+                                        loading="lazy"
+                                    />
+                                </Grid>
+                                <Grid size={{ xs: 8 }}>
+                                    <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{item.title}</Typography>
+                                    <Typography>{item.initial_text}</Typography>
+                                    <Typography sx={{ p: 2 }}>{item.detail_text}</Typography>
+                                    <Typography>{item.redirect_url}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>)
+                    )}
+
+                    {viewOpener.news && mediaList?.length > 0 && mediaList.map((item, index) => (
+                        <Box sx={{ m: 2, p: 2, bgcolor: 'white', border: 'dashed 2px #187b3d' }} key={index}>
+                            <Grid container>
+                                <Grid size={{ xs: 4 }}>
+                                    <img width='150px' height='150px'
+                                        src={item.image_url}
+                                        alt={item.title}
+                                        loading="lazy"
+                                    />
+                                </Grid>
+                                <Grid size={{ xs: 8 }}>
+                                    <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>{item.title}</Typography>
+                                    <Typography>{item.initial_text}</Typography>
+                                    <Typography sx={{ p: 2 }}>{item.detail_text}</Typography>
+                                    <Typography>{item.redirect_url}</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>)
+                    )}
+                </Grid>
             </Grid>
-
-            <Grid size={{ xs: 12, md: 7 }}>
-                <Container sx={{ pb: 2 }}>
-                    <h6>Blogs & Articles</h6>
-                    <Box sx={{
-                        p: 1,
-                        display: 'flex',
-                        overflowX: 'auto',
-                        whiteSpace: 'nowrap',
-                        width: '100%',
-                        height: '170px',
-                        border: '2px dashed #bebebeff'
-                    }}>
-                        {mediaList?.length > 0 && mediaList.map((item,index)=>(
-                            <Box sx={{ m: 2, bgcolor: 'white' }} key={index}>
-                                <img width='150px' height='150px'
-                                    src={item.image_url}
-                                    alt={item.title}
-                                    loading="lazy"
-                                />
-                            </Box>)
-                        )}
-                    </Box>
-                </Container>
-
-
-                <Container sx={{ pb: 2 }}>
-                    <h6>Projects</h6>
-                    <Box sx={{
-                        p: 1,
-                        display: 'flex',
-                        overflowX: 'auto',
-                        whiteSpace: 'nowrap',
-                        width: '100%',
-                        height: '170px',
-                        border: '2px dashed #bebebeff'
-                    }}>
-                        {projectList?.length > 0 && projectList.map((item,index)=>(
-                            <Box sx={{ m: 2, bgcolor: 'white' }} key={index}>
-                                <img width='150px' height='150px'
-                                    src={item.image_url}
-                                    alt={item.title}
-                                    loading="lazy"
-                                />
-                            </Box>)
-                        )}
-                    </Box>
-                </Container>
-
-                <Container sx={{ pb: 2 }}>
-                    <h6>Review</h6>
-                    <Box sx={{
-                        p: 1,
-                        display: 'flex',
-                        overflowX: 'auto',
-                        whiteSpace: 'nowrap',
-                        width: '100%',
-                        height: '170px',
-                        border: '2px dashed #bebebeff'
-                    }}>
-                        {reviewList?.length > 0 && reviewList.map((item,index)=>(
-                            <Box sx={{ m: 2, bgcolor: 'white' }} key={index}>
-                                <img width='150px' height='150px'
-                                    src={item.image_url}
-                                    alt={item.title}
-                                    loading="lazy"
-                                />
-                            </Box>)
-                        )}
-                    </Box>
-                </Container>
-            </Grid>
-        </Grid>
+        </>
     );
 };
 

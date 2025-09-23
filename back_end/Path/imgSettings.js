@@ -121,7 +121,7 @@ router.get('/info', (req, res) => {
   const date = new Date();
   config.query(`SELECT COUNT(id) AS banner_no FROM website_banners WHERE is_active = 1;
     SELECT COUNT(id) AS content_no FROM project_blogs_article WHERE is_active = 1;
-        SELECT created_at(CONVERT), page_name FROM website_banners ORDER BY id DESC LIMIT 1;SELECT created_at, content_type FROM project_blogs_article ORDER BY id DESC LIMIT 1`, (error, results) => {
+        SELECT CONVERT(created_at, CHAR) AS created_at, page_name FROM website_banners ORDER BY id DESC LIMIT 1;SELECT created_at, content_type FROM project_blogs_article ORDER BY id DESC LIMIT 1`, (error, results) => {
     if (error) {
       console.error(error);
       return res.status(500);

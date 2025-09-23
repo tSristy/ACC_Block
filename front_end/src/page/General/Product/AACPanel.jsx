@@ -1,11 +1,10 @@
 import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Avatar, Box, Button, Container, Divider, Grid, List, ListItem, ListItemText, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import img from '../../../img/banner2.png';
-import imgPanel from '../../../img/productPanel.png';
-import imgBrick from '../../../img/productBrick.png';
-import imgTable from '../../../img/table.png';
+import imgPanel from '../../../img/Products/Our-Product-D.png';
+import bannerImg from '../../../img/Products/B.png';
+import imgWhyChoose from '../../../img/WhyChoose/1400X1200.png';
+import appImg from '../../../img/Applications/WHERE-TO-USE-Application.png';
 import TextSection from '../../../component/TextSection/TextSection';
 import SkillCard from '../../../component/CardBox/SkillCard';
-import { Table } from 'react-bootstrap';
 import AppCard from '../../../component/CardBox/AppCard';
 import BtnUrlChange from '../../../component/Button/BtnUrlChange';
 import FAQItem from '../../../component/FAQ/FAQItem';
@@ -23,13 +22,13 @@ const AACPanel = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [bannerList, setBannerList] = useState([{
-        img_url: img,
+        img_url: bannerImg,
         img_name: 'acc_panel'
     }]);
 
     useEffect(() => {
         const body = { pageName: 'ACC Panels' };
-        ServerApi(`/banner/list`, 'POST', null, body)
+        ServerApi(`/display/banner-list`, 'POST', null, body)
             .then(res => res.json())
             .then(res => {
                 if (res.data.length > 0) {
@@ -57,7 +56,7 @@ const AACPanel = () => {
                         position: 'absolute',
                         top: 0,
                         left: 0,
-                        width: isSmallScreen ? '100%' : '70vw',
+                        width: isSmallScreen ? '100%' : '65vw',
                         height: '100%',
                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
                         zIndex: 1,
@@ -113,7 +112,7 @@ const AACPanel = () => {
             {/* Product features */}
             <div
                 style={{
-                    backgroundImage: `url(${img})`,
+                    backgroundImage: `url(${imgWhyChoose})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     // height: '620px',                    
@@ -235,7 +234,7 @@ const AACPanel = () => {
             {/* Application */}
             <div
                 style={{
-                    backgroundImage: `url(${img})`,
+                    backgroundImage: `url(${appImg})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     height: '470px',
@@ -249,7 +248,7 @@ const AACPanel = () => {
                         <TextSection blackBg={true} textData={{ supportTitle: 'where to use', headerTitle: 'Application' }} />
                     </Container>
 
-                    <Container>
+                    <Container sx={{ pb: 15 }}>
                         <Stack direction="row" spacing={2}
                             sx={{
                                 justifyContent: isSmallScreen ? "center" : "space-around",
@@ -257,7 +256,8 @@ const AACPanel = () => {
                             }}>
                             <Carousel details={{ itemNo: 4 }}>
                                 {appCardList.map((item, index) => (
-                                    <AppCard cardTitle={item.title} />
+                                    <AppCard key={index}
+                                    title={item.title} imgUrl={item.imgUrl} />
                                 ))}
                             </Carousel>
                         </Stack>
