@@ -15,9 +15,9 @@ router.post('/banner-list', async (req, res) => {
 })
 
 router.get('/content-list', (req, res) => {
-  config.query(`SELECT * FROM project_blogs_article WHERE content_type='Projects' ORDER BY id DESC;
-    SELECT * FROM project_blogs_article WHERE content_type='News & Articles' ORDER BY id DESC;
-    SELECT * FROM project_blogs_article WHERE content_type='review' ORDER BY id DESC`, (error, results) => {
+  config.query(`SELECT * FROM project_blogs_article WHERE content_type='Projects' AND is_active=1 ORDER BY id DESC;
+    SELECT * FROM project_blogs_article WHERE content_type='News & Articles' AND is_active=1 ORDER BY id DESC;
+    SELECT * FROM project_blogs_article WHERE content_type='review' AND is_active=1 ORDER BY id DESC`, (error, results) => {
     if (error) {
       console.error(error);
       return res.status(500);

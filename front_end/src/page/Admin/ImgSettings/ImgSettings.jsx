@@ -79,6 +79,7 @@ const ImgSettings = () => {
 
     const [openAlert, setOpenAlert] = useState(false);
     const [msgText, setMsgText] = useState({});
+    
     const handleAlertClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
