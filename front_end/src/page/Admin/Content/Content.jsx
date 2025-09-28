@@ -1,4 +1,4 @@
-import { Alert, Autocomplete, Avatar, Box, Button, Card, CardContent, CardMedia, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid, IconButton, ImageList, ImageListItem, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
+import { Alert, Autocomplete, Avatar, Box, Button, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid, IconButton, InputLabel, Modal, Snackbar, Stack, styled, TextField, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { ServerApi } from '../../../Route/ServerApi';
@@ -229,7 +229,7 @@ const Content = () => {
                             flexWrap: 'wrap',
                             gap: 2,
                         }}>
-                            <img src={modalInfo.image_url} width="350px" height="350px" style={{ objectFit: 'cover' }} />
+                            <img src={modalInfo.image_url} alt={modalInfo.image_url} width="350px" height="350px" style={{ objectFit: 'cover' }} />
                             <Box sx={{ flex: '1 1 300px' }}>
                                 <Typography id="modal-modal-description" variant='h6' sx={{ mb: 2 }}>
                                     {modalInfo.initial_text}
@@ -263,7 +263,6 @@ const Content = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
-
 
 
             <Grid container spacing={2}>

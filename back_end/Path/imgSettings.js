@@ -93,7 +93,7 @@ router.post('/content-upload', upload.single('images'), (req, res) => {
 
 
 router.get('/banner-list', (req, res) => {
-  config.query(`SELECT * FROM website_banners ORDER BY id DESC`, (error, results) => {
+  config.query(`SELECT * FROM website_banners WHERE is_active=1 ORDER BY id DESC`, (error, results) => {
     if (error) {
       console.error(error);
       return res.status(500);
@@ -101,6 +101,7 @@ router.get('/banner-list', (req, res) => {
     res.status(200).json({ data: results });
   });
 })
+
 
 router.get('/content-list', (req, res) => {
   config.query(`SELECT * FROM project_blogs_article WHERE content_type='Projects' AND is_active=1 ORDER BY id DESC;
@@ -138,6 +139,7 @@ router.get('/info', (req, res) => {
   });
 })
 
+
 router.put('/delete',(req,res)=>{
   // console.log(req.body)
   const {id, table} = req.body;
@@ -150,6 +152,7 @@ router.put('/delete',(req,res)=>{
     res.status(200).json({})
   })
 })
+
 
 module.exports = router;
 

@@ -21,7 +21,7 @@ const DashBoard = () => {
         ServerApi(`/img/info`, 'GET', user.access_token)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 if (res) {
                     setDisplayData({
                         blogNo: res.contentNo,
@@ -51,10 +51,10 @@ const DashBoard = () => {
                             <DashboardCard icon={<CategoryIcon color='primary' />} title="Products" textDescription="2" />
                         </Grid>
                         <Grid size={3}>
-                            <DashboardCard icon={<FeedIcon color='success' />} title="Blog Posts" textDescription={displayData.contentNo || 0} />
+                            <DashboardCard icon={<FeedIcon color='success' />} title="Blog Posts" textDescription={displayData.blogNo || 0} />
                         </Grid>
                         <Grid size={3}>
-                            <DashboardCard icon={<ImageIcon color='error' />} title="Banners" textDescription={displayData.bannerNo} />
+                            <DashboardCard icon={<ImageIcon color='error' />} title="Banners" textDescription={displayData.bannerNo || 0} />
                         </Grid>
                     </Grid>
                 </Grid>
