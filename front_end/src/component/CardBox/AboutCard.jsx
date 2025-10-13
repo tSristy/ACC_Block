@@ -14,7 +14,7 @@ const AboutCard = ({iconLogo, textTitle, textDescription}) => {
             <Box> {iconLogo ? iconLogo : null }
             </Box>
             <Box sx={{ fontSize: '1.25rem', fontWeight: 500, textAlign: 'center'}}>{textTitle}</Box>
-            <Box sx={{pt:1, fontSize: '1rem', textAlign: 'center'}}>{textDescription}</Box>
+            <Box sx={{pt:2, fontSize: '1rem', textAlign: 'center'}}>{textDescription}</Box>
         </Stack>
     );
 };

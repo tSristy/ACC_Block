@@ -2,7 +2,7 @@ import bannerImg from '../../../img/About/Company-profile.png';
 import Banner from '../../../component/Banner/Banner';
 import { Box, Container, Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
 import TextSection from '../../../component/TextSection/TextSection';
-import AboutCard from '../../../component/CardBox/AboutCard';
+import SkillCard from '../../../component/CardBox/SkillCard';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -61,7 +61,7 @@ const About = () => {
 
                     <Grid size={{ xs: 12, md: 7 }}>
                         <TextSection textData={{
-                            supportTitle: 'about us', headerTitle: 'About Great Wall AAC Block & Panels', textDescription: `Great Wall Ceramic Industries Ltd. has expanded its legacy of excellence into sustainable building solutions with AAC Blocks and Panels. Engineered with advanced technology and tested for superior performance, Great Wall AAC products bring together strength, speed, and sustainability. From residential to commercial projects, our solutions redefine construction with lighter, greener, and more efficient alternatives to traditional bricks and concrete`
+                            supportTitle: 'great wall', headerTitle: 'AAC Block & Panels', textDescription: `Great Wall Ceramic Industries Ltd. has expanded its legacy of excellence into sustainable building solutions with AAC Blocks and Panels. Engineered with advanced technology and tested for superior performance, Great Wall AAC products bring together strength, speed, and sustainability. From residential to commercial projects, our solutions redefine construction with lighter, greener, and more efficient alternatives to traditional bricks and concrete`
                         }} />
                     </Grid>
                     <Grid size={{ xs: 12, md: 4 }}>
@@ -133,8 +133,8 @@ const About = () => {
                 <Container sx={{ pb: 10, color: 'white', position: 'relative', zIndex: 2 }}>
                     <Grid container spacing={2}>
                         {qualityList.map((item, index) => (
-                            <Grid key={index} size={{ xs: 6, md: 3 }}>
-                                <AboutCard iconLogo={item.icon} textTitle={item.title} textDescription={item.description} />
+                            <Grid key={index} size={{ xs: 12, md: 6 }}>
+                                <SkillCard iconLogo={item.icon} title={item.title} textDescription={item.description} />
                             </Grid>
                         ))}
                     </Grid>

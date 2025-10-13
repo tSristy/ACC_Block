@@ -1,5 +1,5 @@
 import projectImg from '../../img/Blog/Layer43.png';
-import { Avatar, Container, Stack } from '@mui/material';
+import { Avatar, Container, Stack, Typography } from '@mui/material';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 
 const ProjectCard = ({props}) => {
@@ -34,7 +34,7 @@ const ProjectCard = ({props}) => {
                             fontSize: '1.125rem',
                             fontWeight: '500',
                             textTransform: 'uppercase',
-                        }}>Project Title</div>
+                        }}>{props?.title || 'Project Title'}</div>
 
 
                         <div style={{
@@ -42,7 +42,11 @@ const ProjectCard = ({props}) => {
                             fontWeight: '400',
                             textAlign: 'justify',
                             marginTop: props ? '1.5rem' : null,
-                        }}> null</div>
+                        }}>
+                            <Typography variant='h6'>
+                                {props?.initial_text || 'Highlight Text'}
+                                </Typography>
+                                {props?.detail_text.slice(0,50) || 'description Text'} </div>
 
                     </Stack>
                 </Container>

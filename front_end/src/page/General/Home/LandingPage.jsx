@@ -63,7 +63,7 @@ const LandingPage = () => {
                     {
                         bannerList.map((banner, index) => (
                             <Banner key={index} bannerHeight="700px" text={{
-                                firstTitle: "The Great Wall", bigTitle: bannerText[index].bigTitle, descriptionTitle: bannerText[index].descriptionTitle
+                                firstTitle: "Great Wall", bigTitle: bannerText[index].bigTitle, descriptionTitle: bannerText[index].descriptionTitle
                             }} img={banner.img_url} alt={banner.img_name} btnDetails={{ btnTitle: "Get a Quote", url: '/contact-us', color: 'false' }} />
                         ))
                     }
@@ -108,23 +108,24 @@ const LandingPage = () => {
                         justifyContent: isSmallScreen ? "center" : "space-between",
                         alignItems: "center",
                     }}>
-                    <Grid size={{ xs: 12, md: 7 }}>
-                        <TextSection givenAlign="center" textData={{
+                    <Grid size={{ xs: 12, md: 6 }}>
+                        <TextSection givenAlign="" textData={{
                             supportTitle: 'about us', headerTitle: 'we are the great wall', textDescription: `Great Wall AAC Block is the smart solution for modern construction. Tested by BUET and manufactured with cutting-edge technology, our blocks deliver durability, thermal insulation, and eco-friendliness while reducing overall project costs. With proven strength, lightweight efficiency, and sustainability, Great Wall AAC Blocks represent the future of building in Bangladesh
                             ` }} />
                         <Stack direction="row" sx={{
-                            py: 3, justifyContent: "center",
+                            py: 3, justifyContent: "flex-start",
                             alignItems: "center"
                         }}>
 
                             <BtnUrlChange btnDetails={{ btnTitle: 'learn more', url: '/about-us', color: true }} />
                         </Stack>
                     </Grid>
-                    <Grid size={{ xs: 12, md: 4 }}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                         <div>
                             <img src={aboutImg} style={{
                                 height: '460px',
-                                width: isSmallScreen ? '100%' : '340px'
+                                width: '100%',
+                                objectFit: 'fit'
                             }} alt="logo" />
                         </div>
                     </Grid>
@@ -140,10 +141,10 @@ const LandingPage = () => {
                 backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`
             }}>
                 <TextSection blackBg={true} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
-            </Container>
+            
 
             {/* Product features */}
-            <div
+            {/* <div
                 style={{
                     backgroundImage: `url(${imgWhyChoose})`,
                     backgroundSize: 'cover',
@@ -155,9 +156,9 @@ const LandingPage = () => {
                     // backgroundColor: 'rgba(255, 255, 255, 0.6)',
                     backgroundColor: '#187b3cbb',
                     color: 'white'
-                }}>
+                }}> */}
                     <Container sx={{
-                        py: 15,
+                        pt: 7,
                         height: '100%'
                     }}>
                         <Grid container spacing={2}
@@ -177,9 +178,9 @@ const LandingPage = () => {
                             }
                         </Grid>
                     </Container>
-                </div>
-            </div>
-
+                {/* </div>
+            </div> */}
+</Container>
 
             {/* Table Specification */}
             <Container sx={{ py: 10 }}>

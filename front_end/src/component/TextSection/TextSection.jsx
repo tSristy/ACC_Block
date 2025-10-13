@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack,Box } from '@mui/material';
 
 const TextSection = ({ givenAlign, textData, blackBg }) => {
     const { supportTitle, headerTitle, textDescription } = textData;
@@ -12,27 +12,28 @@ const TextSection = ({ givenAlign, textData, blackBg }) => {
                 justifyContent: "center",
             }}
         >
-            <div style={{
+            <Box sx={{
                 fontSize: '1.5rem',
                 fontWeight: '500',
                 textTransform: 'uppercase',
                 color: blackBg ? 'white' : '#2b2b2b'
-            }}>{supportTitle ? supportTitle : null}</div>
+            }}>{supportTitle ? supportTitle : null}</Box>
 
-            <div style={{
+            <Box sx={{
                 fontSize: '2.5rem',
                 fontWeight: '600',
                 textTransform: 'uppercase',
                 color: blackBg ? 'white' : '#2b2b2b'
-            }}>{headerTitle ? headerTitle : null}</div>
+            }}>{headerTitle ? headerTitle : null}</Box>
 
-            <div style={{
+            <Box sx={{
+                pt:2,
                 fontSize: '1rem',
                 fontWeight: '400',
                 textAlign: givenAlign === 'flex-end' ? 'right' : 'justify',
                 // marginTop: textDescription ? '2rem' : null,
                 color: blackBg ? 'white' : '#5e5e5eff'
-            }}>{textDescription ? textDescription : null}</div>
+            }}>{textDescription ? textDescription : null}</Box>
         </Stack>
     );
 };

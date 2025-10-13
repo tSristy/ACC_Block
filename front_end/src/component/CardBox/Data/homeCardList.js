@@ -15,6 +15,6 @@ export const homeCardList = [
         },
         {
             icon: <Looks3Icon color="success"/>,
-            title: "Faster & Cleaner Construction ",
+            title: "Faster Construction ",
             textDescription: "Saves up to 25% on cooling costs and reduces structural expenses"
         }]

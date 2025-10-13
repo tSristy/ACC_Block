@@ -131,7 +131,7 @@ const AACBlock = () => {
                         <Grid container spacing={2}
                             direction="row"
                             sx={{
-                                py: 5,
+                                pt: 5,
                                 height: '100%',
                                 justifyContent: "space-between",
                                 alignItems: "stretch",
@@ -152,8 +152,8 @@ const AACBlock = () => {
 
             {/* Product details */}
             <Container sx={{ py: 10 }}>
-                <Grid container spacing={2}>
-                    <Grid size={{ md: 12 }} sx={{ py: 5 }}>
+                <Grid container spacing={2} sx={{ height: "100%", justifyContent: "center", alignItems: "center"}}>
+                    <Grid size={{ md: 12 }} sx={{ pb: 5 }}>
                         <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Technical Specification' }} />
                     </Grid>
                     <Grid size={{ xs: 12, md: 6 }}>
