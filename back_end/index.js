@@ -47,4 +47,4 @@ app.use('/Images', express.static(path.join(__dirname, 'Images')));
 const displayRoute = require('./GeneralPath/displayRoute');
 app.use('/display', displayRoute);
 
-app.listen(2000)
+app.listen(process.env.PORT || 2000);

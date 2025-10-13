@@ -9,5 +9,15 @@ const config = mySql.createConnection({
     multipleStatements: true,
 })
 
+
+// const config = mySql.createConnection({
+//     host: 'localhost',  
+//     user: 'root',
+//     password: '', 
+//     database: 'aac_block_greatwall', 
+//     port: 3306,
+//     multipleStatements: true,
+// })
+
 module.exports = config;
 
