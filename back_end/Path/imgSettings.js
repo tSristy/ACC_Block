@@ -51,7 +51,7 @@ router.post('/upload', upload.array('images', 5), async (req, res) => {
     const tempArr = [
       newType,
       newPageName,
-      `http://localhost:2000/Images/${file.filename}`,
+      `https://greatwallaacblocks.com/Images/${file.filename}`,
       file.originalname,
       position[index] || 0,
       1,
@@ -76,7 +76,7 @@ router.post('/content-upload', upload.single('images'), (req, res) => {
   }
   const { content_type, title, initial_text, detail_text, redirect_url, position } = req.body;
   const date = new Date()
-  const pathName = `http://localhost:2000/Images/${req.file.filename}`;
+  const pathName = `https://greatwallaacblocks.com/Images/${req.file.filename}`;
 
   const queryString = `INSERT INTO project_blogs_article (content_type, title, image_url, initial_text, detail_text, redirect_url,start_date, position) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
   const values = [content_type, title, pathName, initial_text, detail_text, redirect_url, date, position];

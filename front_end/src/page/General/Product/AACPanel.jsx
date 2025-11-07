@@ -1,4 +1,4 @@
-import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Avatar, Box, Button, Container, Divider, Grid, List, ListItem, ListItemText, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Avatar, Box, Button, Container, Grid, List, ListItem, ListItemText, MenuItem, MenuList, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import imgPanel from '../../../img/Products/Our-Product-D.png';
 import bannerImg from '../../../img/Products/B.png';
 import imgWhyChoose from '../../../img/WhyChoose/1400X1200.png';
@@ -21,10 +21,14 @@ const AACPanel = () => {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
+    const [displayTable, setDisplayTable] = useState({
+            tTable: true,
+            cTable: false
+        });
     const [bannerList, setBannerList] = useState([{
         img_url: bannerImg,
         img_name: 'acc_panel'
-    }]);
+    }]);    
 
     useEffect(() => {
         const body = { pageName: 'ACC Panels' };
@@ -63,7 +67,7 @@ const AACPanel = () => {
                         p: isSmallScreen ? 0 : 13,
                     }}
                 >
-                    <TextSection textData={{ supportTitle: 'Revolutionizing Construction with', headerTitle: 'Great Wall AAC Panels', textDescription: "Lightweight, steel-reinforced, and 4X faster installation for smarter building." }} blackBg={true} />
+                    <TextSection textData={{ supportTitle: 'Revolutionizing Construction with', headerTitle: 'Great Wall AAC Panels', textDescription: "LIGHTWEIGHT, STEEL-REINFORCED, AND 4X FASTER INSTALLATION FOR SMARTER BUILDING" }} blackBg={true} />
                 </Box>
             </Box>
 
@@ -148,85 +152,102 @@ const AACPanel = () => {
             </div>
 
             {/* Product details */}
-            <Container sx={{ py: 10 }}>
-  <Grid container spacing={2} sx={{ height: "100%", justifyContent: "center", alignItems: "center"}}>
-                    <Grid size={{ md: 12 }} sx={{ pb: 5 }}>
-                        <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Technical Specification' }} />
-                    </Grid>
-                    <Grid size={{ xs: 12, md: 6 }}>
-                        <Box sx={{ p: 2, m: 2, border: 'dashed 2px #187b3d' }}>
-                            <img src={imgPanel} style={{
-                                objectFit: 'cover',
-                                height: '400px',
-                                width: '100%'
-                            }} alt="brick" />
-                            <img src={imgPanel} style={{
-                                objectFit: 'cover',
-                                height: '400px',
-                                width: '100%'
-                            }} alt="brick" />
-                        </Box>
-                    </Grid>
-                    <Grid size={{ xs: 12, md: 6 }}>
-                        {panelSpecification.map((row, index) => (
-                            <Box key={index} sx={{
-                                position: 'relative', m: 2, p: 4,
-                                borderRadius: '8px',
-                                // bgcolor: '#187b3d', 
-                                backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`,
-                                color: 'white',
-                                // boxShadow: '1px 1px 5px black' 
-                            }}>
-                                <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 25 }}>
-                                    <Typography variant='h6'>0{index + 1}</Typography>
-                                </Avatar>
-                                <Stack
-                                    direction="row"
-                                    divider={<Divider orientation="vertical" flexItem />}
-                                    spacing={2}
-                                    sx={{ px: 4 }}
-                                >
-                                    <Box sx={{ width: '50%' }}>
-                                        <Typography variant='h5'>{row.parameter}</Typography>
-                                    </Box>
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Typography variant='h6'>{row.value}</Typography>
-                                    </Box>
-                                </Stack>
-                            </Box>))}
-                    </Grid>
-                </Grid>
-            </Container>
+             <Container sx={{ py: 10, mb:5 }}>
+                <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Analyze Data' }} />
 
-            {/* Compare table */}
-            <Container maxWidth="auto" sx={{ py: 10, backgroundColor: '#167b3d' }}>
-                <Grid container>
-                    <Grid size={{ md: 12 }} sx={{ py: 5 }}>
-                        <TextSection blackBg='true' givenAlign='center' textData={{ supportTitle: 'Make decision', headerTitle: 'Compare yourself' }} />
+                <Grid container sx={{ mt: 10 }}>
+                    <Grid size={{ md: 3 }}>
+                        <MenuList sx={{ p: 0, m: 0 }}>
+                            <MenuItem sx={{ p: 5, bgcolor: displayTable.tTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
+                                tTable: true,
+                                cTable: false
+                            })}>
+                                <Box sx={{ color: displayTable.tTable ? '#66cc33' :"#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Technical Specification
+                                </Box>
+                            </MenuItem>
+                            <MenuItem sx={{ p: 5, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
+                                tTable: false,
+                                cTable: true
+                            })}>
+                               <Box sx={{ color: displayTable.cTable ? '#66cc33' :"#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Comparision</Box>
+                            </MenuItem>
+                        </MenuList>
                     </Grid>
+                    <Grid size={{ md: 9 }}>
+                        {displayTable.tTable && !displayTable.cTable &&
+                            <TableContainer sx={{ p: 1, bgcolor: displayTable.tTable ? '#cccccc38' : 'white' }}>
+                                <Table sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }}>  Property</TableCell>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Units</TableCell>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">AAC Panel</TableCell>
+                                            {/* <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Clay Bricks</TableCell> */}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
 
-                    {panelComparisonList.map((item, index) => (
-                        <Grid size={{ sm: 12, md: 3 }} sx={{ py: 5 }}>
+                                        {panelSpecification.map((row, index) => (
+                                            <TableRow
+                                                key={row.name}
+                                            >
+                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" scope="row">
+                                                    {row.parameter}
+                                                </TableCell>
+                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
+                                                    {row.unit}
+                                                </TableCell>
+                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
+                                                    {row.value}
+                                                </TableCell>
+                                                {/* <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
+                                                    {row.claybrickValue}
+                                                </TableCell> */}
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
 
-                            <Box sx={{ p: 2, m: 1, backgroundColor: '#00000093', color: 'white', borderRadius: '8px' }}>
-                                <Typography variant='h5'>0{index + 1}</Typography>
-                                <Typography variant='h6'>{item.Name}</Typography>
-                                <Divider sx={{ my: 2, bgcolor: 'white' }} />
-                                {Object.entries(item).map(([key, value], idx) =>
-                                    idx > 1 ? (
-                                        <Box sx={{ mb: 2 }}>
-                                            <Box sx={{ p: 2, color: 'black', bgcolor: '#66cc33', textTransform: 'uppercase' }}>
-                                                <Typography sx={{ fontSize: '14px', textAlign: 'center' }} >{key}</Typography>
-                                            </Box>
-                                            <Box sx={{ p: 2, bgcolor: '#e7e7e7ff', color: '#2b2b2b' }}>
-                                                <Typography sx={{ fontSize: "18px", fontWeight: 600, textAlign: 'center' }}>{value}</Typography>
-                                            </Box>
-                                        </Box>
+                                </Table>
+                            </TableContainer>
+                        }
 
-                                    ) : null)}
-                            </Box>
-                        </Grid>
-                    ))}
+                        {!displayTable.tTable && displayTable.cTable &&
+                            <TableContainer sx={{ p: 1, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }}>
+                                <Table border sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }}>Parameter</TableCell>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">AAC Panel</TableCell>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Clay Bricks</TableCell>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Concrete Blocks</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+
+                                        {panelComparisonList.map((row, index) => (
+                                            <TableRow
+                                                key={index}
+                                            >
+                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" scope="row">
+                                                    {row.parameter}
+                                                </TableCell>
+                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
+                                                    {row.aacPanels}
+                                                </TableCell>
+                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
+                                                    {row.redClayBricks}
+                                                </TableCell>
+                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
+                                                    {row.concreteBlocks}
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+
+                                </Table>
+                            </TableContainer>
+                        }
+                    </Grid>
                 </Grid>
             </Container>
 

@@ -6,7 +6,7 @@ const CallAction = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const divStyle = {
         color: 'white',
-        height: '190px',
+        height: '130px',
         backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`,
     }
     return (

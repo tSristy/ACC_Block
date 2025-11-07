@@ -108,7 +108,7 @@ const LandingPage = () => {
                         justifyContent: isSmallScreen ? "center" : "space-between",
                         alignItems: "center",
                     }}>
-                    <Grid size={{ xs: 12, md: 6 }}>
+                    <Grid size={{ xs: 12, md: 7 }}>
                         <TextSection givenAlign="" textData={{
                             supportTitle: 'about us', headerTitle: 'we are the great wall', textDescription: `Great Wall AAC Block is the smart solution for modern construction. Tested by BUET and manufactured with cutting-edge technology, our blocks deliver durability, thermal insulation, and eco-friendliness while reducing overall project costs. With proven strength, lightweight efficiency, and sustainability, Great Wall AAC Blocks represent the future of building in Bangladesh
                             ` }} />
@@ -120,7 +120,7 @@ const LandingPage = () => {
                             <BtnUrlChange btnDetails={{ btnTitle: 'learn more', url: '/about-us', color: true }} />
                         </Stack>
                     </Grid>
-                    <Grid size={{ xs: 12, md: 6 }}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                         <div>
                             <img src={aboutImg} style={{
                                 height: '460px',
@@ -138,13 +138,14 @@ const LandingPage = () => {
                 // mt:10,
                 py: 10,
                 color: 'white',
-                backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`
+                backgroundImage: `linear-gradient(180deg, #ffffffff, #cccccc38)`
+                // backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`
             }}>
-                <TextSection blackBg={true} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
-            
+                <TextSection blackBg={false} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
 
-            {/* Product features */}
-            {/* <div
+
+                {/* Product features */}
+                {/* <div
                 style={{
                     backgroundImage: `url(${imgWhyChoose})`,
                     backgroundSize: 'cover',
@@ -157,57 +158,57 @@ const LandingPage = () => {
                     backgroundColor: '#187b3cbb',
                     color: 'white'
                 }}> */}
-                    <Container sx={{
-                        pt: 7,
-                        height: '100%'
-                    }}>
-                        <Grid container spacing={2}
-                            direction={isSmallScreen ? "column" : "row"}
-                            sx={{
-                                height: '100%',
-                                justifyContent: "space-between",
-                                alignItems: "stretch",
-                            }}
-                        >
-                            {
-                                skillBrickCardList.map((row, index) => (
-                                    <Grid size={{ xs: 12, md: 4 }} key={index}>
-                                        <SkillCard iconLogo={row.icon} title={row.title} textDescription={row.textDescription} />
-                                    </Grid>
-                                ))
-                            }
-                        </Grid>
-                    </Container>
+                <Container sx={{
+                    pt: 7,
+                    height: '100%'
+                }}>
+                    <Grid container spacing={2}
+                        direction={isSmallScreen ? "column" : "row"}
+                        sx={{
+                            height: '100%',
+                            justifyContent: "space-between",
+                            alignItems: "stretch",
+                        }}
+                    >
+                        {
+                            skillBrickCardList.map((row, index) => (
+                                <Grid size={{ xs: 12, md: 4 }} key={index}>
+                                    <SkillCard iconLogo={row.icon} title={row.title} textDescription={row.textDescription} />
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
+                </Container>
                 {/* </div>
             </div> */}
-</Container>
+            </Container>
 
             {/* Table Specification */}
             <Container sx={{ py: 10 }}>
                 <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Technical Specification' }} />
-                <Grid container spacing={4} sx={{ pt: 5 }}>
+                <Grid container spacing={2} sx={{ pt: 5 }}>
                     <Grid size={{ xs: 12, md: 6 }}>
                         {technicalSpecs.map((row, index) =>
                             index < 3 ? (
                                 <Box key={index} sx={{
-                                    position: 'relative', m: 2, p: 4,
+                                    position: 'relative', m: 2, p: 3,
                                     borderRadius: '8px',
                                     // bgcolor: '#187b3d', 
                                     backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`,
                                     color: 'white',
                                     // boxShadow: '1px 1px 5px black' 
                                 }}>
-                                    <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 25 }}>
+                                    <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 15 }}>
                                         <Typography variant='h6'>0{index + 1}</Typography>
                                     </Avatar>
                                     <Stack
                                         direction="row"
                                         divider={<Divider orientation="vertical" flexItem />}
                                         spacing={2}
-                                        sx={{ px: 4 }}
+                                        sx={{ pl: 4 }}
                                     >
                                         <Box sx={{ width: '50%' }}>
-                                            <Typography variant='h5'>{row.parameter}</Typography>
+                                            <Typography sx={{ fontSize: "1.25rem", fontWeight: '700' }}>{row.parameter}</Typography>
                                         </Box>
                                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             <Typography variant='h6'>{row.value}</Typography>
@@ -219,21 +220,21 @@ const LandingPage = () => {
                         {technicalSpecs.map((row, index) =>
                             index > 2 ? (
                                 <Box key={index} sx={{
-                                    position: 'relative', m: 2, p: 4,
+                                    position: 'relative', m: 2, p: 3,
                                     borderRadius: '8px',
                                     // bgcolor: '#187b3d', 
                                     backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`,
                                     color: 'white',
                                     // boxShadow: '1px 1px 5px black' 
                                 }}>
-                                    <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 25 }}>
+                                    <Avatar sx={{ width: 50, height: 50, boxShadow: '1px 1px 5px black', bgcolor: '#66cc33', position: 'absolute', left: -20, top: 15 }}>
                                         <Typography variant='h6'>0{index + 1}</Typography>
                                     </Avatar>
                                     <Stack
                                         direction="row"
                                         divider={<Divider orientation="vertical" flexItem />}
                                         spacing={2}
-                                        sx={{ px: 4 }}
+                                        sx={{ pl: 4 }}
                                     >
                                         <Box sx={{ width: '50%' }}>
                                             <Typography variant='h5'>{row.parameter}</Typography>
@@ -315,7 +316,7 @@ const LandingPage = () => {
                             <Carousel details={{ itemNo: 4 }}>
                                 {appCardList.map((item, index) => (
                                     <AppCard key={index}
-                                    title={item.title} imgUrl={item.imgUrl} />
+                                        title={item.title} imgUrl={item.imgUrl} />
                                 ))}
                             </Carousel>
                         </Stack>
@@ -345,11 +346,12 @@ const LandingPage = () => {
                             <BtnUrlChange btnDetails={{ btnTitle: 'learn more', url: '/aac-panels', color: true }} />
                         </Stack>
                     </Grid>
-                    <Grid size={{ xs: 12, md: 5 }}>
+                    <Grid size={{ xs: 12, md: 4 }}>
                         <div>
                             <img src={imgPanel} style={{
-                                height: '400px',
-                                width: isSmallScreen ? '100%' : '450px'
+                                height: '460px',
+                                width: '100%',
+                                objectFit: 'fit'
                             }} alt="logo" />
                         </div>
                     </Grid>

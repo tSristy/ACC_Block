@@ -1,4 +1,5 @@
-export const urlAPI = "http://localhost:2000";
+// export const urlAPI = "http://localhost:2000/api";
+export const urlAPI = "https://greatwallaacblocks.com/api";
 
 export const ServerApi = (urlPath, method, userToken = null, bodySection = null, imgSender = false) => {
     return fetch(urlAPI + urlPath, {

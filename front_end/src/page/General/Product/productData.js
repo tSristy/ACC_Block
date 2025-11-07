@@ -84,127 +84,158 @@ export const panelSkillList = [
     ]
 
 export const blockSpecification = [
-    { parameter: "Density (Dry Density)", value: "550-650 Kg/m³" },
-    { parameter: "Compressive Strength", value: "4.2 N/mm² (MPa)" },
-    { parameter: "Drying Shrinkage", value: "≤ 0.04 %" },
-    { parameter: "Thermal Conductivity", value: "0.16 W/m·K" },
-    { parameter: "Fire Resistance", value: "4-6 Hours" },
-    { parameter: "Sound Reduction Index", value: "42-45 dB" }
+    { parameter: "Density (Dry Density)", value: "550-650", unit: "Kg/m³", claybrickValue: "1800-2000" },
+    { parameter: "Compressive Strength", value: "4.2", unit: "N/mm² (MPa)", claybrickValue: ">3.5" },
+    { parameter: "Drying Shrinkage", value: "≤ 0.04", unit: "%", claybrickValue: "-" },
+    { parameter: "Thermal Conductivity", value: "0.16", unit: "W/m·K", claybrickValue: "0.51-0.81" },
+    { parameter: "Fire Resistance", value: "4-6", unit: "Hours", claybrickValue: "1.5" },
+    { parameter: "Sound Reduction Index", value: "42-45", unit: "dB", claybrickValue: "50-60" }
 ];
 
 export const panelSpecification = [
-  {  parameter: "Thickness (mm)", value: "75, 100, 125, 150, 200" },
-  { parameter: "Width (mm)", value: "600" },
-  { parameter: "Length (mm)", value: "3000 (interval of 100 mm)" },
-  { parameter: "Steel Reinforcement", value: "Yes (2 bars, corrosion-protected)" },
-  { parameter: "Tongue & Groove", value: "Yes" },
-  { parameter: "Density", value: "550-650 Kg/m³" },
-  { parameter: "Fire Resistance", value: "4-6 Hours" },
-  { parameter: "Sound Insulation", value: "40-45 dB" }
-]
+  { parameter: "Thickness", value: "75, 100, 125, 150, 200", unit: "mm", claybrickValue: "-" },
+  { parameter: "Width", value: "600", unit: "mm", claybrickValue: "-" },
+  { parameter: "Length", value: "3000 (interval of 100)", unit: "mm", claybrickValue: "-" },
+  { parameter: "Steel Reinforcement", value: "Yes (2 bars, corrosion-protected)", unit: "-", claybrickValue: "No" },
+  { parameter: "Tongue & Groove", value: "Yes", unit: "-", claybrickValue: "-" },
+  { parameter: "Density", value: "550-650", unit: "Kg/m³", claybrickValue: "1800-2000" },
+  { parameter: "Fire Resistance", value: "4-6", unit: "Hours", claybrickValue: "1.5" },
+  { parameter: "Sound Insulation", value: "40-45", unit: "dB", claybrickValue: "50-60" }
+];
+
 
 export const blockComparisonList = [
-    {
-        "Name": "Great Wall AAC Blocks",
-        "Density (Kg/m³)": "550-650",
-        "Compressive Strength": ">4.2 N/mm²",
-        "Thermal Conductivity": "0.16 W/m·K",
-        "Sound Insulation (dB)": "40-45",
-        "Fire Resistance": "4-6 Hours",
-        "Mortar Consumption": "Less (flat, even surface)",
-        "Structural Cost Impact": "Saves >20%",
-        "Environmental Impact": "Eco-friendly",
-        "Dimensional Accuracy": "Accurate",
-        "Installation Speed": "4X faster"
-    },
-    {
-        "Name": "Great Wall AAC Panels",
-        "Density (Kg/m³)": "550-650",
-        "Compressive Strength": ">4.2 N/mm²",
-        "Thermal Conductivity": "0.16 W/m·K",
-        "Sound Insulation (dB)": "40-45",
-        "Fire Resistance": "4-6 Hours",
-        "Mortar Consumption": "Less (fewer joints)",
-        "Structural Cost Impact": "Saves >20%",
-        "Environmental Impact": "Eco-friendly",
-        "Dimensional Accuracy": "Accurate",
-        "Installation Speed": "8X faster"
-    },
-    {
-        "Name": "Red Clay Bricks",
-        "Density (Kg/m³)": "1800-2000",
-        "Compressive Strength": ">3.5 N/mm²",
-        "Thermal Conductivity": "0.51-0.81 W/m·K",
-        "Sound Insulation (dB)": "50-60",
-        "Fire Resistance": "1.5 Hours",
-        "Mortar Consumption": "High (irregular size)",
-        "Structural Cost Impact": "Increases cost",
-        "Environmental Impact": "High pollution, uses fertile soil",
-        "Dimensional Accuracy": "Not accurate",
-        "Installation Speed": "Slow"
-    },
-    {
-        "Name": "Concrete Blocks",
-        "Density (Kg/m³)": "1200-2000",
-        "Compressive Strength": ">3.5 N/mm²",
-        "Thermal Conductivity": "0.51 W/m·K",
-        "Sound Insulation (dB)": "40-45",
-        "Fire Resistance": "2 Hours",
-        "Mortar Consumption": "Moderate",
-        "Structural Cost Impact": "Increases cost",
-        "Environmental Impact": "Moderate impact",
-        "Dimensional Accuracy": "Moderate",
-        "Installation Speed": "Moderate"
-    }
-]
+  {
+    parameter: "Density",
+    aacBlocks: "550-650",
+    aacPanels: "550-650",
+    redClayBricks: "1800-2000",
+    concreteBlocks: "1200-2000"
+  },
+  {
+    parameter: "Compressive Strength",
+    aacBlocks: ">4.2",
+    aacPanels: ">4.2",
+    redClayBricks: ">3.5",
+    concreteBlocks: ">3.5"
+  },
+  {
+    parameter: "Thermal Conductivity",
+    aacBlocks: "0.16",
+    aacPanels: "0.16",
+    redClayBricks: "0.51-0.81",
+    concreteBlocks: "0.51"
+  },
+  {
+    parameter: "Sound Insulation",
+    aacBlocks: "40-45",
+    aacPanels: "40-45",
+    redClayBricks: "50-60",
+    concreteBlocks: "40-45"
+  },
+  {
+    parameter: "Fire Resistance",
+    aacBlocks: "4-6",
+    aacPanels: "4-6",
+    redClayBricks: "1.5",
+    concreteBlocks: "2"
+  },
+  {
+    parameter: "Mortar Consumption",
+    aacBlocks: "Less (flat, even surface)",
+    aacPanels: "Less (fewer joints)",
+    redClayBricks: "High (irregular size)",
+    concreteBlocks: "Moderate"
+  },
+  {
+    parameter: "Structural CostImpact",
+    aacBlocks: "Saves >20%",
+    aacPanels: "Saves >20%",
+    redClayBricks: "Increases cost",
+    concreteBlocks: "Increases cost"
+  },
+  {
+    parameter: "Environmental Impact",
+    aacBlocks: "Eco-friendly",
+    aacPanels: "Eco-friendly",
+    redClayBricks: "High pollution, uses fertile soil",
+    concreteBlocks: "Moderate impact"
+  },
+  {
+    parameter: "Dimensional Accuracy",
+    aacBlocks: "Accurate",
+    aacPanels: "Accurate",
+    redClayBricks: "Not accurate",
+    concreteBlocks: "Moderate"
+  },
+  {
+    parameter: "Installation Speed",
+    aacBlocks: "4X faster",
+    aacPanels: "8X faster",
+    redClayBricks: "Slow",
+    concreteBlocks: "Moderate"
+  }
+];
+
 
 export const panelComparisonList = [
   {
-    "Name": "Great Wall AAC Panels",
-    "Density (Kg/m³)": "550-650",
-    "Steel Reinforced": "Yes",
-    "Thermal Conductivity": "0.16 W/m·K",
-    "Sound Insulation (dB)": "40-45",
-    "Fire Resistance": "4-6 Hours",
-    "Installation Speed": "8X faster",
-    "Carpet Area": "Increased (slimmer wall)",
-    "Eco-Friendliness": "Eco-friendly"
+    parameter: "Density",
+    aacPanels: "550-650",
+    aacBlocks: "550-650",
+    redClayBricks: "1800-2000",
+    concreteBlocks: "1200-2000"
   },
   {
-    "Name": "AAC Blocks",
-    "Density (Kg/m³)": "550-650",
-    "Steel Reinforced": "No",
-    "Thermal Conductivity": "0.16 W/m·K",
-    "Sound Insulation (dB)": "40-45",
-    "Fire Resistance": "4-6 Hours",
-    "Installation Speed": "4X faster",
-    "Carpet Area": "Standard",
-    "Eco-Friendliness": "Eco-friendly"
+    parameter: "Steel Reinforced",
+    aacPanels: "Yes",
+    aacBlocks: "No",
+    redClayBricks: "No",
+    concreteBlocks: "No"
   },
   {
-    "Name": "Red Clay Bricks",
-    "Density (Kg/m³)": "1800-2000",
-    "Steel Reinforced": "No",
-    "Thermal Conductivity": "0.51-0.81 W/m·K",
-    "Sound Insulation (dB)": "50-60",
-    "Fire Resistance": "1.5 Hours",
-    "Installation Speed": "Slow",
-    "Carpet Area": "Reduced (thick walls)",
-    "Eco-Friendliness": "High pollution"
+    parameter: "Thermal Conductivity",
+    aacPanels: "0.16",
+    aacBlocks: "0.16",
+    redClayBricks: "0.51-0.81",
+    concreteBlocks: "0.51"
   },
   {
-    "Name": "Concrete Blocks",
-    "Density (Kg/m³)": "1200-2000",
-    "Steel Reinforced": "No",
-    "Thermal Conductivity": "0.51 W/m·K",
-    "Sound Insulation (dB)": "40-45",
-    "Fire Resistance": "2 Hours",
-    "Installation Speed": "Moderate",
-    "Carpet Area": "Reduced (thick walls)",
-    "Eco-Friendliness": "Moderate impact"
+    parameter: "Sound Insulation",
+    aacPanels: "40-45",
+    aacBlocks: "40-45",
+    redClayBricks: "50-60",
+    concreteBlocks: "40-45"
+  },
+  {
+    parameter: "Fire Resistance",
+    aacPanels: "4-6",
+    aacBlocks: "4-6",
+    redClayBricks: "1.5",
+    concreteBlocks: "2"
+  },
+  {
+    parameter: "Installation Speed",
+    aacPanels: "8X faster",
+    aacBlocks: "4X faster",
+    redClayBricks: "Slow",
+    concreteBlocks: "Moderate"
+  },
+  {
+    parameter: "Carpet Area",
+    aacPanels: "Increased (slimmer wall)",
+    aacBlocks: "Standard",
+    redClayBricks: "Reduced (thick walls)",
+    concreteBlocks: "Reduced (thick walls)"
+  },
+  {
+    parameter: "Eco Friendliness",
+    aacPanels: "Eco-friendly",
+    aacBlocks: "Eco-friendly",
+    redClayBricks: "High pollution",
+    concreteBlocks: "Moderate impact"
   }
-]
-
+];
 
 
 export const blockAdvantageList = [

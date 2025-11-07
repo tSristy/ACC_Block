@@ -56,67 +56,77 @@ const About = () => {
                         mt: 5,
                         height: '100%',
                         justifyContent: "space-between",
-                        alignItems: "center",
+                        alignItems: "stretch",
                     }}>
 
-                    <Grid size={{ xs: 12, md: 7 }}>
+                    <Grid size={{ xs: 12 }}>
                         <TextSection textData={{
                             supportTitle: 'great wall', headerTitle: 'AAC Block & Panels', textDescription: `Great Wall Ceramic Industries Ltd. has expanded its legacy of excellence into sustainable building solutions with AAC Blocks and Panels. Engineered with advanced technology and tested for superior performance, Great Wall AAC products bring together strength, speed, and sustainability. From residential to commercial projects, our solutions redefine construction with lighter, greener, and more efficient alternatives to traditional bricks and concrete`
                         }} />
                     </Grid>
-                    <Grid size={{ xs: 12, md: 4 }}>
-                        <div>
-                            <img src={aboutUsImg} style={{
-                                height: '460px',
-                                width: isSmallScreen ? '100%' : '340px',
-                                objectFit: 'fit'
-                            }} alt="logo" />
-                        </div>
-                    </Grid>
-                </Grid>
-
-            </Container>
-
-            {/* mission vision */}
-            <Container maxWidth="auto" sx={{
-                mt: 7,
-                // backgroundColor: '#f7f7f7' ,
-                backgroundImage: `linear-gradient(180deg, #ffffff, #66cc33)`,
-            }}>
-                <Container sx={{ py: 10 }}>
-                    <Grid spacing={4} container
-                        direction="row"
-                        sx={{
-                            height: '100%',
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}>
-
-                        {
-                            goalData.map((item, index) => (
-                                <Grid size={{ xs: 12, md: 6 }} key={index}>
+                    <Grid size={{ xs: 7 }}>
+                        <Box>
+                            {
+                                goalData.map((item, index) => (
                                     <Box sx={{
                                         p: 4,
-                                        bgcolor: '#fffffffa',
+                                        mb: index === 0 ? 4 : 0,
+                                        height: "250px",
+                                        bgcolor: index === 1 ? '#cccccc38' : '#187b3d',
                                         borderRadius: '8px',
-                                        height: '230px',
-                                        // textTransform: 'uppercase'
                                     }}>
-
-                                        <TextSection givenAlign='center' textData={{
-                                            supportTitle: item.title, textDescription: item.description
-                                        }} />
+                                        <TextSection givenAlign='flex-start'
+                                            blackBg={index === 0 ? true : false}
+                                            textData={{
+                                                supportTitle: item.title, textDescription: item.description
+                                            }} />
                                     </Box>
-                                </Grid>
-                            ))
-                        }
+                                ))
+                            }
+                        </Box>
+                    </Grid>
+                    <Grid size={{ xs: 12, md: 5 }}>
+                        <Box component="img"
+                            src={aboutUsImg}
+                            alt="about-us"
+                            sx={{
+                                boxShadow: 1,
+                                width: "100%",
+                                maxHeight: "530px",
+                                // height: "100%",
+                                borderRadius: 2,
+                                objectFit: "cover",
+                            }}>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Container>
+
+
+            {/* quality ig */}
+            <Container maxWidth="auto" sx={{
+                mt: 7,
+                backgroundImage: `linear-gradient(180deg, #ffffffff, #cccccc38)`
+              }}>
+
+ <TextSection  givenAlign='center' textData={{
+                            supportTitle: 'Learn More', headerTitle: 'About ourselves'
+                        }} />
+
+                <Container sx={{ py: 10, color: 'white' }}>
+                    <Grid container spacing={2}>
+                        {qualityList.map((item, index) => (
+                            <Grid key={index} size={{ xs: 12, md: 6 }}>
+                                <SkillCard iconLogo={item.icon} title={item.title} textDescription={item.description} />
+                            </Grid>
+                        ))}
                     </Grid>
                 </Container>
             </Container>
 
 
             {/* Meet the team */}
-            <Container maxWidth="auto" style={{
+            {/* <Container maxWidth="auto" style={{
                 position: 'relative'
             }}>
                 <div style={{
@@ -160,7 +170,7 @@ const About = () => {
                     )}
                     </Grid>
                 </Container>
-            </Container>
+            </Container> */}
 
 
             {/* factory  */}

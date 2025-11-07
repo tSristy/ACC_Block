@@ -39,7 +39,7 @@ const SkillCard = ({ card, iconLogo, title, textDescription }) => {
                         <div style={{
                             fontSize: '1.125rem',
                             textTransform: 'uppercase',
-                            fontWeight: 500
+                            fontWeight: 600
                         }}>{title ? title : null}</div>
 
                         <div style={{

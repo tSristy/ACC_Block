@@ -46,6 +46,14 @@ const Header = () => {
         //     url: '/blogs',
         // },
         {
+            title: 'Technical Specification',
+            url: '/technical-specification',
+        },
+        {
+            title: 'Guideline',
+            url: '/guideline',
+        },
+        {
             title: 'Contact us',
             url: '/contact-us',
         }]
@@ -97,7 +105,7 @@ const Header = () => {
                     </AppBar>
 
                     :
-                    <Container>
+                    <Box>
                         <Grid container direction="row" sx={{
                             // py: 2,
                             color: '#2b2b2b',
@@ -105,7 +113,7 @@ const Header = () => {
                             justifyContent: "center",
                             alignItems: "center",
                         }}>
-                            <Grid size={{ xs: 3, md: 3 }}>
+                            <Grid size={{ xs: 3, md: 3 }} sx={{ display: "flex", justifyContent: "center"}}>
                                 <img src={logo} style={{ height: '3.75rem' }} alt="logo" />
                             </Grid>
                             <Grid size={{ xs: 9, md: 9 }}>
@@ -158,7 +166,7 @@ const Header = () => {
                                 </Stack>
                             </Grid>
                         </Grid>
-                    </Container>
+                    </Box>
             }
 
 

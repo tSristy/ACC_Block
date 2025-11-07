@@ -24,8 +24,8 @@ const Banner = ({ bannerHeight, text, img, btnDetails }) => {
                     textTransform: 'uppercase'
                 }}>
                 <Container sx={{ fontSize: '2.5rem', fontWeight: '600', textAlign: 'center' }}>{firstTitle ? firstTitle : null}</Container>
-                <Container sx={{ fontSize: '4rem', fontWeight: '700', textAlign: 'center' }}>{bigTitle ? bigTitle : null}</Container>
-                <Container sx={{ pt:3, fontSize: '1.125rem', fontWeight: '400', textAlign: 'center' }}>{descriptionTitle ? descriptionTitle : null}</Container>
+                <Container sx={{ letterSpacing: '1.5px',fontSize: '4rem', fontWeight: '700', textAlign: 'center' }}>{bigTitle ? bigTitle : null}</Container>
+                <Container sx={{ pt:3, letterSpacing: '1px', fontSize: '1.125rem', fontWeight: '400', textAlign: 'center' }}>{descriptionTitle ? descriptionTitle : null}</Container>
 
                 {btnDetails ? (
                     <div style={{ padding: "3rem 0rem"}}>
