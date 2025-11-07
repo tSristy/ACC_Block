@@ -20,6 +20,10 @@ import ProtectedRoute from './ProtectedRoute';
 import ImgSettings from '../page/Admin/ImgSettings/ImgSettings';
 import Content from '../page/Admin/Content/Content';
 import Profile from '../page/Admin/Profile/Profile';
+import AACBlockTechnical from '../page/General/Technical/AACBlockTechnical';
+import AACPanelTechnical from '../page/General/Technical/AACPanelTechnical';
+import AACBlockGuide from '../page/General/Guideline/AACBlockGuide';
+import AACPanelGuide from '../page/General/Guideline/AACPanelGuide';
 
 const RouterConfig = () => {
   return (
@@ -27,9 +31,14 @@ const RouterConfig = () => {
       <Route element={<PageLayout />} >
         <Route path='/' element={<LandingPage />} />
         <Route path='/contact-us' element={<Contact />} />
-        <Route path='/aac-blocks' element={<AACBlock />} />
-        <Route path='/aac-panels' element={<AACPanel />} />
+        <Route path='/product/aac-blocks' element={<AACBlock />} />
+        <Route path='/product/aac-panels' element={<AACPanel />} />
         <Route path='/blogs' element={<Blogs />} />
+        <Route path='/technical-specification/aac-blocks' element={<AACBlockTechnical />} />
+        <Route path='/technical-specification/aac-panels' element={<AACPanelTechnical />} />
+        <Route path='/technical-specification/aac-blocks' element={<AACBlockTechnical />} />
+        <Route path='/guideline/aac-blocks' element={<AACBlockGuide />} />
+        <Route path='/guideline/aac-panels' element={<AACPanelGuide />} />
         <Route path='/about-us' element={<About />} />
       </Route>
 

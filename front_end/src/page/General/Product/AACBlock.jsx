@@ -12,10 +12,11 @@ import { useEffect, useState } from 'react';
 import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
 import Banner from '../../../component/Banner/Banner';
-import { blockAdvantageList, blockComparisonList, blockSkillList, blockSpecification, blocksQuality } from './productData';
+import { blockAdvantageList, blockComparisonList, blockInstallationSteps, blockSkillList, blockSpecification, blocksQuality } from './productData';
 import AboutCard from '../../../component/CardBox/AboutCard';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { appCardList } from '../../../component/CardBox/Data/appCardList';
+import GuideCard from '../../../component/CardBox/GuideCard';
 
 const AACBlock = () => {
 
@@ -106,7 +107,7 @@ const AACBlock = () => {
                 <Grid container spacing={2} sx={{ pt: 10 }}>
                     {blocksQuality.map((item, index) => (
                         <Grid key={index} size={{ xs: 6, md: 3 }}>
-                            <AboutCard iconLogo={item.icon} textTitle={item.title} />
+                            <AboutCard iconLogo={item.icon} title={item.title} />
                         </Grid>
                     ))}
                 </Grid>
@@ -163,14 +164,14 @@ const AACBlock = () => {
                                 tTable: true,
                                 cTable: false
                             })}>
-                                <Box sx={{ color: displayTable.tTable ? '#66cc33' :"#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Technical Specification
+                                <Box sx={{ color: displayTable.tTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Technical Specification
                                 </Box>
                             </MenuItem>
                             <MenuItem sx={{ p: 5, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
                                 tTable: false,
                                 cTable: true
                             })}>
-                               <Box sx={{ color: displayTable.cTable ? '#66cc33' :"#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Comparision</Box>
+                                <Box sx={{ color: displayTable.cTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Comparision</Box>
                             </MenuItem>
                         </MenuList>
                     </Grid>
@@ -333,35 +334,15 @@ const AACBlock = () => {
                                 <TextSection textData={{ supportTitle: 'Step by Step', headerTitle: 'Installation Guidelines' }} />
                             </AccordionSummary>
                             <AccordionDetails>
-                                <List>
-                                    <ListItem>
-                                        <ListItemText primary="Step 1: Prepare the base - Clean and level the surface properly." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 2: Place blocks on a dry, level surface, 5 inches above the floor, and cover with polythene/tarpaulin." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 3: Depending on wall height, create a 3-5inch thick concrete base." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 4: If using cement mortar, soak AAC blocks in water for 10-15 minutes. (No soaking needed with adhesive.)" />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 5: Place the first block carefully on the floor mortar, ensuring alignment with a water level." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 6: Apply cement mortar (8-12 mm) or adhesive (3-5 mm) between joints." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 7: Cut blocks as needed using a carbide-tipped handsaw for precise fitting." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 8: Lightly tap blocks with a rubber mallet for leveling." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 9: Continue the process, ensuring joints are properly sealed and aligned." />
-                                    </ListItem>
-                                </List>
+                                <Grid container spacing={4}>
+                                    {
+                                        blockInstallationSteps.map((row, index) => (
+                                            <Grid size={{ xs: 6, md: 4 }} key={index}>
+                                                <GuideCard iconLogo={row.icon} title={row.step} textDescription={row.description} />
+                                            </Grid>
+                                        ))
+                                    }
+                                </Grid>
 
                             </AccordionDetails>
                             <AccordionActions>
@@ -380,7 +361,7 @@ const AACBlock = () => {
             </Container>
 
             {/* FAQ */}
-            <div maxWidth="auto" style={{
+            <div style={{
                 position: 'relative',
             }}>
                 <div style={{

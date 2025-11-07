@@ -32,6 +32,11 @@ const ImgSettings = () => {
         { id: 4, label: 'ACC Panels', code: '0003' },
         { id: 5, label: 'Blogs & Articles', code: '0004' },
         { id: 6, label: 'Contact', code: '0005' },
+        { id: 7, label: 'ACC Blocks Tech', code: '0006' },
+        { id: 8, label: 'ACC Panels Tech', code: '0007' },
+        { id: 9, label: 'Block Fix Tech', code: '0008' },
+        { id: 10, label: 'ACC Blocks Guide', code: '0009' },
+        { id: 11, label: 'ACC Panels Guide', code: '0010' },
     ]
 
     const [imgNum, setImgNum] = useState(1);
@@ -58,7 +63,7 @@ const ImgSettings = () => {
         setLoading(true)
         const selectedFiles = Array.from(e.target.files);
 
-        if (selectedFiles.length === imgNum ) {
+        if (selectedFiles.length === imgNum) {
             setFile(selectedFiles);
 
             const previewPromises = selectedFiles.map((file, index) => {
@@ -76,9 +81,10 @@ const ImgSettings = () => {
         } else {
             setLoading(false)
             setDisplayMsg({
-            open: true,
-            msg: `Please select only ${imgNum} images`
-        })}
+                open: true,
+                msg: `Please select only ${imgNum} images`
+            })
+        }
     };
 
 

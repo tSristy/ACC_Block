@@ -5,10 +5,10 @@ const btnStyle = {
     position: 'fixed',
     bottom: '20px',
     right: '20px',
-    backgroundColor: '#25d366',
+    bgcolor: '#25d366',
     color: 'white',
     zIndex: 9999,
-    boxShadow: `0 4px 8px rgba(0,0,0,0.3)`,
+    boxShadow: 2,
     transition: `transform 0.3s ease`,
 }
 
@@ -20,10 +20,9 @@ const FloatingWhatsAppButton = ({ phone = "8801796299885", message }) => {
     return (
         <IconButton
             href={link}
-            style={{ btnStyle }}
+            sx={btnStyle}
             target="_blank"
-            rel="noopener noreferrer"
-            sx={{ p: 1 }}>
+            rel="noopener noreferrer">
             <WhatsAppIcon sx={{ fontSize: '35px' }} />
         </IconButton>
     );

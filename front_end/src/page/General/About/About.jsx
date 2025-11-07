@@ -1,18 +1,14 @@
 import bannerImg from '../../../img/About/Company-profile.png';
 import Banner from '../../../component/Banner/Banner';
-import { Box, Container, Grid, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
 import TextSection from '../../../component/TextSection/TextSection';
 import SkillCard from '../../../component/CardBox/SkillCard';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import CallAction from '../../../component/COA/CallAction';
 import { useEffect, useState } from 'react';
 import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
 import { factoryImgList, goalData, qualityList, teamList } from './AboutPageData';
 import aboutUsImg from '../../../img/About/About-Us.png';
-import BtnExternalUrl from '../../../component/Button/BtnExternalUrl';
 
 const About = () => {
     const theme = useTheme();

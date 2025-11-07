@@ -172,7 +172,7 @@ const LandingPage = () => {
                     >
                         {
                             skillBrickCardList.map((row, index) => (
-                                <Grid size={{ xs: 12, md: 4 }} key={index}>
+                                <Grid size={{ xs: 12, md: 6 }} key={index}>
                                     <SkillCard iconLogo={row.icon} title={row.title} textDescription={row.textDescription} />
                                 </Grid>
                             ))

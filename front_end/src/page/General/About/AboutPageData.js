@@ -3,9 +3,9 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import { Avatar } from '@mui/material';
-import team1 from '../../../img/About/A.png';
-import team2 from '../../../img/About/B.png';
-import team3 from '../../../img/About/C.png';
+// import team1 from '../../../img/About/A.png';
+// import team2 from '../../../img/About/B.png';
+// import team3 from '../../../img/About/C.png';
 
 export const goalData = [
     {
@@ -49,29 +49,29 @@ export const qualityList = [
     }
 ]
 
-export const teamList = [
-    {
-        img_url: team1,
-        img_name: 'team-member-details-1',
-        facebookUrl: `https://www.facebook.com`,
-        linkedInUrl: `https://www.linkedin.com/`,
-        youtubeUrl: `https://www.youtube.com`
-    },
-    {
-        img_url: team2,
-        img_name: 'team-member-details-2',
-        facebookUrl: `https://www.facebook.com`,
-        linkedInUrl: `https://www.linkedin.com/`,
-        youtubeUrl: `https://www.youtube.com`
-    },
-    {
-        img_url: team3,
-        img_name: 'team-member-details-3',
-        facebookUrl: `https://www.facebook.com`,
-        linkedInUrl: `https://www.linkedin.com/`,
-        youtubeUrl: `https://www.youtube.com`
-    }
-]
+// export const teamList = [
+//     {
+//         img_url: team1,
+//         img_name: 'team-member-details-1',
+//         facebookUrl: `https://www.facebook.com`,
+//         linkedInUrl: `https://www.linkedin.com/`,
+//         youtubeUrl: `https://www.youtube.com`
+//     },
+//     {
+//         img_url: team2,
+//         img_name: 'team-member-details-2',
+//         facebookUrl: `https://www.facebook.com`,
+//         linkedInUrl: `https://www.linkedin.com/`,
+//         youtubeUrl: `https://www.youtube.com`
+//     },
+//     {
+//         img_url: team3,
+//         img_name: 'team-member-details-3',
+//         facebookUrl: `https://www.facebook.com`,
+//         linkedInUrl: `https://www.linkedin.com/`,
+//         youtubeUrl: `https://www.youtube.com`
+//     }
+// ]
 
 export const factoryImgList = [
     {

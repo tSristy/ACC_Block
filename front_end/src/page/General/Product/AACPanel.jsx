@@ -14,21 +14,22 @@ import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
 import Banner from '../../../component/Banner/Banner';
 import { appCardList } from '../../../component/CardBox/Data/appCardList';
-import { panelComparisonList, panelQuality, panelSkillList, panelSpecification } from './productData';
+import { panelComparisonList, panelInstallationSteps, panelQuality, panelSkillList, panelSpecification } from './productData';
 import AboutCard from '../../../component/CardBox/AboutCard';
+import GuideCard from '../../../component/CardBox/GuideCard';
 
 const AACPanel = () => {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [displayTable, setDisplayTable] = useState({
-            tTable: true,
-            cTable: false
-        });
+        tTable: true,
+        cTable: false
+    });
     const [bannerList, setBannerList] = useState([{
         img_url: bannerImg,
         img_name: 'acc_panel'
-    }]);    
+    }]);
 
     useEffect(() => {
         const body = { pageName: 'ACC Panels' };
@@ -99,14 +100,14 @@ const AACPanel = () => {
             <Container maxWidth="auto" sx={{
                 py: 10,
                 color: 'white',
-                backgroundImage: `linear-gradient(180deg,#66cc33, #187b3d)`
+                backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`
             }}>
                 <TextSection blackBg={true} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
 
                 <Grid container spacing={2} sx={{ pt: 10 }}>
                     {panelQuality.map((item, index) => (
                         <Grid key={index} size={{ xs: 6, md: 3 }}>
-                            <AboutCard iconLogo={item.icon} textTitle={item.title} />
+                            <AboutCard iconLogo={item.icon} title={item.title} />
                         </Grid>
                     ))}
                 </Grid>
@@ -152,7 +153,7 @@ const AACPanel = () => {
             </div>
 
             {/* Product details */}
-             <Container sx={{ py: 10, mb:5 }}>
+            <Container sx={{ py: 10, mb: 5 }}>
                 <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Analyze Data' }} />
 
                 <Grid container sx={{ mt: 10 }}>
@@ -162,14 +163,14 @@ const AACPanel = () => {
                                 tTable: true,
                                 cTable: false
                             })}>
-                                <Box sx={{ color: displayTable.tTable ? '#66cc33' :"#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Technical Specification
+                                <Box sx={{ color: displayTable.tTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Technical Specification
                                 </Box>
                             </MenuItem>
                             <MenuItem sx={{ p: 5, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
                                 tTable: false,
                                 cTable: true
                             })}>
-                               <Box sx={{ color: displayTable.cTable ? '#66cc33' :"#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Comparision</Box>
+                                <Box sx={{ color: displayTable.cTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Comparision</Box>
                             </MenuItem>
                         </MenuList>
                     </Grid>
@@ -189,7 +190,7 @@ const AACPanel = () => {
 
                                         {panelSpecification.map((row, index) => (
                                             <TableRow
-                                                key={row.name}
+                                                key={index}
                                             >
                                                 <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" scope="row">
                                                     {row.parameter}
@@ -278,7 +279,7 @@ const AACPanel = () => {
                             <Carousel details={{ itemNo: 4 }}>
                                 {appCardList.map((item, index) => (
                                     <AppCard key={index}
-                                    title={item.title} imgUrl={item.imgUrl} />
+                                        title={item.title} imgUrl={item.imgUrl} />
                                 ))}
                             </Carousel>
                         </Stack>
@@ -304,39 +305,15 @@ const AACPanel = () => {
                                 <TextSection textData={{ supportTitle: 'Step by Step', headerTitle: 'Installation Guidelines' }} />
                             </AccordionSummary>
                             <AccordionDetails>
-                                <List>
-                                    <ListItem>
-                                        <ListItemText primary="Step 1: Check sizes, quantities, and condition of panels before installation." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 2: Clean and mark wall alignment using chalk tape." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 3: Insert a foam sheet between the floor and the bottom of the panel." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 4: Mix thin-bed mortar and apply to the structural column." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 5: Lift the panel with a hand lift, push it against the column, and align." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 6: Apply bed mortar to the side of each panel and attach the next one." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 7: Fasten panels to the floor using steel angles and dash fasteners." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 8: Measure and cut the last panel to fit any gap." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 9: Fill panel joints with thin-bed mortar and smooth with sandpaper." />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemText primary="Step 10: Finish with skim coat (interior) or AAC plastering mortar (exterior)." />
-                                    </ListItem>
-                                </List>
-
+                                <Grid container spacing={4}>
+                                    {
+                                        panelInstallationSteps.map((row, index) => (
+                                            <Grid size={{ xs: 6, md: 3 }} key={index}>
+                                                <GuideCard iconLogo={row.icon} title={row.step} textDescription={row.description} />
+                                            </Grid>
+                                        ))
+                                    }
+                                </Grid>
                             </AccordionDetails>
                             <AccordionActions>
                                 <Button color='success' onClick={(e) => {
@@ -354,7 +331,7 @@ const AACPanel = () => {
             </Container>
 
             {/* FAQ */}
-            <div maxWidth="auto" style={{
+            <div style={{
                 position: 'relative',
             }}>
                 <div style={{
