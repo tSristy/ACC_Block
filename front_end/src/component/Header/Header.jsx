@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 // --- New Imports for Mobile Submenu ---
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import BtnPdfDw from '../Button/BtnPdfDw';
 
 const Header = () => {
   const theme = useTheme();
@@ -80,7 +81,7 @@ const Header = () => {
     },
     {
       title: 'Guideline',
-       children: [
+      children: [
         { title: 'AAC BLOCKS', url: '/guideline/aac-blocks' },
         { title: 'AAC PANELS', url: '/guideline/aac-panels' },
       ]
@@ -140,20 +141,21 @@ const Header = () => {
           // --- Desktop View ---
           <Box>
             <Grid container direction="row" sx={{
+              overflow: 'hidden',
               color: '#2b2b2b',
               fontWeight: '600',
               justifyContent: "center",
               alignItems: "center",
             }}>
-              <Grid size={{ xs: 3, md: 3 }} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid size={{ xs: 3 }} sx={{ display: "flex", justifyContent: "center" }}>
                 <img src={logo} style={{ height: '3.75rem' }} alt="logo" />
               </Grid>
-              <Grid size={{ xs: 9, md: 9 }}>
+              <Grid size={{ xs: 8 }}>
                 <Stack direction="row" spacing={0}>
                   {menuList.map((row, index) => (
                     <Box key={index} sx={{
-                      cursor: 'pointer',
-                      p: 4, fontWeight: '600',
+                      cursor: 'pointer', px: 3,
+                      py: 4, fontWeight: '600',
                       textTransform: 'uppercase',
                       color: '#2b2b2b',
                       fontSize: '1rem',
@@ -163,17 +165,17 @@ const Header = () => {
                         (row.children && row.children.some(child => child.url === currPath)) // Check if a child is active
                       ) ? '3px solid #187b3d' : null
                     }}
-                    onClick={(e) => {
-                      // --- Updated onClick logic ---
-                      if (row.children) {
-                        handleClick(e, row.children); // Open submenu
-                      } else {
-                        navigate(row.url); // Navigate to simple link
-                      }
-                    }}
-                  >
-                    {row.title}
-                  </Box>
+                      onClick={(e) => {
+                        // --- Updated onClick logic ---
+                        if (row.children) {
+                          handleClick(e, row.children); // Open submenu
+                        } else {
+                          navigate(row.url); // Navigate to simple link
+                        }
+                      }}
+                    >
+                      {row.title}
+                    </Box>
                   ))}
 
                   {/* --- Dynamic Menu for Desktop --- */}
@@ -185,10 +187,9 @@ const Header = () => {
                     slotProps={{
                       paper: {
                         sx: {
-                          // This sets the menu width to be the same as the anchor element's width
                           width: anchorEl && anchorEl.textContent === "Technical Specification" ? anchorEl.offsetWidth : 'auto',
-                          // This ensures padding calculations are consistent
-                          boxSizing: 'border-box', 
+                          textAlign: 'center',
+                          boxSizing: 'border-box',
                         },
                       },
                     }}
@@ -201,7 +202,7 @@ const Header = () => {
                           navigate(child.url);
                           handleClose(); // Close menu after navigation
                         }}
-                        sx={{ py: 2, px: 4 }}
+                        sx={{ py: 2, px: 3 }}
                       >
                         <ListItemText>
                           {child.title}
@@ -210,6 +211,9 @@ const Header = () => {
                     ))}
                   </Menu>
                 </Stack>
+              </Grid>
+              <Grid size={{ xs: 1 }}>
+                <BtnPdfDw fileDownload='' fileName='Brochers' variantStyle='contained' />
               </Grid>
             </Grid>
           </Box>

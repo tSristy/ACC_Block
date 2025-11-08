@@ -35,9 +35,9 @@ Banglamotor, Dhaka-1000, Bangladesh`
         title: "Website",
         description: "www.greatwallaacblocks.com"
     },
-{
-    icon: <FactoryIcon />,
-    title: "Factory",
-    description: 'Kholapara, Kaliganj, Gazipur, Bangladesh'
-}
+    {
+        icon: <FactoryIcon />,
+        title: "Factory",
+        description: 'Kholapara, Kaliganj, Gazipur, Bangladesh'
+    }
 ]

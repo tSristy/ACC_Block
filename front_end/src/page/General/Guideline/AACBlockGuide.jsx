@@ -7,6 +7,7 @@ import Carousel from '../../../component/Carousel/Carousel';
 import Banner from '../../../component/Banner/Banner';
 import { blockInstallationSteps } from '../Product/productData';
 import GuideCard from '../../../component/CardBox/GuideCard';
+import BtnPdfDw from '../../../component/Button/BtnPdfDw';
 
 const AACBlockGuide = () => {
 
@@ -62,14 +63,7 @@ const AACBlockGuide = () => {
                     }
 
                     <Grid size={{ xs: 12 }} sx={{ display: 'flex', justifyContent: 'flex-end'}}>
-                        <Button color='success' variant='outlined' onClick={(e) => {
-                            const link = document.createElement('a');
-                            link.href = '/files/myfile.pdf';
-                            link.download = 'Installation_Guide.pdf';
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        }}>Download</Button>
+                         <BtnPdfDw fileDownload='/files/myfile.pdf' fileName='Download' variantStyle='outlined' />
                     </Grid>
 
                 </Grid>

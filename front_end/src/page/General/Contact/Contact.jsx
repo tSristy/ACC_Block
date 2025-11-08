@@ -118,9 +118,9 @@ const Contact = () => {
                     </Grid>
                     <Grid size={{ xs: 12, md: 6 }}>
                         <Box component="form" noValidate autoComplete="off" sx={{ m: 5 }}>
-                            {ContactData.map((item, index) => (
-                                <List key={index}>
-                                    <ListItem>
+                            <List >
+                                {ContactData.map((item, index) => (
+                                    <ListItem key={index} sx={{ py: 1 }}>
                                         <ListItemAvatar>
                                             <Avatar sx={{ bgcolor: '#187b3d' }}>
                                                 {item.icon}
@@ -128,8 +128,8 @@ const Contact = () => {
                                         </ListItemAvatar>
                                         <ListItemText primary={item.title} secondary={item.description} />
                                     </ListItem>
-                                </List>
-                            ))}
+                                ))}
+                            </List>
                             {/* <Divider sx={{ my: 2, bgcolor: '#187b3d' }} />
                              <Stack direction='row'>
 

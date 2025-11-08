@@ -1,3 +1,4 @@
+import { BorderColor, BorderLeft, BorderRight } from '@mui/icons-material';
 import { Box, Button, Drawer, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
@@ -12,6 +13,9 @@ const BtnEnquiry = () => {
         color: 'white',
         zIndex: 888,
         boxShadow: 1,
+        border:1,
+        borderLeft: 0,
+        borderColor: '#9b9b9bff',
         py: 4,
         px: 1,
         "&:hover": {
