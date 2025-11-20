@@ -7,15 +7,15 @@ import product5 from '../../../img/AAC_blocks/S_c.png';
 export const bannerText = [
     {
         bigTitle: `Future Construction`,
-        descriptionTitle: `Strong Foundations for a Greener Tomorrow – Building the future with eco-friendly AAC technology`
+        descriptionTitle: `Strong Foundations for a Greener Tomorrow – Building the future with eco-friendly AAC technology.`
     },
     {
         bigTitle: `AAC Blocks`,
-        descriptionTitle: `Lightweight, durable, and energy-efficient blocks that save cost, time, and energy`
+        descriptionTitle: `Lightweight, durable, and energy-efficient blocks that save cost, time, and energy.`
     },
     {
         bigTitle: `AAC Panels`,
-        descriptionTitle: `Innovative, steel-reinforced panels for faster, stronger, and smarter construction`
+        descriptionTitle: `Innovative, steel-reinforced panels for faster, stronger, and smarter construction.`
     }
 ]
 

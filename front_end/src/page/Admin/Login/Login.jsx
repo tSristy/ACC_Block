@@ -194,6 +194,9 @@ const Login = () => {
                 </Grid>
 
             </Grid>
+            { errMsg && (
+                <p>{errMsg}</p>
+            )}
         </div>
     );
 };

@@ -1,13 +1,13 @@
 import { Grid, Box } from '@mui/material';
 
 const HomeCard = ({ index, title, textDescription }) => {
-    const boxStyle = {
-        // height: '170px',
-        // backgroundImage: `url(${bgImg})`,
-        // backgroundSize: 'cover',
-        // backgroundPosition: 'center',
+    // const boxStyle = {
+    //     height: '170px',
+    //     backgroundImage: `url(${bgImg})`,
+    //     backgroundSize: 'cover',
+    //     backgroundPosition: 'center',
+    // }
 
-    }
     return (
         <Box sx={{
             p: 2,
@@ -23,7 +23,7 @@ const HomeCard = ({ index, title, textDescription }) => {
                     }}>{index}</Box>
                 </Grid>
                 <Grid size={11} sx={{ px: 2 }}>
-                    <Box sx={{ fontSize: '1rem', fontWeight: 500, textTransform: 'uppercase', color: '#187b3d' }}>{title ? title : null}</Box>
+                    <Box sx={{ fontSize: '1rem', fontWeight: 600, textTransform: 'uppercase', color: '#187b3d' }}>{title ? title : null}</Box>
                     <Box sx={{ pt:2, textAlign: 'justify' }}>{textDescription ? textDescription : null}</Box>
                 </Grid>
             </Grid>

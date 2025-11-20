@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomeCard from '../../../component/CardBox/HomeCard';
 import { Avatar, Box, Container, Divider, Grid, ImageList, ImageListItem, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Banner from '../../../component/Banner/Banner';
@@ -20,7 +20,7 @@ import bannerImg1 from '../../../img/HomePage/A.png';
 import bannerImg2 from '../../../img/HomePage/B.png';
 import bannerImg3 from '../../../img/HomePage/C.png';
 import appImg from '../../../img/Applications/WHERE-TO-USE-Application.png';
-import imgWhyChoose from '../../../img/WhyChoose/1400X1200.png';
+// import imgWhyChoose from '../../../img/WhyChoose/1400X1200.png';
 import aboutImg from '../../../img/About/About-Us.png'
 
 const LandingPage = () => {
@@ -103,14 +103,14 @@ const LandingPage = () => {
                 <Grid spacing={4} container
                     direction="row"
                     sx={{
-                        py: 5,
+                        pt: 5,
                         height: '100%',
                         justifyContent: isSmallScreen ? "center" : "space-between",
                         alignItems: "center",
                     }}>
                     <Grid size={{ xs: 12, md: 7 }}>
                         <TextSection givenAlign="" textData={{
-                            supportTitle: 'about us', headerTitle: 'we are the great wall', textDescription: `Great Wall AAC Block is the smart solution for modern construction. Tested by BUET and manufactured with cutting-edge technology, our blocks deliver durability, thermal insulation, and eco-friendliness while reducing overall project costs. With proven strength, lightweight efficiency, and sustainability, Great Wall AAC Blocks represent the future of building in Bangladesh
+                            supportTitle: 'about us', headerTitle: 'we are the great wall', textDescription: `Great Wall AAC Block is the smart solution for modern construction. Tested by BUET and manufactured with cutting-edge technology, our blocks deliver durability, thermal insulation, and eco-friendliness while reducing overall project costs. With proven strength, lightweight efficiency, and sustainability, Great Wall AAC Blocks represent the future of building in Bangladesh.
                             ` }} />
                         <Stack direction="row" sx={{
                             py: 3, justifyContent: "flex-start",
@@ -237,7 +237,7 @@ const LandingPage = () => {
                                         sx={{ pl: 4 }}
                                     >
                                         <Box sx={{ width: '50%' }}>
-                                            <Typography variant='h5'>{row.parameter}</Typography>
+                                            <Typography sx={{ fontSize: "1.25rem", fontWeight: '700' }}>{row.parameter}</Typography>
                                         </Box>
                                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             <Typography variant='h6'>{row.value}</Typography>
@@ -308,12 +308,8 @@ const LandingPage = () => {
                     </Container>
 
                     <Container sx={{ pb: 15 }}>
-                        <Stack direction="row" spacing={2}
-                            sx={{
-                                justifyContent: isSmallScreen ? "center" : "space-around",
-                                alignItems: "center",
-                            }}>
-                            <Carousel details={{ itemNo: 4 }}>
+                        <Stack direction="row" spacing={2}>
+                            <Carousel details={{ itemNo: 4, play: true }}>
                                 {appCardList.map((item, index) => (
                                     <AppCard key={index}
                                         title={item.title} imgUrl={item.imgUrl} />
@@ -342,7 +338,7 @@ const LandingPage = () => {
                             justifyContent: "center",
                             alignItems: "flex-start",
                         }}>
-                            <TextSection givenAlign='flex-start' textData={{ supportTitle: 'our products', headerTitle: 'Great Wall AAC Panels', textDescription: 'Great Wall AAC Panels are innovative, steel-reinforced, tongue-and-groove designed panels that deliver unmatched speed, strength, and insulation for modern buildings. Ideal for both residential and commercial projects, they simplify construction, save costs, and create more usable space with thinner yet stronger walls' }} />
+                            <TextSection givenAlign='flex-start' textData={{ supportTitle: 'our products', headerTitle: 'Great Wall AAC Panels', textDescription: 'Great Wall AAC Panels are innovative, steel-reinforced, tongue-and-groove designed panels that deliver unmatched speed, strength, and insulation for modern buildings. Ideal for both residential and commercial projects, they simplify construction, save costs, and create more usable space with thinner yet stronger walls.' }} />
                             <BtnUrlChange btnDetails={{ btnTitle: 'learn more', url: '/aac-panels', color: true }} />
                         </Stack>
                     </Grid>

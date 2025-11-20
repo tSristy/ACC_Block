@@ -1,7 +1,6 @@
 import {
   Routes,
-  Route,
-  useNavigate,
+  Route
 } from 'react-router-dom';
 
 import Contact from '../page/General/Contact/Contact';
@@ -14,8 +13,6 @@ import Login from '../page/Admin/Login/Login';
 import PageLayout from '../page/Layout/PageLayout';
 import DashBoard from '../page/Admin/Dashboard/DashBoard';
 import AdminLayout from '../page/Layout/AdminLayout';
-import { ServerApi } from './ServerApi';
-import { useEffect, useState } from 'react';
 import ProtectedRoute from './ProtectedRoute';
 import ImgSettings from '../page/Admin/ImgSettings/ImgSettings';
 import Content from '../page/Admin/Content/Content';
@@ -24,6 +21,7 @@ import AACBlockTechnical from '../page/General/Technical/AACBlockTechnical';
 import AACPanelTechnical from '../page/General/Technical/AACPanelTechnical';
 import AACBlockGuide from '../page/General/Guideline/AACBlockGuide';
 import AACPanelGuide from '../page/General/Guideline/AACPanelGuide';
+import FixBlock from '../page/General/Product/FixBlock';
 
 const RouterConfig = () => {
   return (
@@ -33,6 +31,7 @@ const RouterConfig = () => {
         <Route path='/contact-us' element={<Contact />} />
         <Route path='/product/aac-blocks' element={<AACBlock />} />
         <Route path='/product/aac-panels' element={<AACPanel />} />
+        <Route path='/product/block-fix' element={<FixBlock />} />
         <Route path='/blogs' element={<Blogs />} />
         <Route path='/technical-specification/aac-blocks' element={<AACBlockTechnical />} />
         <Route path='/technical-specification/aac-panels' element={<AACPanelTechnical />} />

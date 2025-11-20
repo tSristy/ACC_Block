@@ -8,6 +8,7 @@ const AboutCard = ({ iconLogo, title, textDescription }) => {
             sx={{
                 justifyContent: "center",
                 alignItems: "center",
+                color: "#2b2b2b"
             }}
         >
             <Box> {iconLogo ? iconLogo : null}

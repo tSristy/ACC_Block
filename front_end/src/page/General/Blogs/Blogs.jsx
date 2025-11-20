@@ -2,7 +2,7 @@ import bannerImg from '../../../img/Blog/banner2.png'
 import BlogCard from '../../../component/CardBox/BlogCard';
 import Banner from '../../../component/Banner/Banner';
 import TextSection from '../../../component/TextSection/TextSection';
-import { Box, Card, CardContent, CardMedia, Container, Modal, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Container, Modal, Stack, Typography } from '@mui/material';
 import CallAction from '../../../component/COA/CallAction';
 import ClientReview from '../../../component/Review/ClientReview';
 import ProjectCard from '../../../component/CardBox/ProjectCard';
@@ -12,8 +12,6 @@ import { ServerApi } from '../../../Route/ServerApi';
 import { useNavigate } from 'react-router-dom';
 
 const Blogs = () => {
-    // const theme = useTheme();
-    // const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const navigate = useNavigate();
     const [bannerList, setBannerList] = useState([{
         img_url: bannerImg,

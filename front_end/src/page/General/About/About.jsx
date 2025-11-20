@@ -1,13 +1,13 @@
 import bannerImg from '../../../img/About/Company-profile.png';
 import Banner from '../../../component/Banner/Banner';
-import { Box, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Container, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import TextSection from '../../../component/TextSection/TextSection';
 import SkillCard from '../../../component/CardBox/SkillCard';
 import CallAction from '../../../component/COA/CallAction';
 import { useEffect, useState } from 'react';
 import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
-import { factoryImgList, goalData, qualityList, teamList } from './AboutPageData';
+import { factoryImgList, goalData, qualityList } from './AboutPageData';
 import aboutUsImg from '../../../img/About/About-Us.png';
 
 const About = () => {
@@ -38,7 +38,7 @@ const About = () => {
                     bannerList.map((banner, index) => (
                         <Banner key={index}
                             bannerHeight='25rem' img={banner.img_url} alt={banner.img_name}
-                            text={{ firstTitle: 'Company Profile', bigTitle: null, descriptionTitle: 'Building the future of construction in Bangladesh with innovative, eco-friendly AAC solutions' }}
+                            text={{ firstTitle: 'Company Profile', bigTitle: null, descriptionTitle: 'Building the future of construction in Bangladesh with innovative, eco-friendly AAC solutions.' }}
                         />
                     ))}
             </Carousel>
@@ -57,10 +57,10 @@ const About = () => {
 
                     <Grid size={{ xs: 12 }}>
                         <TextSection textData={{
-                            supportTitle: 'great wall', headerTitle: 'AAC Block & Panels', textDescription: `Great Wall Ceramic Industries Ltd. has expanded its legacy of excellence into sustainable building solutions with AAC Blocks and Panels. Engineered with advanced technology and tested for superior performance, Great Wall AAC products bring together strength, speed, and sustainability. From residential to commercial projects, our solutions redefine construction with lighter, greener, and more efficient alternatives to traditional bricks and concrete`
+                            supportTitle: 'great wall', headerTitle: 'AAC Block & Panels', textDescription: `Great Wall Ceramic Industries Ltd. has expanded its legacy of excellence into sustainable building solutions with AAC Blocks and Panels. Engineered with advanced technology and tested for superior performance, Great Wall AAC products bring together strength, speed, and sustainability. From residential to commercial projects, our solutions redefine construction with lighter, greener, and more efficient alternatives to traditional bricks and concrete.`
                         }} />
                     </Grid>
-                    <Grid size={{ xs: 7 }}>
+                    <Grid size={{ xs: 12, md: 7 }}>
                         <Box>
                             {
                                 goalData.map((item, index) => (
@@ -71,11 +71,16 @@ const About = () => {
                                         bgcolor: index === 1 ? '#cccccc38' : '#187b3d',
                                         borderRadius: '8px',
                                     }}>
-                                        <TextSection givenAlign='flex-start'
-                                            blackBg={index === 0 ? true : false}
-                                            textData={{
-                                                supportTitle: item.title, textDescription: item.description
-                                            }} />
+                                        <Typography variant='h5' sx={{
+                                            mb:2,
+                        fontWeight: '600',
+                        textTransform: 'uppercase',
+                        color: index === 0 ? 'white' : '#2b2b2b'}} >{item.title}</Typography>
+                                        <Typography variant='subtitle1' 
+                                        sx={{
+                                            fontWeight: '400',
+                                            color: index === 0 ? 'white' : '#2b2b2b'
+                                        }}>{item.description}</Typography>
                                     </Box>
                                 ))
                             }
@@ -103,11 +108,11 @@ const About = () => {
             <Container maxWidth="auto" sx={{
                 mt: 7,
                 backgroundImage: `linear-gradient(180deg, #ffffffff, #cccccc38)`
-              }}>
+            }}>
 
- <TextSection  givenAlign='center' textData={{
-                            supportTitle: 'Learn More', headerTitle: 'About ourselves'
-                        }} />
+                <TextSection givenAlign='center' textData={{
+                    supportTitle: 'Learn More', headerTitle: 'About ourselves'
+                }} />
 
                 <Container sx={{ py: 10, color: 'white' }}>
                     <Grid container spacing={2}>
@@ -173,7 +178,7 @@ const About = () => {
             <Container maxWidth="auto" sx={{ py: 10 }}>
                 <TextSection givenAlign="center" textData={{ supportTitle: 'our factory', headerTitle: 'Visit our ground' }} blackBg={false} />
                 <Container sx={{ mt: 5 }}>
-                    <Grid container spacing={4}>
+                    {/* <Grid container spacing={4}>
                         {
                             factoryImgList.reduce((acc, item, index) => {
                                 if (index % (isSmallScreen ? factoryImgList.length : Math.floor(factoryImgList.length / 2)) === 0) {
@@ -190,8 +195,20 @@ const About = () => {
                                     </Carousel>
                                 </Grid>
                             ))
+                        } 
+                    </Grid> */}
+
+                    <Carousel details={{ itemNo: isSmallScreen ? 1 : 2 }}>
+                        {
+                            factoryImgList.map((row, idx) => (
+                                <img key={idx} src={row.img_url} alt={row.img_name} style={{
+                                    height: isSmallScreen ? "100%" : "460px",
+                                    width: "100%",
+                                    objectFit: 'cover'
+                                }} />
+                            ))
                         }
-                    </Grid>
+                    </Carousel>
                 </Container>
             </Container>
 

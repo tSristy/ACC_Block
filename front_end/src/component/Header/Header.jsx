@@ -11,6 +11,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { useLocation, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 // --- New Imports for Mobile Submenu ---
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -60,27 +61,24 @@ const Header = () => {
     },
     {
       title: 'Product',
-      // No 'url', it's a parent
+      icon: <KeyboardArrowDownIcon sx={{fontWeight: "300", fontSize: "1.3rem"}}/>,
       children: [
         { title: 'AAC BLOCKS', url: '/product/aac-blocks' },
         { title: 'AAC PANELS', url: '/product/aac-panels' },
+        { title: 'BLOCK-FIX', url: '/product/block-fix' },
       ]
     },
-    // {
-    //   title: 'Blogs & Articles',
-    //   url: '/blogs',
-    // },
     {
       title: 'Technical Specification',
-      // No 'url', it's a parent
+      icon: <KeyboardArrowDownIcon sx={{fontWeight: "300", fontSize: "1.3rem"}}/>,
       children: [
         { title: 'AAC BLOCKS', url: '/technical-specification/aac-blocks' },
-        { title: 'AAC PANELS', url: '/technical-specification/aac-panels' },
-        { title: 'BLOCK FIX', url: '/technical-specification/block-fix' },
+        { title: 'AAC PANELS', url: '/technical-specification/aac-panels' }
       ]
     },
     {
       title: 'Guideline',
+      icon: <KeyboardArrowDownIcon sx={{fontWeight: "300", fontSize: "1.3rem"}}/>,
       children: [
         { title: 'AAC BLOCKS', url: '/guideline/aac-blocks' },
         { title: 'AAC PANELS', url: '/guideline/aac-panels' },
@@ -88,7 +86,12 @@ const Header = () => {
     },
     {
       title: 'Contact us',
-      url: '/contact-us',
+      icon: <KeyboardArrowDownIcon sx={{fontWeight: "300", fontSize: "1.3rem"}}/>,
+      children: [
+        { title: 'CONTACT US', url: '/contact-us' },
+        { title: 'BLOGS', url: '/blogs' }
+      ]
+
     }
   ];
 
@@ -147,13 +150,13 @@ const Header = () => {
               justifyContent: "center",
               alignItems: "center",
             }}>
-              <Grid size={{ xs: 3 }} sx={{ display: "flex", justifyContent: "center" }}>
+              <Grid size={{ xs: 2 }}  sx={{ display: "flex", justifyContent: "center" }}>
                 <img src={logo} style={{ height: '3.75rem' }} alt="logo" />
               </Grid>
-              <Grid size={{ xs: 8 }}>
-                <Stack direction="row" spacing={0}>
+              <Grid size={{ xs: 8 }} >
+                <Stack direction="row" spacing={0} sx={{ justifyContent: "center"}}>
                   {menuList.map((row, index) => (
-                    <Box key={index} sx={{
+                    <Box key={index} sx={{ 
                       cursor: 'pointer', px: 3,
                       py: 4, fontWeight: '600',
                       textTransform: 'uppercase',
@@ -174,13 +177,13 @@ const Header = () => {
                         }
                       }}
                     >
-                      {row.title}
+                      {row.title}{row.icon? row.icon : null}
                     </Box>
                   ))}
 
                   {/* --- Dynamic Menu for Desktop --- */}
                   <Menu
-                    id="long-menu"
+                  disableScrollLock={true}
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleClose} // Use updated handleClose
@@ -212,8 +215,8 @@ const Header = () => {
                   </Menu>
                 </Stack>
               </Grid>
-              <Grid size={{ xs: 1 }}>
-                <BtnPdfDw fileDownload='' fileName='Brochers' variantStyle='contained' />
+              <Grid size={{ xs: 2 }}  sx={{ display: "flex", justifyContent: "flex-end"}}>
+                <BtnPdfDw fileDownload='' fileName='Brochure' variantStyle='contained' />
               </Grid>
             </Grid>
           </Box>

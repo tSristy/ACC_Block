@@ -1,4 +1,4 @@
-import { Box, Container, Grid, MenuItem, MenuList, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Container, Grid, MenuItem, MenuList, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material';
 import bannerImg from '../../../img/Applications/WHERE-TO-USE-Application.png';
 import TextSection from '../../../component/TextSection/TextSection';
 import { useEffect, useState } from 'react';
@@ -6,13 +6,14 @@ import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
 import Banner from '../../../component/Banner/Banner';
 import { blockComparisonList, blockSpecification } from '../Product/productData';
+import AllPagePdf from '../../../component/pdf/AllPagePdf';
+import testReportPdf from '../Product/Maxcreat_AAC.pdf';
 
 const AACBlockTechnical = () => {
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [displayTable, setDisplayTable] = useState({
         tTable: true,
-        cTable: false
+        cTable: false,
+        testReport: false
     });
     const [bannerList, setBannerList] = useState([{
         img_url: bannerImg,
@@ -48,30 +49,66 @@ const AACBlockTechnical = () => {
             </Box>
 
 
-            {/* Product details */}
             <Container sx={{ py: 10 }}>
                 <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Analyze Data' }} />
 
-                <Grid container sx={{ mt: 10 }}>
-                    <Grid size={{ md: 3 }}>
+                <Grid container sx={{ mt: 10, overflowX: "auto" }}>
+                    <Grid size={{ xs: 6, sm: 4, md: 3 }}>
                         <MenuList sx={{ p: 0, m: 0 }}>
-                            <MenuItem sx={{ p: 5, bgcolor: displayTable.tTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
-                                tTable: true,
-                                cTable: false
-                            })}>
-                                <Box sx={{ color: displayTable.tTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Technical Specification
-                                </Box>
+                            <MenuItem sx={{
+                                p: 5, 
+                                bgcolor: displayTable.tTable ? '#66cc33' : '#cccccc38',
+                                color: displayTable.tTable ? 'white' : "#5e5e5eff", 
+                                fontSize: '1rem', fontWeight: 600, 
+                                "&:hover": {
+                                    bgcolor: "#66cc3384",
+                                    color: "#187b3d"
+                                }
+                            }}
+                                onClick={(e) => setDisplayTable({
+                                    tTable: true,
+                                    cTable: false,
+                                    testReport: false
+                                })}><Typography noWrap>
+                                    Technical Specification
+                                </Typography>
                             </MenuItem>
-                            <MenuItem sx={{ p: 5, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
+
+                            <MenuItem sx={{
+                                p: 5, bgcolor: displayTable.cTable ? '#66cc33' : '#cccccc38',
+                                color: displayTable.cTable ? 'white' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600, "&:hover": {
+                                    bgcolor: "#66cc3384",
+                                    color: "#187b3d"
+                                }
+                            }}
+                                onClick={(e) => setDisplayTable({
+                                    tTable: false,
+                                    cTable: true,
+                                    testReport: false
+                                })}><Typography noWrap>
+                                    Comparision
+                                </Typography>
+                            </MenuItem>
+
+                            <MenuItem sx={{
+                                p: 5, bgcolor: displayTable.testReport ? '#66cc33' : '#cccccc38',
+                                color: displayTable.testReport ? 'white' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600, "&:hover": {
+                                    bgcolor: "#66cc3384",
+                                    color: "#187b3d"
+                                }
+                            }} onClick={(e) => setDisplayTable({
                                 tTable: false,
-                                cTable: true
+                                cTable: false,
+                                testReport: true
                             })}>
-                                <Box sx={{ color: displayTable.cTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Comparision</Box>
+                                <Typography noWrap>
+                                    Test Report
+                                </Typography>
                             </MenuItem>
                         </MenuList>
                     </Grid>
-                    <Grid size={{ md: 9 }}>
-                        {displayTable.tTable && !displayTable.cTable &&
+                    <Grid size={{ xs: 6, sm: 8, md: 9 }} >
+                        {displayTable.tTable && !displayTable.cTable && !displayTable.testReport &&
                             <TableContainer sx={{ p: 1, bgcolor: displayTable.tTable ? '#cccccc38' : 'white' }}>
                                 <Table sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
                                     <TableHead>
@@ -108,7 +145,7 @@ const AACBlockTechnical = () => {
                             </TableContainer>
                         }
 
-                        {!displayTable.tTable && displayTable.cTable &&
+                        {!displayTable.tTable && displayTable.cTable && !displayTable.testReport &&
                             <TableContainer sx={{ p: 1, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }}>
                                 <Table border sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
                                     <TableHead>
@@ -144,9 +181,13 @@ const AACBlockTechnical = () => {
                                 </Table>
                             </TableContainer>
                         }
+                        {!displayTable.tTable && !displayTable.cTable && displayTable.testReport &&
+                            <AllPagePdf pdf={testReportPdf} />
+                        }
                     </Grid>
                 </Grid>
             </Container>
+
         </div>
     );
 };

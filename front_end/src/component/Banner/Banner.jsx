@@ -1,4 +1,4 @@
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import BtnUrlChange from '../Button/BtnUrlChange';
 
 const Banner = ({ bannerHeight, text, img, btnDetails }) => {
@@ -23,12 +23,31 @@ const Banner = ({ bannerHeight, text, img, btnDetails }) => {
                     color: 'white',
                     textTransform: 'uppercase'
                 }}>
-                <Container sx={{ fontSize: '2.5rem', fontWeight: '600', textAlign: 'center' }}>{firstTitle ? firstTitle : null}</Container>
-                <Container sx={{ letterSpacing: '1.5px',fontSize: '4rem', fontWeight: '700', textAlign: 'center' }}>{bigTitle ? bigTitle : null}</Container>
-                <Container sx={{ pt:3, letterSpacing: '1px', fontSize: '1.125rem', fontWeight: '400', textAlign: 'center' }}>{descriptionTitle ? descriptionTitle : null}</Container>
+
+                <Typography variant="h2" sx={{
+                    fontSize: {
+                        xs: '2rem',
+                        md: '3.5rem',
+                    }, fontWeight: '600', textAlign: 'center'
+                }}>{firstTitle ? firstTitle : null}</Typography>
+
+                <Typography sx={{
+                    fontSize: {
+                        xs: '2rem',
+                        sm: '3rem',
+                        md: '4.5rem',
+                        lg: '5rem',
+                    }, fontWeight: '700', textAlign: 'center'
+                }}>{bigTitle ? bigTitle : null}</Typography>
+
+                <Typography variant="subtitle1" sx={{
+                    fontSize: {
+            xs: '.9rem',   
+            md: '1.125rem', 
+        },  fontWeight: '400', textAlign: 'center' }}>{descriptionTitle ? descriptionTitle : null}</Typography>
 
                 {btnDetails ? (
-                    <div style={{ padding: "3rem 0rem"}}>
+                    <div style={{ padding: "3rem 0rem" }}>
                         <BtnUrlChange btnDetails={btnDetails} />
                     </div>
                 ) : null}

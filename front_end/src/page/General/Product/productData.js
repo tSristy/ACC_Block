@@ -17,6 +17,7 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import FoundationIcon from '@mui/icons-material/Foundation';
 import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
 import GridViewIcon from '@mui/icons-material/GridView';
+import GppGoodIcon from '@mui/icons-material/GppGood';
 
 export const blocksQuality = [
     {
@@ -67,23 +68,64 @@ export const panelQuality = [
 
 ]
 
+
 export const blockSkillList = [
-    { icon: <ScaleIcon />, title: "Lightweight & Strong", description: "1/3rd the weight of clay bricks, high compressive strength" },
-    { icon: <DeviceThermostatIcon />, title: "Thermal Insulation", description: "Save up to 25% on cooling energy" },
-    { icon: <LocalFireDepartmentIcon />, title: "Fire Resistant", description: "Withstands fire for 4-6 hours" },
-    { icon: <HearingIcon />, title: "Sound Insulation", description: "Reduces noise by over 40 dB" },
-    { icon: <ParkIcon />, title: "Eco-Friendly", description: "Sustainable production with minimal waste" },
-    { icon: <HandymanIcon />, title: "Faster Construction", description: "4X quicker build with less mortar" },
+    { icon: <ScaleIcon />, title: "Lightweight & Strong", description: "1/3rd the weight of clay bricks, high compressive strength." },
+    { icon: <DeviceThermostatIcon />, title: "Thermal Insulation", description: "Save up to 25% on cooling energy." },
+    { icon: <LocalFireDepartmentIcon />, title: "Fire Resistant", description: "Withstands fire for 4-6 hours." },
+    { icon: <HearingIcon />, title: "Sound Insulation", description: "Reduces noise by over 40 dB." },
+    { icon: <ParkIcon />, title: "Eco-Friendly", description: "Sustainable production with minimal waste." },
+    { icon: <HandymanIcon />, title: "Faster Construction", description: "4X quicker build with less mortar." },
 ]
 
 export const panelSkillList = [
-    { icon: <HandymanIcon />, title: "4X Faster Installation", textDescription: "Saves time, labor, and cost" },
-    { icon: <BuildIcon />, title: "Steel Reinforced", textDescription: "Corrosion-protected steel inside ensures durability" },
-    { icon: <DeviceThermostatIcon />, title: "Thermal & Acoustic Insulation", textDescription: "Keeps interiors cooler and quieter" },
-    { icon: <HardwareIcon />, title: "Reusable & Eco-Friendly", textDescription: "Sustainable design with minimal waste" },
-    { icon: <AddRoadIcon />, title: "Slim Walls, More Space", textDescription: "Increases carpet area for better utilization" },
-    { icon: <LocalFireDepartmentIcon />, title: "Fire Resistance & Safe", textDescription: "Provides 4-6 hours fire resistance for added security" },
-    ]
+    { icon: <HandymanIcon />, title: "4X Faster Installation", textDescription: "Saves time, labor, and cost." },
+    { icon: <BuildIcon />, title: "Steel Reinforced", textDescription: "Corrosion-protected steel inside ensures durability." },
+    { icon: <DeviceThermostatIcon />, title: "Thermal & Acoustic Insulation", textDescription: "Keeps interiors cooler and quieter." },
+    { icon: <HardwareIcon />, title: "Reusable & Eco-Friendly", textDescription: "Sustainable design with minimal waste." },
+    { icon: <AddRoadIcon />, title: "Slim Walls, More Space", textDescription: "Increases carpet area for better utilization." },
+    { icon: <LocalFireDepartmentIcon />, title: "Fire Resistance & Safe", textDescription: "Provides 4-6 hours fire resistance for added security." },
+]
+
+
+export const FixSkillList = [
+    {
+        icon: 
+            <BuildIcon />,
+        title: "Packaging",
+        description: "Great Wall Block-fix is available in 25kg bags for easy handling and consistent usage."
+    },
+    {
+        icon: 
+            <HandymanIcon />,
+        title: "Shelf Life",
+        description: "Shelf life of 12 months from the date of manufacture if stored in a cool and dry place. High humidity reduces shelf life."
+    },
+    {
+        icon: 
+            <ScaleIcon />,
+        title: "Storage",
+        description: "Store in a dry place, off the ground and well covered. Reject hard or lumpy material and avoid exposure to moisture."
+    },
+    {
+        icon: 
+            <GridViewIcon />,
+        title: "Coverage",
+        description: "Coverage depends on wall area and block size (e.g., 600mm x 200mm x 100mm). Refer to coverage table for accurate calculations."
+    },
+    {
+        icon: 
+            <LocalFireDepartmentIcon />,
+        title: "non-flammable",
+        description: "Product is non-flammable. Safe for storage and standard construction use."
+    },
+    {
+        icon: 
+            <GppGoodIcon />,
+        title: "non-toxic",
+        description: "Great Wall Block-fix is formulated to be non-toxic, ensuring safer handling."
+    }
+];
 
 export const blockSpecification = [
     { parameter: "Density (Dry Density)", value: "550-650", unit: "Kg/m³", claybrickValue: "1800-2000" },
@@ -103,6 +145,20 @@ export const panelSpecification = [
   { parameter: "Density", value: "550-650", unit: "Kg/m³", claybrickValue: "1800-2000" },
   { parameter: "Fire Resistance", value: "4-6", unit: "Hours", claybrickValue: "1.5" },
   { parameter: "Sound Insulation", value: "40-45", unit: "dB", claybrickValue: "50-60" }
+];
+
+export const fixSpecification = [
+    { parameter: "Composition", value: "Cement, Hydrated Lime, Process Sand & Chemical Additives", unit: "-", claybrickValue: "-" },
+    { parameter: "Binder", value: "Portland Cement & Lime (Proportion depends upon class of CM4)", unit: "-", claybrickValue: "-" },
+    { parameter: "Tensile Adhesion Strength", value: "0.75", unit: "N/mm² @ 28 days", claybrickValue: "-" },
+    { parameter: "Split Tensile Strength", value: "0.4-0.5", unit: "N/mm² @ 28 days", claybrickValue: "-" },
+    { parameter: "Compressive Strength", value: "6-7", unit: "N/mm² @ 28 days", claybrickValue: ">3.5" },
+    { parameter: "Appearance", value: "Gray granular powder", unit: "-", claybrickValue: "-" },
+    { parameter: "Mixing Ratio", value: "4.5 ltr per 25 kg bag", unit: "-", claybrickValue: "-" },
+    { parameter: "Bulk Density", value: "1450-1550", unit: "Kg/m³", claybrickValue: "1800-2000" },
+    { parameter: "Working Time", value: "Approx. 30-60 minutes", unit: "-", claybrickValue: "-" },
+    { parameter: "Approx. Coverage", value: "Depends on block size & shape", unit: "-", claybrickValue: "-" },
+    { parameter: "Standards", value: "ASTM C387 & ASTM C270", unit: "-", claybrickValue: "-" }
 ];
 
 
@@ -249,6 +305,21 @@ export const blockAdvantageList = [
     { icon: <AddTaskIcon />, title: "Long-lasting durability" },
 ]
 
+export const fixAdvantageList = [
+    { icon: <AddTaskIcon />, title: "Save substantial cost compared to conventional mortar" },
+    { icon: <AddTaskIcon />, title: "Flexible, shock and impact resistance" },
+    { icon: <AddTaskIcon />, title: "Self-curing & thin-bed joints" },
+    { icon: <AddTaskIcon />, title: "Superior technology in construction" },
+    { icon: <AddTaskIcon />, title: "Easy to use with consistent quality" },
+    { icon: <AddTaskIcon />, title: "Suitable for interior & exterior use" },
+    { icon: <AddTaskIcon />, title: "No shrinkage cracks at joints" },
+    { icon: <AddTaskIcon />, title: "Ready for subsequent application in 24 hours" },
+    { icon: <AddTaskIcon />, title: "No curing required after block work is done" },
+    { icon: <AddTaskIcon />, title: "Reduce wastage" },
+];
+
+
+
 export const blockInstallationSteps = [
   {
     icon: <FoundationIcon sx={{ fontSize: '40px' }}/>,
@@ -347,5 +418,23 @@ export const panelInstallationSteps = [
     icon: <AssuredWorkloadIcon sx={{ fontSize: '40px' }}/>,
     step: "Step 10",
     description: "Finish with skim coat (interior) or AAC plastering mortar (exterior)."
+  }
+];
+
+export const fixInstallationSteps = [
+  {
+    icon: <FoundationIcon sx={{ fontSize: '40px' }} />,
+    step: "Step 1",
+    description: "Prepare the surface of blocks by removing all dirt, oil, grease, concrete sealers, or curing compounds. Ensure slabs are plumb and true within ¼” (6mm) in 10 ft (3m)."
+  },
+  {
+    icon: <BuildIcon sx={{ fontSize: '40px' }} />,
+    step: "Step 2",
+    description: "Mix 25 kg of Great Wall Block-fix AAC Adhesive with 4.5 liters of potable water. Slowly add powder into water while mixing with an electric agitator or slow-speed mixer for 3-5 minutes until a smooth, lump-free, creamy mix is obtained. Do not add more water or remix hardened mortar."
+  },
+  {
+    icon: <HandymanIcon sx={{ fontSize: '40px' }} />,
+    step: "Step 3",
+    description: "Apply the adhesive during masonry wall preparation for joining AAC blocks, panels, or concrete blocks. Use a box or notch trowel to maintain a uniform 3 mm thickness. Provide bond beams as suggested by the design engineer to reduce cracks during service periods."
   }
 ];

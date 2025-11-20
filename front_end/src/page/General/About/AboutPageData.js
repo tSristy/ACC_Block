@@ -10,11 +10,11 @@ import { Avatar } from '@mui/material';
 export const goalData = [
     {
         title: 'Vision',
-        description: `To revolutionize the construction industry in Bangladesh by delivering world-class AAC solutions that enable sustainable, smart, and cost-efficient buildings for generations to come`
+        description: `To revolutionize the construction industry in Bangladesh by delivering world-class AAC solutions that enable sustainable, smart, and cost-efficient buildings for generations to come.`
     },
     {
         title: 'Mission',
-        description: `To deliver high-quality AAC blocks and panels that combine durability, efficiency, and eco-friendliness. We aim to empower builders, architects, and homeowners with innovative solutions that make construction faster, safer, and more cost-effective`
+        description: `To deliver high-quality AAC blocks and panels that combine durability, efficiency, and eco-friendliness. We aim to empower builders, architects, and homeowners with innovative solutions that make construction faster, safer, and more cost-effective.`
     }
 ]
 
@@ -24,28 +24,28 @@ export const qualityList = [
             <EngineeringIcon sx={{ fontSize: '40px' }} />
         </Avatar>,
         title: "Manufacturing Excellence",
-        description: "Equipped with state-of-the-art facilities in Gazipur, ensuring consistent quality and large-scale production"
+        description: "Equipped with state-of-the-art facilities in Gazipur, ensuring consistent quality and large-scale production."
     },
     {
         icon: <Avatar sx={{ width: 80, height: 80, bgcolor: '#42424246' }}>
             <Diversity3Icon sx={{ fontSize: '40px' }} />
         </Avatar>,
         title: "Trusted Legacy",
-        description: "Backed by Great Wall Ceramic Industries Ltd., a brand known for reliability and innovation in Bangladesh’s construction sector"
+        description: "Backed by Great Wall Ceramic Industries Ltd., a brand known for reliability and innovation in Bangladesh’s construction sector."
     },
     {
         icon: <Avatar sx={{ width: 80, height: 80, bgcolor: '#42424246' }}>
             <ConnectWithoutContactIcon sx={{ fontSize: '40px' }} />
         </Avatar>,
         title: "Strong Distribution Network",
-        description: "Wide availability across the country with dedicated support for builders, dealers, and architects"
+        description: "Wide availability across the country with dedicated support for builders, dealers, and architects."
     },
     {
         icon: <Avatar sx={{ width: 80, height: 80, bgcolor: '#42424246' }}>
             <AccessibilityNewIcon sx={{ fontSize: '40px' }} />
         </Avatar>,
         title: "Technical Expertise & Support",
-        description: "Professional guidance, training, and on-site assistance to ensure proper usage and maximum efficiency"
+        description: "Professional guidance, training, and on-site assistance to ensure proper usage and maximum efficiency."
     }
 ]
 

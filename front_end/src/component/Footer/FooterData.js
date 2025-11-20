@@ -5,8 +5,6 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import LocationPinIcon from '@mui/icons-material/LocationPin';
 import CallIcon from '@mui/icons-material/Call';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import DialpadIcon from '@mui/icons-material/Dialpad';
-import LanguageIcon from '@mui/icons-material/Language';
 import FactoryIcon from '@mui/icons-material/Factory';
 
 export const footerIcon = [

@@ -12,15 +12,16 @@ import { useEffect, useState } from 'react';
 import { ServerApi } from '../../../Route/ServerApi';
 import Carousel from '../../../component/Carousel/Carousel';
 import Banner from '../../../component/Banner/Banner';
-import { blockAdvantageList, blockComparisonList, blockInstallationSteps, blockSkillList, blockSpecification, blocksQuality } from './productData';
+import { blocksQuality, fixAdvantageList, fixInstallationSteps, FixSkillList, fixSpecification } from './productData';
 import AboutCard from '../../../component/CardBox/AboutCard';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { appCardList } from '../../../component/CardBox/Data/appCardList';
 import GuideCard from '../../../component/CardBox/GuideCard';
 import AllPagePdf from '../../../component/pdf/AllPagePdf';
 import testReportPdf from './Maxcreat_AAC.pdf';
+import WarningIcon from '@mui/icons-material/Warning';
 
-const AACBlock = () => {
+const FixBlock = () => {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -70,9 +71,11 @@ const AACBlock = () => {
                         p: isSmallScreen ? 0 : 13,
                     }}
                 >
-                    <TextSection textData={{ supportTitle: 'Smart Building with', headerTitle: 'Great Wall AAC Blocks', textDescription: "LIGHTWEIGHT, DURABLE, AND ECO-FRIENDLY BLOCKS FOR THE FUTURE OF CONSTRUCTION." }} blackBg={true} />
+                    <TextSection textData={{ supportTitle: 'Smart Building with', headerTitle: 'Great Wall Block-Fix', textDescription: "FIXING THE GREEN FUTURE WITH STRONG BONDING BETWEEN THE BLOCKS." }} blackBg={true} />
                 </Box>
             </Box>
+
+
 
 
             {/* Product description */}
@@ -86,7 +89,7 @@ const AACBlock = () => {
                     }}>
 
                     <Grid size={{ xs: 12, md: 7 }}>
-                        <TextSection givenAlign='' textData={{ supportTitle: 'our products', headerTitle: 'GREAT WALL AAC BLOCKS', textDescription: 'A short paragraph introducing AAC Blocks as a modern alternative to clay bricks and concrete, highlighting benefits like lightweight design, energy savings, and eco-friendliness.' }} />
+                        <TextSection givenAlign='' textData={{ supportTitle: 'our products', headerTitle: 'Great Wall Block-Fix', textDescription: 'Great Wall Block-Fix is a dry pre-mixed polymer based fast setting, thin-bed, strong bonding water resistance materials for AAC (Autoclaved Aerated Concrete) Blocks, AAC Panels & Concrete Blocks fixing adhesive.' }} />
                     </Grid>
                     <Grid size={{ sx: 12, md: 5 }}>
                         <img src={blockImg} style={{
@@ -131,26 +134,13 @@ const AACBlock = () => {
                     backgroundImage: `linear-gradient(180deg, #cccccc38, #ffffff)`,
                     color: 'white'
                 }}>
-                    <Container sx={{
-                        pb: 10,
-                        height: '100%'
-                    }}>
-                        <Grid container spacing={2}
-                            direction="row"
-                            sx={{
-                                pt: 5,
-                                height: '100%',
-                                justifyContent: "space-between",
-                                alignItems: "stretch",
-                            }}
-                        >
-                            {
-                                blockSkillList.map((row, index) => (
-                                    <Grid size={{ xs: 12, md: 4 }} key={index}>
-                                        <SkillCard iconLogo={row.icon} title={row.title} textDescription={row.description} />
-                                    </Grid>
-                                ))
-                            }
+                    <Container sx={{ py: 10, color: 'white' }}>
+                        <Grid container spacing={2}>
+                            {FixSkillList.map((item, index) => (
+                                <Grid key={index} size={{ xs: 12, md: 6 }}>
+                                    <SkillCard iconLogo={item.icon} title={item.title} textDescription={item.description} />
+                                </Grid>
+                            ))}
                         </Grid>
                     </Container>
                 </div>
@@ -173,26 +163,10 @@ const AACBlock = () => {
                             }}
                                 onClick={(e) => setDisplayTable({
                                     tTable: true,
-                                    cTable: false,
                                     testReport: false
-                                })}><Typography noWrap>
+                                })}>
+                                <Typography noWrap>
                                     Technical Specification
-                                </Typography>
-                            </MenuItem>
-
-                            <MenuItem sx={{
-                                p: 5, bgcolor: displayTable.cTable ? '#66cc33' : '#cccccc38',
-                                color: displayTable.cTable ? 'white' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600, "&:hover": {
-                                    bgcolor: "#66cc3384",
-                                    color: "#187b3d"
-                                }
-                            }}
-                                onClick={(e) => setDisplayTable({
-                                    tTable: false,
-                                    cTable: true,
-                                    testReport: false
-                                })}><Typography noWrap>
-                                    Comparision
                                 </Typography>
                             </MenuItem>
 
@@ -204,7 +178,6 @@ const AACBlock = () => {
                                 }
                             }} onClick={(e) => setDisplayTable({
                                 tTable: false,
-                                cTable: false,
                                 testReport: true
                             })}>
                                 <Typography noWrap>
@@ -213,21 +186,21 @@ const AACBlock = () => {
                             </MenuItem>
                         </MenuList>
                     </Grid>
-                    <Grid size={{ xs: 6, sm: 8, md: 9 }} >
-                        {displayTable.tTable && !displayTable.cTable && !displayTable.testReport &&
+                    <Grid size={{ sx: 6, sm: 8, md: 9 }}>
+                        {displayTable.tTable && !displayTable.testReport &&
                             <TableContainer sx={{ p: 1, bgcolor: displayTable.tTable ? '#cccccc38' : 'white' }}>
                                 <Table sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
                                             <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }}>  Property</TableCell>
                                             <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Units</TableCell>
-                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">AAC Block</TableCell>
+                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Block-Fix</TableCell>
                                             <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Clay Bricks</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
 
-                                        {blockSpecification.map((row, index) => (
+                                        {fixSpecification.map((row, index) => (
                                             <TableRow
                                                 key={index}
                                             >
@@ -251,44 +224,10 @@ const AACBlock = () => {
                             </TableContainer>
                         }
 
-                        {!displayTable.tTable && displayTable.cTable && !displayTable.testReport &&
-                            <TableContainer sx={{ p: 1, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }}>
-                                <Table border sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }}>Parameter</TableCell>
-                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">AAC Block</TableCell>
-                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Clay Bricks</TableCell>
-                                            <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", fontWeight: 600, border: 1, borderColor: '#cccccc90' }} align="center">Concrete Blocks</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-
-                                        {blockComparisonList.map((row, index) => (
-                                            <TableRow
-                                                key={index}
-                                            >
-                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" scope="row">
-                                                    {row.parameter}
-                                                </TableCell>
-                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
-                                                    {row.aacBlocks}
-                                                </TableCell>
-                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
-                                                    {row.redClayBricks}
-                                                </TableCell>
-                                                <TableCell sx={{ p: 4, fontSize: '1rem', color: "#5e5e5eff", border: 1, borderColor: '#cccccc90' }} component="th" align="center" scope="row">
-                                                    {row.concreteBlocks}
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-
-                                </Table>
-                            </TableContainer>
-                        }
-                        {!displayTable.tTable && !displayTable.cTable && displayTable.testReport &&
-                            <AllPagePdf pdf={testReportPdf} />
+                        {!displayTable.tTable && displayTable.testReport &&
+                            <Box sx={{ p: 1, bgcolor: displayTable.testReport ? '#cccccc38' : 'white' }}>
+                                <AllPagePdf pdf={testReportPdf} />
+                            </Box>
                         }
                     </Grid>
                 </Grid>
@@ -314,7 +253,7 @@ const AACBlock = () => {
                         <TextSection givenAlign='center' textData={{ supportTitle: 'Newly unlocked', headerTitle: 'Advantage of AAC Blocks' }} />
                     </Grid>
                     {
-                        blockAdvantageList.map((row, index) => (
+                        fixAdvantageList.map((row, index) => (
                             <Grid size={{ xs: 12, md: 6 }} key={index}>
                                 <SkillCard iconLogo={row.icon} title={row.title} />
                             </Grid>
@@ -322,6 +261,8 @@ const AACBlock = () => {
                     }
                 </Grid>
             </Container>
+
+
 
             {/* Application */}
             <div
@@ -341,8 +282,12 @@ const AACBlock = () => {
                     </Container>
 
                     <Container sx={{ pb: 15 }}>
-                        <Stack direction="row" spacing={2}>
-                            <Carousel details={{ itemNo: 4, play: true }}>
+                        <Stack direction="row" spacing={2}
+                            sx={{
+                                justifyContent: isSmallScreen ? "center" : "space-around",
+                                alignItems: "center",
+                            }}>
+                            <Carousel details={{ itemNo: 4 }}>
                                 {appCardList.map((item, index) => (
                                     <AppCard key={index}
                                         title={item.title} imgUrl={item.imgUrl} />
@@ -358,41 +303,53 @@ const AACBlock = () => {
             }} />
 
 
+            <Container sx={{ pt: 20, pb: 10 }}>
+                <TextSection textData={{ supportTitle: 'Safety Directions', headerTitle: 'guidelines & precautions', }} givenAlign={"center"} />
+                <Stack spacing={4} sx={{ pt: 5 }}>
+                    <SkillCard card={true} title="Avoid Direct Contact" iconLogo={<WarningIcon />} textDescription="Precautions must be taken to avoid contact with skin, eyes, etc. Always wear recommended protective gear during application." />
+                    <SkillCard card={true} title="Prolonged Irritation" iconLogo={<WarningIcon />} textDescription="In case of prolonged irritation, medical advice should be sought. Do not ignore persistent symptoms." />
+                    <SkillCard card={true} title="Medical Emergency" iconLogo={<WarningIcon />} textDescription="If swallowed, seek medical attention immediately." />
+                </Stack>
+            </Container>
+
+
             {/* Installation */}
             <Container sx={{ py: 10 }}>
-                <Box sx={{ py: 5 }}>
-                    <Accordion >
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon color='success' />}
-                            aria-controls="panel3-content"
-                            id="panel3-header"
-                        >
-                            <TextSection textData={{ supportTitle: 'Step by Step', headerTitle: 'Installation Guidelines' }} />
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Grid container spacing={4}>
-                                {
-                                    blockInstallationSteps.map((row, index) => (
-                                        <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
-                                            <GuideCard iconLogo={row.icon} title={row.step} textDescription={row.description} />
-                                        </Grid>
-                                    ))
-                                }
-                            </Grid>
+                <Grid container>
+                    <Grid size={{ md: 12 }} sx={{ py: 5 }}>
+                        <Accordion >
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon color='success' />}
+                                aria-controls="panel3-content"
+                                id="panel3-header"
+                            >
+                                <TextSection textData={{ supportTitle: 'Step by Step', headerTitle: 'Installation Guidelines' }} />
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Grid container spacing={4}>
+                                    {
+                                        fixInstallationSteps.map((row, index) => (
+                                            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
+                                                <GuideCard iconLogo={row.icon} title={row.step} textDescription={row.description} />
+                                            </Grid>
+                                        ))
+                                    }
+                                </Grid>
 
-                        </AccordionDetails>
-                        <AccordionActions>
-                            <Button color='success' onClick={(e) => {
-                                const link = document.createElement('a');
-                                link.href = '/files/myfile.pdf';
-                                link.download = 'Installation_Guide.pdf';
-                                document.body.appendChild(link);
-                                link.click();
-                                document.body.removeChild(link);
-                            }}>Download</Button>
-                        </AccordionActions>
-                    </Accordion>
-                </Box>
+                            </AccordionDetails>
+                            <AccordionActions>
+                                <Button color='success' onClick={(e) => {
+                                    const link = document.createElement('a');
+                                    link.href = '/files/myfile.pdf';
+                                    link.download = 'Installation_Guide.pdf';
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                }}>Download</Button>
+                            </AccordionActions>
+                        </Accordion>
+                    </Grid>
+                </Grid>
             </Container>
 
             {/* FAQ */}
@@ -437,4 +394,4 @@ const AACBlock = () => {
     );
 };
 
-export default AACBlock;
+export default FixBlock;

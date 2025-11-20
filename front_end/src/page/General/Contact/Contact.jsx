@@ -44,7 +44,7 @@ const Contact = () => {
                     bannerList.map((banner, index) => (
                         <Banner key={index} bannerHeight="25rem"
                             text={{
-                                firstTitle: 'Let’s Build Smarter Together', bigTitle: null, descriptionTitle: `Reach out to us for product inquiries, dealer partnerships or technical support`
+                                firstTitle: 'Let’s Build Smarter Together', bigTitle: null, descriptionTitle: `Reach out to us for product inquiries, dealer partnerships or technical support.`
                             }} img={banner.img_url} alt={banner.img_name || `Photo by <a href="https://unsplash.com/@huyphan2602?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Huy Phan</a> on <a href="https://unsplash.com/photos/areal-photo-of-city-under-cloudy-sky-B6XHk5MC0N0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
       `} />
                     ))
@@ -56,7 +56,7 @@ const Contact = () => {
                 <Grid container spacing={6} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                     <Grid size={{ xs: 12 }}>
                         <TextSection givenAlign='center' textData={{
-                            supportTitle: 'Need Quick Assistance?', headerTitle: 'Call now', textDescription: `Our team is ready to support your project with expert guidance and reliable AAC solutions`
+                            supportTitle: 'Need Quick Assistance?', headerTitle: 'Call now', textDescription: `Our team is ready to support your project with expert guidance and reliable AAC solutions.`
                         }} />
 
                     </Grid>

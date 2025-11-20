@@ -10,7 +10,7 @@ import {
     Box,
     Avatar,
 } from "@mui/material";
-import { Menu as MenuIcon, Home, Info, ShoppingCart, Article } from "@mui/icons-material";
+import { Menu as MenuIcon, Home, ShoppingCart, Article } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 

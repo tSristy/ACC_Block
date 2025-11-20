@@ -1,13 +1,10 @@
-import { Box, Container, Grid, Link, List, ListItem, ListItemIcon, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Container, Grid, Link, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import BtnExternalUrl from '../Button/BtnExternalUrl';
 import { FactoryInfo, footerIcon, footerInfo } from './FooterData';
 import Divider from '@mui/material/Divider';
 import BtnPdfDw from '../Button/BtnPdfDw';
 
 const Footer = () => {
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-
     return (
         <Box sx={{
             backgroundColor: '#2b2b2b',
@@ -74,7 +71,7 @@ const Footer = () => {
                     direction="column"
                         alignItems="flex-end">
                         <Typography variant='h6' sx={{ letterSpacing: 2, color: '#ffffffff', fontWeight: 600 }}>
-                            Download Brochers
+                            Download Brochure
                         </Typography>
                         <Box sx={{ py: 3 }}>
                             <BtnPdfDw fileDownload='' fileName='Download' variantStyle='contained' />
@@ -94,7 +91,7 @@ const Footer = () => {
                 </Grid>
             </Container>
 
-            <Divider fullwidth sx={{ bgcolor: '#9b9b9bff' }} />
+            <Divider sx={{ bgcolor: '#9b9b9bff' }} />
 
             <Grid container direction="row" sx={{
                 px: 3,

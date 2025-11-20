@@ -1,5 +1,5 @@
-import { Box, Button, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
-import bannerImg from '../../../img/Products/A.png';
+import { Box, Container, Grid } from '@mui/material';
+import bannerImg from '../../../img/WhyChoose/1400X1200.png';
 import TextSection from '../../../component/TextSection/TextSection';
 import { useEffect, useState } from 'react';
 import { ServerApi } from '../../../Route/ServerApi';
@@ -10,9 +10,6 @@ import GuideCard from '../../../component/CardBox/GuideCard';
 import BtnPdfDw from '../../../component/Button/BtnPdfDw';
 
 const AACPanelGuide = () => {
-
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
 
     const [bannerList, setBannerList] = useState([{
         img_url: bannerImg,
@@ -55,7 +52,7 @@ const AACPanelGuide = () => {
                 <Grid container spacing={4}>
                     {
                         panelInstallationSteps.map((row, index) => (
-                            <Grid size={{ xs: 6, md: 3 }} key={index}>
+                            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
                                 <GuideCard iconLogo={row.icon} title={row.step} textDescription={row.description} />
                             </Grid>
                         ))

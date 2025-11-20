@@ -1,4 +1,4 @@
-import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Avatar, Box, Button, Container, Grid, List, ListItem, ListItemText, MenuItem, MenuList, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Box, Button, Container, Grid, MenuItem, MenuList, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery, useTheme } from '@mui/material';
 import imgPanel from '../../../img/Products/Our-Product-D.png';
 import bannerImg from '../../../img/Products/B.png';
 import imgWhyChoose from '../../../img/WhyChoose/1400X1200.png';
@@ -17,6 +17,8 @@ import { appCardList } from '../../../component/CardBox/Data/appCardList';
 import { panelComparisonList, panelInstallationSteps, panelQuality, panelSkillList, panelSpecification } from './productData';
 import AboutCard from '../../../component/CardBox/AboutCard';
 import GuideCard from '../../../component/CardBox/GuideCard';
+import AllPagePdf from '../../../component/pdf/AllPagePdf';
+import testReportPdf from './Maxcreat_AAC.pdf';
 
 const AACPanel = () => {
 
@@ -24,7 +26,8 @@ const AACPanel = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const [displayTable, setDisplayTable] = useState({
         tTable: true,
-        cTable: false
+        cTable: false,
+         testReport: false
     });
     const [bannerList, setBannerList] = useState([{
         img_url: bannerImg,
@@ -68,7 +71,7 @@ const AACPanel = () => {
                         p: isSmallScreen ? 0 : 13,
                     }}
                 >
-                    <TextSection textData={{ supportTitle: 'Revolutionizing Construction with', headerTitle: 'Great Wall AAC Panels', textDescription: "LIGHTWEIGHT, STEEL-REINFORCED, AND 4X FASTER INSTALLATION FOR SMARTER BUILDING" }} blackBg={true} />
+                    <TextSection textData={{ supportTitle: 'Revolutionizing Construction with', headerTitle: 'Great Wall AAC Panels', textDescription: "LIGHTWEIGHT, STEEL-REINFORCED, AND 4X FASTER INSTALLATION FOR SMARTER BUILDING." }} blackBg={true} />
                 </Box>
             </Box>
 
@@ -84,7 +87,7 @@ const AACPanel = () => {
                     }}>
 
                     <Grid size={{ xs: 12, md: 7 }}>
-                        <TextSection givenAlign='' textData={{ supportTitle: 'our products', headerTitle: 'GREAT WALL AAC PANELS', textDescription: 'A short paragraph introducing AAC Panels as an innovative, steel-reinforced building solution designed for fast, clean, and durable construction. Highlight their benefits in residential, commercial, and industrial projects, plus eco-friendly nature' }} />
+                        <TextSection givenAlign='' textData={{ supportTitle: 'our products', headerTitle: 'GREAT WALL AAC PANELS', textDescription: 'A short paragraph introducing AAC Panels as an innovative, steel-reinforced building solution designed for fast, clean, and durable construction. Highlight their benefits in residential, commercial, and industrial projects, plus eco-friendly nature.' }} />
                     </Grid>
                     <Grid size={{ sx: 12, md: 5 }}>
                         <img src={imgPanel} style={{
@@ -100,9 +103,9 @@ const AACPanel = () => {
             <Container maxWidth="auto" sx={{
                 py: 10,
                 color: 'white',
-                backgroundImage: `linear-gradient(180deg, #66cc33, #187b3d)`
+                backgroundImage: `linear-gradient(180deg, #ffffffff, #cccccc38)`
             }}>
-                <TextSection blackBg={true} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
+                <TextSection blackBg={false} givenAlign='center' textData={{ supportTitle: 'in construction', headerTitle: 'why choose aac?' }} />
 
                 <Grid container spacing={2} sx={{ pt: 10 }}>
                     {panelQuality.map((item, index) => (
@@ -124,7 +127,7 @@ const AACPanel = () => {
                 }}>
                 <div style={{
                     height: '100%',
-                    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                    backgroundImage: `linear-gradient(180deg, #cccccc38, #ffffff)`, 
                     color: 'white'
                 }}>
                     <Container sx={{
@@ -156,26 +159,60 @@ const AACPanel = () => {
             <Container sx={{ py: 10, mb: 5 }}>
                 <TextSection givenAlign='center' textData={{ supportTitle: 'Product details', headerTitle: 'Analyze Data' }} />
 
-                <Grid container sx={{ mt: 10 }}>
-                    <Grid size={{ md: 3 }}>
+                <Grid container sx={{ mt: 10, overflowX: "auto" }}>
+                    <Grid size={{ xs: 6, sm: 4, md: 3 }}>
                         <MenuList sx={{ p: 0, m: 0 }}>
-                            <MenuItem sx={{ p: 5, bgcolor: displayTable.tTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
-                                tTable: true,
-                                cTable: false
-                            })}>
-                                <Box sx={{ color: displayTable.tTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Technical Specification
-                                </Box>
+                            <MenuItem sx={{
+                                p: 5, bgcolor: displayTable.tTable ? '#66cc33' : '#cccccc38',
+                                color: displayTable.tTable ? 'white' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600, "&:hover": {
+                                    bgcolor: "#66cc3384",
+                                    color: "#187b3d"
+                                }
+                            }}
+                                onClick={(e) => setDisplayTable({
+                                    tTable: true,
+                                    cTable: false,
+                                    testReport: false
+                                })}><Typography noWrap>
+                                    Technical Specification
+                                </Typography>
                             </MenuItem>
-                            <MenuItem sx={{ p: 5, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }} onClick={(e) => setDisplayTable({
+
+                            <MenuItem sx={{
+                                p: 5, bgcolor: displayTable.cTable ? '#66cc33' : '#cccccc38',
+                                color: displayTable.cTable ? 'white' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600, "&:hover": {
+                                    bgcolor: "#66cc3384",
+                                    color: "#187b3d"
+                                }
+                            }}
+                                onClick={(e) => setDisplayTable({
+                                    tTable: false,
+                                    cTable: true,
+                                    testReport: false
+                                })}><Typography noWrap>
+                                    Comparision
+                                </Typography>
+                            </MenuItem>
+
+                            <MenuItem sx={{
+                                p: 5, bgcolor: displayTable.testReport ? '#66cc33' : '#cccccc38',
+                                color: displayTable.testReport ? 'white' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600, "&:hover": {
+                                    bgcolor: "#66cc3384",
+                                    color: "#187b3d"
+                                }
+                            }} onClick={(e) => setDisplayTable({
                                 tTable: false,
-                                cTable: true
+                                cTable: false,
+                                testReport: true
                             })}>
-                                <Box sx={{ color: displayTable.cTable ? '#66cc33' : "#5e5e5eff", fontSize: '1rem', fontWeight: 600 }}>Comparision</Box>
+                                <Typography noWrap>
+                                    Test Report
+                                </Typography>
                             </MenuItem>
                         </MenuList>
                     </Grid>
-                    <Grid size={{ md: 9 }}>
-                        {displayTable.tTable && !displayTable.cTable &&
+                    <Grid size={{ xs: 6, sm: 8, md: 9 }} >
+                        {displayTable.tTable && !displayTable.cTable && !displayTable.testReport &&
                             <TableContainer sx={{ p: 1, bgcolor: displayTable.tTable ? '#cccccc38' : 'white' }}>
                                 <Table sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
                                     <TableHead>
@@ -212,7 +249,7 @@ const AACPanel = () => {
                             </TableContainer>
                         }
 
-                        {!displayTable.tTable && displayTable.cTable &&
+                        {!displayTable.tTable && displayTable.cTable && !displayTable.testReport &&
                             <TableContainer sx={{ p: 1, bgcolor: displayTable.cTable ? '#cccccc38' : 'white' }}>
                                 <Table border sx={{ minWidth: 650, bgcolor: 'white' }} aria-label="simple table">
                                     <TableHead>
@@ -248,6 +285,15 @@ const AACPanel = () => {
                                 </Table>
                             </TableContainer>
                         }
+                        {!displayTable.tTable && !displayTable.cTable && displayTable.testReport &&
+                            <Box sx={{ p: 1, bgcolor: displayTable.testReport ? '#cccccc38' : 'white', overflow: "hidden", height: "840px" }}>
+                                <Box sx={{
+                                    overflow: "auto"
+                                }}>
+                                <AllPagePdf pdf={testReportPdf} />
+                                </Box>
+                            </Box>
+                        }      
                     </Grid>
                 </Grid>
             </Container>
@@ -308,7 +354,7 @@ const AACPanel = () => {
                                 <Grid container spacing={4}>
                                     {
                                         panelInstallationSteps.map((row, index) => (
-                                            <Grid size={{ xs: 6, md: 3 }} key={index}>
+                                           <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
                                                 <GuideCard iconLogo={row.icon} title={row.step} textDescription={row.description} />
                                             </Grid>
                                         ))
@@ -355,7 +401,7 @@ const AACPanel = () => {
                         }}
                     >
                         <Grid size={{ xs: 12, md: 5 }}>
-                            <TextSection blackBg={true} textData={{ headerTitle: "FAQ Questions", textDescription: 'Build faster, stronger, and smarter with Great Wall AAC Panels - Contact us today' }} />
+                            <TextSection blackBg={true} textData={{ headerTitle: "FAQ Questions", textDescription: 'Build faster, stronger, and smarter with Great Wall AAC Panels - Contact us today.' }} />
                             <div style={{ marginTop: '40px' }}>
 
                                 <BtnUrlChange btnDetails={{ btnTitle: 'Get a Quote', url: '/contact-us', color: false }} />
